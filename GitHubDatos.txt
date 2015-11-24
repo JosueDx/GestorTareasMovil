@@ -1,0 +1,16 @@
+GITHUB
+user:JosueDx
+password:Josue1234
+nombre del repositorio
+GestorTareasMovil
+
+publico
+crear repositorio
+
+me dio un link y lo copio
+https://github.com/JosueDx/GestorTareasMovil.git 
+
+voy a eclipse
+perspective GIT
+
+se crea el proyectoo
