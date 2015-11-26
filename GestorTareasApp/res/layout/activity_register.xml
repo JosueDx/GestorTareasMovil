@@ -1,0 +1,93 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.gestortareasapp.RegisterActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="408dp"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/Rnombre"
+            android:layout_width="440px"
+            android:layout_height="70px"
+            android:ems="10"
+            android:hint="Nombre" />
+
+        <EditText
+            android:id="@+id/Rapellido"
+            android:layout_width="440px"
+            android:layout_height="70px"
+            android:ems="10"
+            android:hint="Apellido" />
+
+        <EditText
+            android:id="@+id/Rcedula"
+            android:layout_width="440px"
+            android:layout_height="70px"
+            android:ems="10"
+            android:hint="Cedula" />
+
+        <EditText
+            android:id="@+id/Rdireccion"
+            android:layout_width="440px"
+            android:layout_height="70px"
+            android:ems="10"
+            android:hint="Direccion" />
+
+        <EditText
+            android:id="@+id/Remail"
+            android:layout_width="440px"
+            android:layout_height="70px"
+            android:ems="10"
+            android:hint="email" />
+
+        <EditText
+            android:id="@+id/Rusuario"
+            android:layout_width="440px"
+            android:layout_height="70px"
+            android:ems="10"
+            android:hint="Usuario" />
+
+        <EditText
+            android:id="@+id/Rcontrasenia"
+            android:layout_width="440px"
+            android:layout_height="70px"
+            android:ems="10"
+            android:hint="contraseña"
+            android:inputType="textPassword" />
+
+        <Spinner
+            android:id="@+id/RspinnerDepartamentos"
+            style="Departamentos"
+            android:layout_width="match_parent"
+            
+            android:layout_height="wrap_content"
+            android:entries="@array/Departamentos" 
+           />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="440px"
+                android:layout_height="80px"
+                android:text="Registrar"
+                android:textAlignment="center"
+                android:textColor="#a31c16" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
