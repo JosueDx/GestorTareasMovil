@@ -45,7 +45,16 @@ public final class R {
         public static final int EditttextPassword=0x7f090004;
         public static final int LinearLayout1=0x7f090000;
         public static final int LinearLayout2=0x7f090007;
-        public static final int action_settings=0x7f09000b;
+        public static final int Rapellido=0x7f09000d;
+        public static final int Rcedula=0x7f09000e;
+        public static final int Rcontrasenia=0x7f090012;
+        public static final int Rdireccion=0x7f09000f;
+        public static final int Remail=0x7f090010;
+        public static final int Rnombre=0x7f09000c;
+        public static final int RspinnerDepartamentos=0x7f090013;
+        public static final int Rusuario=0x7f090011;
+        public static final int ScrollView1=0x7f09000b;
+        public static final int action_settings=0x7f090014;
         public static final int button1=0x7f090005;
         public static final int button2=0x7f090006;
         public static final int button3=0x7f090009;
@@ -57,6 +66,7 @@ public final class R {
     public static final class layout {
         public static final int activity_login=0x7f030000;
         public static final int activity_main=0x7f030001;
+        public static final int activity_register=0x7f030002;
     }
     public static final class menu {
         public static final int login=0x7f080000;

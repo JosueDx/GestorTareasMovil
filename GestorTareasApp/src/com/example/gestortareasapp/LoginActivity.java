@@ -95,7 +95,8 @@ public class LoginActivity extends Activity {
 	
 	public void onRegister(View boton){
 	
-	
+		Intent intent= new Intent(this,RegisterActivity.class);
+		startActivity(intent);
 	}
 	
 	
