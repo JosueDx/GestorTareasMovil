@@ -7,10 +7,12 @@
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Registro</string>
     <string-array name="Departamentos">
-        <item >Financiero</item>
+        <item>Seleccione departamento</item><item >Financiero</item>
         <item >Recursos Humanos</item>
         <item >Contabilidad</item>
         <item >Tesorería</item>
+        
     </string-array>
+        <string name="Hola_tu">Hola_tu</string>
 
 </resources>

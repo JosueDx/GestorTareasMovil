@@ -1,6 +1,9 @@
 package com.example.gestortareasapp;
 
 
+import com.modelo.informacion.Datosusuarios;
+import com.modelos.DbUsuarios;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class LoginActivity extends Activity {
@@ -19,7 +23,6 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		
 		setContentView(R.layout.activity_login);
 	}
 
@@ -28,22 +31,45 @@ public class LoginActivity extends Activity {
 		edittextPassword = (EditText) findViewById(R.id.EditttextPassword);
 		}
 	
-	public void onLogin(View boton){
+	public void onLogin(View v){
 		
 		inicializar();
 		String NombreUsuario = edittextUser.getText().toString();
 		String ClaveUsuario= edittextPassword.getText().toString();
-		
-		if(!NombreUsuario.equals("") && !ClaveUsuario.equals("")){
+		//Toast.makeText(this, "aqui vamos", Toast.LENGTH_LONG).show();
+		if(NombreUsuario.equals("") && ClaveUsuario.equals("")){
 			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
 			
 		}
 		else{
-			Intent intent= new Intent(this,MainActivity.class);
-    		System.out.println("Usuario");
-    		startActivity(intent);
-		}
-		
+			
+			Datosusuarios datosusuarios= new Datosusuarios();
+			DbUsuarios dbusuarios= new DbUsuarios();
+			
+			datosusuarios= dbusuarios.Listalogin(this, NombreUsuario, ClaveUsuario);
+			
+			
+			if(datosusuarios!=null){
+				//Toast.makeText(this, "Datos correctos", Toast.LENGTH_LONG).show();
+				if(datosusuarios.getUsuarios().getId_tipousuario() == 1){
+					Toast.makeText(this, "Bienvenido Jefe: "+datosusuarios.getUsuario(), Toast.LENGTH_LONG).show();
+					Intent intent= new Intent(this,MainActivity.class);
+		    		System.out.println("Usuario");
+		    		startActivity(intent);
+				}
+				if(datosusuarios.getUsuarios().getId_tipousuario() == 2){
+					Toast.makeText(this, "Bienvenido Empleado: "+datosusuarios.getUsuario(), Toast.LENGTH_LONG).show();
+					Intent intent= new Intent(this,MainActivity.class);
+		    		System.out.println("Usuario");
+		    		startActivity(intent);
+				}
+			
+			}else{
+				Toast.makeText(this, "Datos incorrectos", Toast.LENGTH_LONG).show();
+			     edittextUser.setText("");
+				 edittextPassword.setText("");			
+			}					
+		}	
 	}
 	
 	
@@ -68,8 +94,7 @@ public class LoginActivity extends Activity {
 	}
 	
 	public void onRegister(View boton){
-		Intent intent = new Intent(this, RegisterActivity.class);
-		startActivity(intent);
+	
 	
 	}
 	

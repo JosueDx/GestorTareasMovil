@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+     android:background="@drawable/f2"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -26,7 +27,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
-        android:text="      Job Task"
+        android:text="     JOB TASK"
         android:textColor="#baae01"
         android:textSize="40dp"
         android:textStyle="bold" />
@@ -43,21 +44,24 @@
 
         </LinearLayout>
     </LinearLayout>
+
  <EditText
-        android:layout_width="440px"
-        android:layout_height="80px"
-        android:layout_gravity="center"
-        android:layout_marginTop="30px"
-        android:id="@+id/EdittextUser"
-        android:hint="User"/>
+     android:id="@+id/EdittextUser"
+     android:layout_width="440px"
+     android:layout_height="80px"
+     android:layout_gravity="center"
+     android:layout_marginTop="30px"
+     android:hint="        User"
+     android:textStyle="bold" />
  
 <EditText
-        android:id="@+id/EditttextPassword"
-        android:layout_width="440px"
-        android:layout_gravity="center"
-        android:layout_height="80px"
-        android:inputType="textPassword"
-        android:hint="password"/>
+    android:id="@+id/EditttextPassword"
+    android:layout_width="440px"
+    android:layout_height="80px"
+    android:layout_gravity="center"
+    android:hint="   Password"
+    android:inputType="textPassword"
+    android:textStyle="bold" />
 
 <Button
     android:id="@+id/button1"
@@ -65,7 +69,7 @@
     android:layout_height="80px"
     android:layout_gravity="center"
     android:onClick="onLogin"
-    android:text="Login"
+    android:text="INICIAR"
     android:textAlignment="center"
     android:textColor="#a31c16" />
 
@@ -73,9 +77,8 @@
     android:id="@+id/button2"
     android:layout_width="440px"
     android:layout_height="80px"
-    android:layout_gravity="center"
     android:onClick="onRegister"
-    android:text="Register"
+    android:text="CREAR CUENTA"
     android:textAlignment="center"
     android:textColor="#a31c16" />
  
