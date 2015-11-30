@@ -92,6 +92,7 @@
                 android:id="@+id/button2"
                 android:layout_width="440px"
                 android:layout_height="80px"
+                android:onClick="OnRegistar"
                 android:text="REGISTRAR"
                 android:textAlignment="center"
                 android:textColor="#a31c16" />

@@ -4,13 +4,19 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
+import android.widget.Toast;
 
 public class RegisterActivity extends Activity {
 
 	Spinner spinnerDepartamento;
+	EditText edittextNombre, edittextApellido, edittextCedula, edittextDreccion, 
+	edittextEmail, edittextUsuario, edittextContraseña;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -23,7 +29,41 @@ public class RegisterActivity extends Activity {
 		spinnerDepartamento= (Spinner) findViewById(R.id.RspinnerDepartamentos);
 		spinnerDepartamento.setPrompt("Seleccione departamento");
 		
+		//Iniciaizar componentes 
+		edittextNombre = (EditText) findViewById(R.id.Rnombre);
+		edittextApellido = (EditText) findViewById(R.id.Rapellido);
+		edittextCedula = (EditText) findViewById(R.id.Rcedula);
+		edittextDreccion = (EditText) findViewById(R.id.Rdireccion);
+		edittextEmail = (EditText) findViewById(R.id.Remail);
+		edittextUsuario = (EditText) findViewById(R.id.Rusuario);
+		edittextContraseña  = (EditText) findViewById(R.id.Rcontrasenia);
 	}
+
+public void OnRegistar(View v){
+		
+		inicializar();
+		String Nombre = edittextNombre.getText().toString();
+		String Apellido= edittextApellido.getText().toString();
+		String Cedula= edittextCedula.getText().toString();
+		String Direccion = edittextDreccion.getText().toString();
+		String Email= edittextEmail.getText().toString();
+		String Usuario = edittextUsuario.getText().toString();
+		String Contraseña= edittextContraseña.getText().toString();
+		
+		//Toast.makeText(this, "aqui vamos Carlos", Toast.LENGTH_LONG).show();
+		if(Nombre.equals("") && Apellido.equals("") && Cedula.equals("")
+				&& Direccion.equals("") && Email.equals("") && Usuario.equals("") 
+				&& Contraseña.equals("") && spinnerDepartamento.getSelectedItem().toString().equals("Seleccione departamento")){
+			
+			Toast.makeText(this, "Faltan ingresar campos", Toast.LENGTH_LONG).show();
+			
+		}
+		else {
+			Toast.makeText(this, "Estamos en Mantenimientoo", Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,4 +83,5 @@ public class RegisterActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 }
