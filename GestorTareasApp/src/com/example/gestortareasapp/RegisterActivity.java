@@ -310,7 +310,7 @@ public void OnRegistar(View v){
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
 			request.addProperty("request1" , objPersona);
 		  	request.addProperty("request2" , objusuario);
-		  	request.addProperty("request2" , objdatosusuario);
+		  	request.addProperty("request3" , objdatosusuario);
 		  	
 		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 		      Envoltorio.setOutputSoapObject (request);
