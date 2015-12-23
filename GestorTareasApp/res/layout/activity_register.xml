@@ -15,63 +15,154 @@
         android:layout_height="408dp"
         android:orientation="vertical" >
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="            Registar Usuario"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/Rnombre"
-            android:layout_width="440px"
-            android:layout_height="70px"
-            android:ems="10"
-            android:hint="Nombre" />
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="            Registar Usuario"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/Rapellido"
-            android:layout_width="440px"
-            android:layout_height="70px"
-            android:ems="10"
-            android:hint="Apellido" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/Rcedula"
-            android:layout_width="440px"
-            android:layout_height="70px"
-            android:ems="10"
-            android:hint="Cedula" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/Rdireccion"
-            android:layout_width="440px"
-            android:layout_height="70px"
-            android:ems="10"
-            android:hint="Direccion" />
+            <EditText
+                android:id="@+id/Rnombre"
+                android:layout_width="246dp"
+                android:layout_height="70px"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Nombre" />
 
-        <EditText
-            android:id="@+id/Remail"
-            android:layout_width="440px"
-            android:layout_height="70px"
-            android:ems="10"
-            android:hint="email" />
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/Rusuario"
-            android:layout_width="440px"
-            android:layout_height="70px"
-            android:ems="10"
-            android:hint="Usuario" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/Rcontrasenia"
-            android:layout_width="440px"
-            android:layout_height="70px"
-            android:ems="10"
-            android:hint="contraseña"
-            android:inputType="textPassword" />
+            <EditText
+                android:id="@+id/Rapellido"
+                android:layout_width="242dp"
+                android:layout_height="70px"
+                android:layout_weight="0.08"
+                android:ems="10"
+                android:hint="Apellido" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Rcedula"
+                android:layout_width="246dp"
+                android:layout_height="70px"
+                android:layout_weight="1"
+                android:ems="10"
+                android:maxLength="10"
+                android:hint="Cedula" />
+
+            <TextView
+                android:id="@+id/textViewValidarCedula"
+                android:layout_width="41dp"
+                android:layout_height="43dp"
+                android:text="X" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Rdireccion"
+                android:layout_width="246dp"
+                android:layout_height="70px"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Direccion" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Remail"
+                android:layout_width="244dp"
+                android:layout_height="70px"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="email" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Rusuario"
+                android:layout_width="241dp"
+                android:layout_height="70px"
+                android:layout_weight="0.29"
+                android:ems="10"
+                android:hint="Usuario" />
+
+            <TextView
+                android:id="@+id/textViewValidarUsuario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.29"
+                android:text="X" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/Rcontrasenia"
+                android:layout_width="238dp"
+                android:layout_height="70px"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="contraseña"
+                android:inputType="textPassword" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/RConfirmarContrasenia"
+                android:layout_width="238dp"
+                android:layout_height="70px"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Repita contraseña"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:id="@+id/textViewValidadContrasenia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="X" />
+
+        </LinearLayout>
 
         <Spinner
             android:id="@+id/RspinnerDepartamentos"
@@ -79,9 +170,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:entries="@array/Departamentos"
-            android:prompt="@string/Hola_tu" 
-            android:text="[hola]"/>
-        
+            android:prompt="@string/Hola_tu"
+            android:text="[hola]" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,16 +179,14 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/buttonRealizarTareas"
                 android:layout_width="440px"
                 android:layout_height="80px"
                 android:onClick="OnRegistar"
                 android:text="REGISTRAR"
                 android:textAlignment="center"
                 android:textColor="#a31c16" />
-
         </LinearLayout>
-
     </LinearLayout>
 
 </ScrollView>

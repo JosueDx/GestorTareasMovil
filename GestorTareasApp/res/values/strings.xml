@@ -6,13 +6,32 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
     <string name="title_activity_register">Registro</string>
+
     <string-array name="Departamentos">
-        <item>Seleccione departamento</item><item >Financiero</item>
-        <item >Recursos Humanos</item>
-        <item >Contabilidad</item>
-        <item >Tesorería</item>
-        
+        <item>Seleccione departamento</item>
+        <item>Financiero</item>
+        <item>Recursos Humanos</item>
+        <item>Contabilidad</item>
+        <item>Tesorería</item>
     </string-array>
-        <string name="Hola_tu">Hola_tu</string>
+
+    <string name="Hola_tu">Hola_tu</string>
+    <string name="title_activity_tareas">Tareas</string>
+    <string name="title_activity_nueva_tarea">NuevaTarea</string>
+
+    <string-array name="Personas">
+        <item>Seleccione empleado</item>
+        <item>Juanito Piguave</item>
+        <item>Perico P</item>
+    </string-array>
+    <string-array name="TipoTarea">
+        <item>Nivel de Tarea</item>
+        <item>Alta</item>
+        <item>Media</item>
+        <item>Baja</item>
+    </string-array>
+
+    <string name="title_activity_buscar_tarea">BuscarTarea</string>
+    <string name="title_activity_spinner">SpinnerActivity</string>
 
 </resources>

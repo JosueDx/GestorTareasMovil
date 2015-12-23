@@ -5,5 +5,7 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="lib" path="C:/Users/Josue-PC/Desktop/ksoap2-android-assembly-3.4.0-jar-with-dependencies.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Josue-PC/Desktop/java-json.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

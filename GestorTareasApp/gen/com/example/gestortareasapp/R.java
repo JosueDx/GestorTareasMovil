@@ -10,6 +10,8 @@ package com.example.gestortareasapp;
 public final class R {
     public static final class array {
         public static final int Departamentos=0x7f060000;
+        public static final int Personas=0x7f060001;
+        public static final int TipoTarea=0x7f060002;
     }
     public static final class attr {
     }
@@ -41,45 +43,81 @@ public final class R {
         public static final int ic_tarea=0x7f02000d;
     }
     public static final class id {
-        public static final int EdittextUser=0x7f090003;
-        public static final int EditttextPassword=0x7f090004;
-        public static final int LinearLayout1=0x7f090000;
-        public static final int LinearLayout2=0x7f090007;
-        public static final int Rapellido=0x7f09000d;
-        public static final int Rcedula=0x7f09000e;
-        public static final int Rcontrasenia=0x7f090012;
-        public static final int Rdireccion=0x7f09000f;
-        public static final int Remail=0x7f090010;
-        public static final int Rnombre=0x7f09000c;
-        public static final int RspinnerDepartamentos=0x7f090013;
-        public static final int Rusuario=0x7f090011;
-        public static final int ScrollView1=0x7f09000b;
-        public static final int action_settings=0x7f090014;
-        public static final int button1=0x7f090005;
-        public static final int button2=0x7f090006;
-        public static final int button3=0x7f090009;
-        public static final int imageView1=0x7f090001;
-        public static final int textView1=0x7f090002;
-        public static final int textView2=0x7f090008;
-        public static final int textView3=0x7f09000a;
+        public static final int EdittextUser=0x7f090005;
+        public static final int EditttextPassword=0x7f090006;
+        public static final int LinearLayout1=0x7f090002;
+        public static final int LinearLayout2=0x7f09000a;
+        public static final int RConfirmarContrasenia=0x7f090027;
+        public static final int Rapellido=0x7f090020;
+        public static final int Rcedula=0x7f090021;
+        public static final int Rcontrasenia=0x7f090026;
+        public static final int Rdireccion=0x7f090022;
+        public static final int Remail=0x7f090023;
+        public static final int Rnombre=0x7f09001f;
+        public static final int RspinnerDepartamentos=0x7f090029;
+        public static final int Rusuario=0x7f090024;
+        public static final int ScrollView1=0x7f090000;
+        public static final int action_settings=0x7f09002c;
+        public static final int button1=0x7f090009;
+        public static final int button2=0x7f09001e;
+        public static final int button3=0x7f09001c;
+        public static final int button4=0x7f09002b;
+        public static final int buttonCerrarSesion=0x7f09000d;
+        public static final int buttonCrearTarea=0x7f090014;
+        public static final int buttonEficienciaTareas=0x7f09000c;
+        public static final int buttonFechaFin=0x7f090016;
+        public static final int buttonGestorTareas=0x7f090007;
+        public static final int buttonRealizarTareas=0x7f090008;
+        public static final int editTextComentario=0x7f090012;
+        public static final int editTextDescripcion=0x7f090010;
+        public static final int imageView1=0x7f090003;
+        public static final int listViewTareas=0x7f090001;
+        public static final int spinner1=0x7f09002a;
+        public static final int spinnerPersona=0x7f090018;
+        public static final int spinnerTipoTarea=0x7f09001a;
+        public static final int tableRow1=0x7f09000f;
+        public static final int tableRow2=0x7f090011;
+        public static final int tableRow3=0x7f090013;
+        public static final int tableRow4=0x7f090015;
+        public static final int tableRow5=0x7f090017;
+        public static final int tableRow6=0x7f090019;
+        public static final int tableRow7=0x7f09001d;
+        public static final int tableRow8=0x7f09001b;
+        public static final int textView1=0x7f090004;
+        public static final int textViewUsuario=0x7f09000e;
+        public static final int textViewValidadContrasenia=0x7f090028;
+        public static final int textViewValidarCedula=0x7f09000b;
+        public static final int textViewValidarUsuario=0x7f090025;
     }
     public static final class layout {
-        public static final int activity_login=0x7f030000;
-        public static final int activity_main=0x7f030001;
-        public static final int activity_register=0x7f030002;
+        public static final int activity_buscar_tarea=0x7f030000;
+        public static final int activity_login=0x7f030001;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_nueva_tarea=0x7f030003;
+        public static final int activity_register=0x7f030004;
+        public static final int activity_spinner=0x7f030005;
+        public static final int activity_tareas=0x7f030006;
     }
     public static final class menu {
-        public static final int login=0x7f080000;
-        public static final int main=0x7f080001;
-        public static final int register=0x7f080002;
+        public static final int buscar_tarea=0x7f080000;
+        public static final int login=0x7f080001;
+        public static final int main=0x7f080002;
+        public static final int nueva_tarea=0x7f080003;
+        public static final int register=0x7f080004;
+        public static final int spinner=0x7f080005;
+        public static final int tareas=0x7f080006;
     }
     public static final class string {
         public static final int Hola_tu=0x7f050005;
         public static final int action_settings=0x7f050002;
         public static final int app_name=0x7f050000;
         public static final int hello_world=0x7f050001;
+        public static final int title_activity_buscar_tarea=0x7f050008;
         public static final int title_activity_login=0x7f050003;
+        public static final int title_activity_nueva_tarea=0x7f050007;
         public static final int title_activity_register=0x7f050004;
+        public static final int title_activity_spinner=0x7f050009;
+        public static final int title_activity_tareas=0x7f050006;
     }
     public static final class style {
         /** 

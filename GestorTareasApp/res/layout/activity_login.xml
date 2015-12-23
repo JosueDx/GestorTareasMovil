@@ -22,20 +22,20 @@
             android:src="@drawable/ic_launcher" />
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:text="     JOB TASK"
-        android:textColor="#baae01"
-        android:textSize="40dp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="     JOB TASK"
+            android:textColor="#baae01"
+            android:textSize="40dp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -64,7 +64,7 @@
     android:textStyle="bold" />
 
 <Button
-    android:id="@+id/button1"
+    android:id="@+id/buttonGestorTareas"
     android:layout_width="440px"
     android:layout_height="80px"
     android:layout_gravity="center"
@@ -74,12 +74,19 @@
     android:textColor="#a31c16" />
 
 <Button
-    android:id="@+id/button2"
+    android:id="@+id/buttonRealizarTareas"
     android:layout_width="440px"
     android:layout_height="80px"
     android:onClick="onRegister"
     android:text="CREAR CUENTA"
     android:textAlignment="center"
     android:textColor="#a31c16" />
+
+<Button
+    android:id="@+id/button1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="onSpinner"
+    android:text="Button" />
  
 </LinearLayout>
