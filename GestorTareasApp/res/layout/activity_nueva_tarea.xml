@@ -78,8 +78,7 @@
             <Spinner
                 android:id="@+id/spinnerPersona"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/Personas" />
+                android:layout_height="wrap_content" />
 
         </TableRow>
 
@@ -91,8 +90,7 @@
             <Spinner
                 android:id="@+id/spinnerTipoTarea"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/TipoTarea" />
+                android:layout_height="wrap_content" />
 
         </TableRow>
 
@@ -120,7 +118,7 @@
                 android:layout_height="wrap_content" >
 
                 <Button
-                    android:id="@+id/button1"
+                    android:id="@+id/buttonBuscarTarea"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="onGuardar"

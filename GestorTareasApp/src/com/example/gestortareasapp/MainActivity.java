@@ -103,7 +103,21 @@ public class MainActivity extends Activity {
 		startActivity(intent);
 	}
 	public void onSesion(View v){
-		finish();
+		AlertDialog.Builder dialogo1 = new AlertDialog.Builder(this);  
+        dialogo1.setTitle("Importante");  
+        dialogo1.setMessage("¿ Desea cerrar sesión ?");            
+        dialogo1.setCancelable(false);  
+        dialogo1.setPositiveButton("Confirmar", new DialogInterface.OnClickListener() {  
+            public void onClick(DialogInterface dialogo1, int id) {  
+                cancelar();  
+            }  
+        });  
+        dialogo1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {  
+            public void onClick(DialogInterface dialogo1, int id) {  
+            	aceptar();
+            }  
+        });            
+        dialogo1.show();    
 	}
 	
 	@Override

@@ -1,7 +1,12 @@
 package com.example.gestortareasapp;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -11,15 +16,18 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class NuevaTarea extends Activity {
 	
 	    private EditText edittextDescripcion,edittextComentario;
+	    private Spinner empleadoSpinner, nivelSpinner;
 	    private Button btnFechaInicio,btnFechaFin;    
 	    private int añoIni,añoFin;    
 	    private int mesIni,mesFin;    
@@ -85,6 +93,57 @@ public class NuevaTarea extends Activity {
 		btnFechaFin=(Button) findViewById(R.id.buttonFechaFin);
 		edittextComentario=(EditText) findViewById(R.id.editTextComentario);
 		edittextDescripcion=(EditText) findViewById(R.id.editTextDescripcion);
+		empleadoSpinner=(Spinner) findViewById(R.id.spinnerPersona);
+		nivelSpinner=(Spinner) findViewById(R.id.spinnerTipoTarea);
+		
+		String json = "['Karen Bonilla','Josue Aquino','Carlos Torres','Leam Lee']";
+		
+		//ArrayList<String> list = new ArrayList<String>();     
+		List<String> list = new ArrayList<String>();
+		try {
+			JSONArray jsonArray = new JSONArray(json);
+					
+			for (int i=0; i<jsonArray.length(); i++) {
+				//Toast.makeText(this, jsonArray.getString(i), Toast.LENGTH_LONG).show();
+			    list.add( jsonArray.getString(i) );
+			}
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		// Application of the Array to the Spinner
+		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
+		spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+		empleadoSpinner.setAdapter(spinnerArrayAdapter);
+		
+		
+		String json2 = "['Alto','Medio','Bajo']";
+		
+		//ArrayList<String> list = new ArrayList<String>();     
+		List<String> list2 = new ArrayList<String>();
+		try {
+			JSONArray jsonArray = new JSONArray(json2);
+					
+			for (int i=0; i<jsonArray.length(); i++) {
+				//Toast.makeText(this, jsonArray.getString(i), Toast.LENGTH_LONG).show();
+			    list2.add( jsonArray.getString(i) );
+			}
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+
+		// Application of the Array to the Spinner
+		ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list2);
+		spinnerArrayAdapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+		nivelSpinner.setAdapter(spinnerArrayAdapter2);
+
+		
 	}
 	
 	public void onGuardar(View boton){
