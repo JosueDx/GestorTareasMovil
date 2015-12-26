@@ -27,8 +27,9 @@ public class Tareas extends Activity {
 		
 	}
 	public void onBuscarTarea(View boton){
-		Toast.makeText(this, "Estamos en Mantenimiento", Toast.LENGTH_LONG).show();
-	}
+		Intent intent= new Intent(this,BuscarTarea.class);
+		startActivity(intent);
+			}
 	public void onEditarTarea(View boton){
 		Toast.makeText(this, "Estamos en Mantenimiento", Toast.LENGTH_LONG).show();
 		

@@ -57,7 +57,7 @@ public final class R {
         public static final int RspinnerDepartamentos=0x7f09002a;
         public static final int Rusuario=0x7f090025;
         public static final int ScrollView1=0x7f090000;
-        public static final int action_settings=0x7f09002d;
+        public static final int action_settings=0x7f09002f;
         public static final int button2=0x7f09001f;
         public static final int button3=0x7f09001d;
         public static final int button4=0x7f09002c;
@@ -84,7 +84,9 @@ public final class R {
         public static final int tableRow6=0x7f09001a;
         public static final int tableRow7=0x7f09001e;
         public static final int tableRow8=0x7f09001c;
-        public static final int textView1=0x7f090006;
+        public static final int textViewComentarioList=0x7f09002d;
+        public static final int textViewNivelList=0x7f09002e;
+        public static final int textViewNombreList=0x7f090006;
         public static final int textViewUsuario=0x7f09000f;
         public static final int textViewValidadContrasenia=0x7f090029;
         public static final int textViewValidarCedula=0x7f09000c;
@@ -98,6 +100,7 @@ public final class R {
         public static final int activity_register=0x7f030004;
         public static final int activity_spinner=0x7f030005;
         public static final int activity_tareas=0x7f030006;
+        public static final int tarea_list=0x7f030007;
     }
     public static final class menu {
         public static final int buscar_tarea=0x7f080000;

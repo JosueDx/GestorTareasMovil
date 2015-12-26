@@ -11,7 +11,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -32,6 +32,7 @@
                 android:id="@+id/buttonBuscarTarea"
                 android:layout_width="116dp"
                 android:layout_height="wrap_content"
+                android:onClick="onBuscarTarea"
                 android:text="Button" />
 
         </LinearLayout>
@@ -39,7 +40,7 @@
         <ListView
             android:id="@+id/listViewTareas"
             android:layout_width="match_parent"
-            android:layout_height="420dp" >
+            android:layout_height="439dp" >
         </ListView>
 
     </LinearLayout>
