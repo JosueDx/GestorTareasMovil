@@ -7,6 +7,11 @@ import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
@@ -36,6 +41,19 @@ public class NuevaTarea extends Activity {
 	    String cmes1="",cmes2="",cdia1="",cdia2="";
      static final int DATE_DIALOG_ID = 0;
 	    static final int DATE_DIALOG_ID2 = 1;
+	    
+	    
+	    static String NAMESPACE = "http://servicio.servicio.com";
+		static String URL = "http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+		private String SOAP_ACTION="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/registro_tarea";
+		private String METODO="registro_tarea";
+		
+		private String SOAP_ACTION2="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
+		private String METODO2="id_empleado";
+		
+		private String SOAP_ACTION3="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_nivel_tarea";
+		private String METODO3="id_nivel_tarea";
+	    
 
 	 // la devolución de llamada recibida cuando el usuario "fija " la fecha en el diálogo 
 	    private DatePickerDialog.OnDateSetListener mDateSetListener =            
@@ -147,17 +165,139 @@ public class NuevaTarea extends Activity {
 	}
 	
 	public void onGuardar(View boton){
-		 descripcion = edittextComentario.getText().toString();
-		 comentario= edittextDescripcion.getText().toString();
+		 comentario = edittextComentario.getText().toString();
+		 descripcion= edittextDescripcion.getText().toString();
 		
 		if(descripcion.equals("") || comentario.equals("")){
 			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
 			
 		}else{
+			
+			
+			JSONObject objPersona=new JSONObject();
+			try {
+				objPersona.put("Descripcion",descripcion);
+				objPersona.put("Comentario",comentario);
+				objPersona.put("Fecha_inicio",fechaini);
+				objPersona.put("Fecha_fin",fechafin);
+				objPersona.put("Empleado",id_Empleado(empleadoSpinner.getSelectedItem().toString()));
+				objPersona.put("Nivel_tarea",id_NivelTarea(nivelSpinner.getSelectedItem().toString()));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			SoapObject request = new SoapObject(NAMESPACE, METODO);
+			request.addProperty("request1" , objPersona);
+		  	
+		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+		      Envoltorio.setOutputSoapObject (request);
+		  	  
+		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	
+		  	try {
+		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+		  	   
+		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  		
+		  		if(result != null){
+		  			
+		  			if(result.getProperty(0).toString().equals("0")){
+						Toast.makeText(this, "Tarea Agregado Correctamente ", Toast.LENGTH_LONG).show();
+						
+					}
+					if(result.getProperty(0).toString().equals("1")){
+						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
+						
+					}
+					if(result.getProperty(0).toString().equals("2")){
+						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
+						
+					}
+		  		
+		  		
+		  		}else{
+		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+		  		}
+		  		
+		  		
+		  		}catch (Exception e) {
+		  			e.printStackTrace();
+		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+		  	  		
+		  		}
+
+			
+			
+			
+			
+			
 			Toast.makeText(this, "Tarea asignada correctmente", Toast.LENGTH_LONG).show();
 			finish();
 		}		
 		}
+	
+	
+	public String id_Empleado(String empleado){
+		SoapObject request = new SoapObject(NAMESPACE, METODO2);
+		request.addProperty("request1" , empleado);
+	  	
+	  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	      Envoltorio.setOutputSoapObject (request);
+	  	  
+	  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION2, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+	  		if(result != null){
+	  			
+	  			return result.getProperty(0).toString();
+	  			
+	  		}else{
+	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+	  			return "";
+	  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+	  	  		return "";
+	  		}
+		
+	  }
+	
+	
+	public String id_NivelTarea(String nivel_tarea){
+		SoapObject request = new SoapObject(NAMESPACE, METODO3);
+		request.addProperty("request1" , nivel_tarea);
+	  	
+	  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	      Envoltorio.setOutputSoapObject (request);
+	  	  
+	  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION3, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+	  		if(result != null){
+	  			
+	  			return result.getProperty(0).toString();
+	  			
+	  		}else{
+	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+	  			return "";
+	  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+	  	  		return "";
+	  		}
+		
+	  }
 	
 	public void onCancelar(View boton){
 	finish();	

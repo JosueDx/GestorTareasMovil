@@ -377,8 +377,6 @@ public void OnRegistar(View v){
 	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
 	  			return "";
 	  		}
-	  		
-	  		
 	  		}catch (Exception e) {
 	  			e.printStackTrace();
 	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
