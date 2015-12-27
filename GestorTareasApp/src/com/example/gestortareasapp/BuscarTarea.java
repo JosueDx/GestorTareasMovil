@@ -88,20 +88,20 @@ public class BuscarTarea extends Activity {
 		break;
 			case 2: //BUSCAR
 	    	 intent = new Intent(componente.getContext(),NuevaTarea.class);
-	         intent.putExtra("idTarea", itemtarea.getId_tarea());			
+	         intent.putExtra("idTarea", itemtarea.getId_tarea()+"");			
 	         intent.putExtra("opc", "2");
 	         startActivity(intent);
 		break;
 			case 3: //EDITAR
 				intent = new Intent(componente.getContext(),NuevaTarea.class);
-	            intent.putExtra("idTarea", itemtarea.getId_tarea());
+	            intent.putExtra("idTarea", itemtarea.getId_tarea()+"");
 				intent.putExtra("opc", "3");
 				startActivity(intent);
 		break;
 		
 			case 4: //Eliminar
 				intent = new Intent(componente.getContext(),NuevaTarea.class);
-	            intent.putExtra("idTarea", itemtarea.getId_tarea());
+	            intent.putExtra("idTarea", itemtarea.getId_tarea()+"");
 				intent.putExtra("opc", "4");
 				startActivity(intent);
 		break;

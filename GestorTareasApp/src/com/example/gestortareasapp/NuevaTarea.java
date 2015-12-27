@@ -13,12 +13,16 @@ import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
+import com.modelo.informacion.Tarea;
+import com.modelos.DbUsuarios;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -116,13 +120,25 @@ public class NuevaTarea extends Activity {
 		
 		
 		if(opcionInt==2){
-			edittextComentario.setText("manual usuarios");
-			edittextDescripcion.setText("");
+			String idTarea = intent.getStringExtra("idTarea");
+			
+			Tarea tobj = new Tarea();
+			DbUsuarios bd =new DbUsuarios();
+			tobj = bd.tareabuscar(idTarea);
+			
+			edittextComentario.setText(tobj.getComentario());
+			edittextDescripcion.setText(tobj.getDescripcion());
 			btnFechaInicio.setText("");
 			btnFechaFin.setText("");
 			empleadoSpinner.setSelection(-1);
-			nivelSpinner.setSelection(-1);
-			
+			if(tobj.getNivel_tarea().equals("bajo")){
+				nivelSpinner.setSelection(2);
+			}else if(tobj.getNivel_tarea().equals("medio")){
+				nivelSpinner.setSelection(1);
+			}else{
+				nivelSpinner.setSelection(0);
+			}
+						
 			edittextComentario.setEnabled(false);
 			edittextDescripcion.setEnabled(false);
 			btnFechaInicio.setEnabled(false);
@@ -134,6 +150,8 @@ public class NuevaTarea extends Activity {
 			
 		}else{
 			if(opcionInt==3){
+				String idTarea = intent.getStringExtra("idTarea");
+				
 				edittextComentario.setText("manual tecnico");
 				edittextDescripcion.setText("");
 				btnFechaInicio.setText("");
@@ -144,6 +162,8 @@ public class NuevaTarea extends Activity {
 			}
 			else{
 				if(opcionInt==4){
+					String idTarea = intent.getStringExtra("idTarea");
+					
 					edittextComentario.setText("manual operativo");
 					edittextDescripcion.setText("");
 					btnFechaInicio.setText("");

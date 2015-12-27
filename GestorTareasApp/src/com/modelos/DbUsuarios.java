@@ -74,13 +74,7 @@ public Datosusuarios Listalogin(Context contexto, String usuario, String contras
 	
 public ArrayList<Tarea> listartexto(){
 	ArrayList<Tarea> listaTarea = null;
-	//GastosSqlLite gastosbd = new GastosSqlLite(contexto, DB_NAME, null, 1);
-	//SQLiteDatabase db = gastosbd.getWritableDatabase();
-	
 	listaTarea = new ArrayList<Tarea>();
-	//String [] parametrosBusqueda = new String[]{"%"+criterio+"%"};
-	
-	
 	try {
 		JSONArray array = new JSONArray(Sql);
 		for (int i = 0; i < array.length(); i++) {
@@ -98,32 +92,31 @@ public ArrayList<Tarea> listartexto(){
 		e.printStackTrace();
 	}
 	
-	
-//	String Sql = "SELECT * FROM gasto";r
-	/*Cursor cursor = db.rawQuery(Sql, parametrosBusqueda);
-	if(cursor.moveToFirst()){
-		do{
-			Tarea item = new Tarea();
-			
-			
-				item.setId_gastos(cursor.getInt(0));
-				item.setTitulo(cursor.getString(1));
-				item.setDescripcion(cursor.getString(2));
-				item.setTipo(cursor.getString(3));
-				item.setDia(cursor.getInt(4));
-				item.setMes(cursor.getInt(5));
-				item.setAnio(cursor.getInt(6));
-				item.setValor(cursor.getDouble(7));
-				item.setFecha(cursor.getString(8));
-				item.setIdTipo(cursor.getInt(9));
-				
-				
-			listaGastos.add(item);
-		}while(cursor.moveToNext());
-	}
-	cursor.close();
-	db.close();*/
 	return listaTarea;
+}	
+
+
+public Tarea tareabuscar(String id_tarea){
+	Tarea item = new Tarea();
+	try {
+		JSONArray array = new JSONArray(Sql);
+		Log.e("ID tarea", id_tarea);
+		for (int i = 0; i < array.length(); i++) {
+		    JSONObject row = array.getJSONObject(i);
+		    		    
+		    if (row.getInt("id_tarea") == Integer.parseInt(id_tarea)){
+		    
+		    item.setDescripcion(row.getString("descripcion"));
+		    item.setComentario(row.getString("comentario"));
+		    item.setNivel_tarea(row.getString("nivel_tarea"));
+		    }
+		}
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return item;
 }	
 
 
