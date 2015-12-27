@@ -24,11 +24,12 @@ public class DbUsuarios {
 	public static final String TABLA_NAME_usuarios = "usuarios";
 	public static final String TABLA_NAME_tipousuarios = "tipousuarios";
 	
-	private String Sql = "[{'id_tarea':1, 'descripcion':'Descripcion1', 'comentario':'Comentario1', 'nivel_tarea':'bajo'},"
-			+ "{'id_tarea':2, 'descripcion':'Descripcion2', 'comentario':'Comentario1', 'nivel_tarea':'medio'},"
-			+ "{'id_tarea':3, 'descripcion':'Descripcion3', 'comentario':'Comentario1', 'nivel_tarea':'alto'},"
-			+ "{'id_tarea':4, 'descripcion':'Descripcion4', 'comentario':'Comentario1', 'nivel_tarea':'medio'},"
-			+ "{'id_tarea':5, 'descripcion':'Descripcion5', 'comentario':'Comentario1', 'nivel_tarea':'alto'}]";
+	private String Sql = "["
+			+ "{'id_tarea':1, 'descripcion':'Descripcion1', 'comentario':'Comentario1', 'nivel_tarea':'bajo', 'estado':'A'},"
+			+ "{'id_tarea':2, 'descripcion':'Descripcion2', 'comentario':'Comentario2', 'nivel_tarea':'medio', 'estado':'A'},"
+			+ "{'id_tarea':3, 'descripcion':'Descripcion3', 'comentario':'Comentario3', 'nivel_tarea':'alto', 'estado':'A'},"
+			+ "{'id_tarea':4, 'descripcion':'Descripcion4', 'comentario':'Comentario4', 'nivel_tarea':'medio', 'estado':'A'},"
+			+ "{'id_tarea':5, 'descripcion':'Descripcion5', 'comentario':'Comentario5', 'nivel_tarea':'alto', 'estado':'A'}]";
 	
 public Datosusuarios Listalogin(Context contexto, String usuario, String contrasenia ){
 		
@@ -95,6 +96,36 @@ public ArrayList<Tarea> listartexto(){
 	return listaTarea;
 }	
 
+public ArrayList<Tarea> listartexto(String criterio){
+	ArrayList<Tarea> listaTarea = null;
+	listaTarea = new ArrayList<Tarea>();
+	try {
+		JSONArray array = new JSONArray(Sql);
+		for (int i = 0; i < array.length(); i++) {
+		    JSONObject row = array.getJSONObject(i);
+		    Tarea item = new Tarea();
+		    Log.e("criterio", row.getString("descripcion"));
+		    Log.e("criterio", criterio);
+		    if (row.getString("descripcion").equals(criterio)){
+		    	Log.e("criterio2", criterio);
+			    item.setId_tarea(row.getInt("id_tarea"));
+			    item.setDescripcion(row.getString("descripcion"));
+			    item.setComentario(row.getString("comentario"));
+			    item.setNivel_tarea(row.getString("nivel_tarea"));
+			    item.setEstado(row.getString("estado"));
+			    listaTarea.add(item);
+		   }
+		    
+		    
+		}
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return listaTarea;
+}	
+
 
 public Tarea tareabuscar(String id_tarea){
 	Tarea item = new Tarea();
@@ -105,10 +136,11 @@ public Tarea tareabuscar(String id_tarea){
 		    JSONObject row = array.getJSONObject(i);
 		    		    
 		    if (row.getInt("id_tarea") == Integer.parseInt(id_tarea)){
-		    
+		    item.setId_tarea(row.getInt("id_tarea"));
 		    item.setDescripcion(row.getString("descripcion"));
 		    item.setComentario(row.getString("comentario"));
 		    item.setNivel_tarea(row.getString("nivel_tarea"));
+		    item.setEstado(row.getString("estado"));
 		    }
 		}
 	} catch (JSONException e) {

@@ -12,6 +12,9 @@ private String nombre_empleado;
 private int id_nivel_tarea;
 private String nivel_tarea;
 private int id_jefe;
+private String estado;
+
+
 public int getId_tarea() {
 	return id_tarea;
 }
@@ -72,8 +75,17 @@ public int getId_jefe() {
 public void setId_jefe(int id_jefe) {
 	this.id_jefe = id_jefe;
 }
+
+public String getEstado() {
+	return estado;
+}
+public void setEstado(String estado) {
+	this.estado = estado;
+}
+
+
 public Tarea(int id_tarea, String descripcion, String comentario, String fecha_inicio, String fecha_fin,
-		int id_empleado, String nombre_empleado, int id_nivel_tarea, String nivel_tarea, int id_jefe) {
+		int id_empleado, String nombre_empleado, int id_nivel_tarea, String nivel_tarea, int id_jefe, String estado) {
 	super();
 	this.id_tarea = id_tarea;
 	this.descripcion = descripcion;
@@ -85,7 +97,9 @@ public Tarea(int id_tarea, String descripcion, String comentario, String fecha_i
 	this.id_nivel_tarea = id_nivel_tarea;
 	this.nivel_tarea = nivel_tarea;
 	this.id_jefe = id_jefe;
+	this.estado = estado;
 }
+
 public Tarea() {
 	super();
 	// TODO Auto-generated constructor stub

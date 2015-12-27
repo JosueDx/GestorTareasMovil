@@ -38,12 +38,13 @@ public class BuscarTarea extends Activity {
 		 Intent intent = this.getIntent();
          
 	     
-	opcion= intent.getStringExtra("op");
+		opcion= intent.getStringExtra("op");
 			
-		
-		
+		cargarlista();
 		
 	}
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -117,7 +118,15 @@ public class BuscarTarea extends Activity {
 	
 
 public void onBuscarTarea(View v){
-	DbUsuarios bd_tarea = new DbUsuarios();
+	if(edittextCriterio.getText().toString().equals("")){
+		Toast.makeText(this, "Hola Guapo :3", Toast.LENGTH_SHORT).show();
+	}else{
+		cargarlista(edittextCriterio.getText().toString());
+	}
+}
+
+public void cargarlista(){
+DbUsuarios bd_tarea = new DbUsuarios();
 	
 	ArrayList<Tarea> listatareas = bd_tarea.listartexto();
 	
@@ -128,6 +137,19 @@ public void onBuscarTarea(View v){
             listviewTareas.setAdapter(Adaptador);
             listviewTareas.setOnItemClickListener(new MyItemClickListener());
             listviewTareas.refreshDrawableState();
-	
 }
+public void cargarlista(String criterio){
+DbUsuarios bd_tarea = new DbUsuarios();
+	
+	ArrayList<Tarea> listatareas = bd_tarea.listartexto(criterio);
+	
+    CustomListViewTareas Adaptador = new CustomListViewTareas(
+	this,R.layout.tarea_list,listatareas);
+	
+	
+            listviewTareas.setAdapter(Adaptador);
+            listviewTareas.setOnItemClickListener(new MyItemClickListener());
+            listviewTareas.refreshDrawableState();
+}
+
 }

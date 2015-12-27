@@ -45,19 +45,20 @@ public class NuevaTarea extends Activity {
 	    String fechaini, fechafin,descripcion,comentario;
 	    String cmes1="",cmes2="",cdia1="",cdia2="";
 	    String opcion;
+	    int opcionInt;
      static final int DATE_DIALOG_ID = 0;
 	    static final int DATE_DIALOG_ID2 = 1;
 	    
 	    
 	    static String NAMESPACE = "http://servicio.servicio.com";
-		static String URL = "http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-		private String SOAP_ACTION="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/registro_tarea";
+		static String URL = "http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+		private String SOAP_ACTION="http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio/registro_tarea";
 		private String METODO="registro_tarea";
 		
-		private String SOAP_ACTION2="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
+		private String SOAP_ACTION2="http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
 		private String METODO2="id_empleado";
 		
-		private String SOAP_ACTION3="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_nivel_tarea";
+		private String SOAP_ACTION3="http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio/id_nivel_tarea";
 		private String METODO3="id_nivel_tarea";
 	    
 
@@ -115,9 +116,11 @@ public class NuevaTarea extends Activity {
 		opcion= intent.getStringExtra("opc");
 		
 //		Intent intent=null;	
-		int opcionInt= Integer.parseInt(opcion);
+		opcionInt= Integer.parseInt(opcion);
 		
-		
+		if(opcionInt==1){
+			btnGuardar.setText("GUARDAR");
+		}
 		
 		if(opcionInt==2){
 			String idTarea = intent.getStringExtra("idTarea");
@@ -134,7 +137,7 @@ public class NuevaTarea extends Activity {
 			if(tobj.getNivel_tarea().equals("bajo")){
 				nivelSpinner.setSelection(2);
 			}else if(tobj.getNivel_tarea().equals("medio")){
-				nivelSpinner.setSelection(1);
+				nivelSpinner.setSelection(1);	
 			}else{
 				nivelSpinner.setSelection(0);
 			}
@@ -152,24 +155,44 @@ public class NuevaTarea extends Activity {
 			if(opcionInt==3){
 				String idTarea = intent.getStringExtra("idTarea");
 				
-				edittextComentario.setText("manual tecnico");
-				edittextDescripcion.setText("");
+				Tarea tobj = new Tarea();
+				DbUsuarios bd =new DbUsuarios();
+				tobj = bd.tareabuscar(idTarea);
+				
+				edittextComentario.setText(tobj.getComentario());
+				edittextDescripcion.setText(tobj.getDescripcion());
 				btnFechaInicio.setText("");
 				btnFechaFin.setText("");
 				empleadoSpinner.setSelection(-1);
-				nivelSpinner.setSelection(-1);
+				if(tobj.getNivel_tarea().equals("bajo")){
+					nivelSpinner.setSelection(2);
+				}else if(tobj.getNivel_tarea().equals("medio")){
+					nivelSpinner.setSelection(1);	
+				}else{
+					nivelSpinner.setSelection(0);
+				}
 				btnGuardar.setText("GUARDAR");
 			}
 			else{
 				if(opcionInt==4){
 					String idTarea = intent.getStringExtra("idTarea");
 					
-					edittextComentario.setText("manual operativo");
-					edittextDescripcion.setText("");
+					Tarea tobj = new Tarea();
+					DbUsuarios bd =new DbUsuarios();
+					tobj = bd.tareabuscar(idTarea);
+					
+					edittextComentario.setText(tobj.getComentario());
+					edittextDescripcion.setText(tobj.getDescripcion());
 					btnFechaInicio.setText("");
 					btnFechaFin.setText("");
 					empleadoSpinner.setSelection(-1);
-					nivelSpinner.setSelection(-1);
+					if(tobj.getNivel_tarea().equals("bajo")){
+						nivelSpinner.setSelection(2);
+					}else if(tobj.getNivel_tarea().equals("medio")){
+						nivelSpinner.setSelection(1);	
+					}else{
+						nivelSpinner.setSelection(0);
+					}
 					
 					edittextComentario.setEnabled(false);
 					edittextDescripcion.setEnabled(false);
@@ -252,7 +275,20 @@ public class NuevaTarea extends Activity {
 	public void onGuardar(View boton){
 		 comentario = edittextComentario.getText().toString();
 		 descripcion= edittextDescripcion.getText().toString();
-		
+		 
+		 if(opcionInt == 1 ){
+			 guardartarea();
+		 }else if(opcionInt == 2){
+			 
+		 }else if(opcionInt == 3){
+			 ediatrtarea();
+		 }else if(opcionInt == 4){
+			 eliminartarea();
+		 }
+		 
+		 	
+		}
+	public void guardartarea(){
 		if(descripcion.equals("") || comentario.equals("")){
 			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
 			
@@ -311,17 +347,142 @@ public class NuevaTarea extends Activity {
 		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
 		  	  		
 		  		}
-
-			
-			
-			
-			
 			
 			Toast.makeText(this, "Tarea asignada correctmente", Toast.LENGTH_LONG).show();
 			finish();
-		}		
-		}
+		}	
+	}
 	
+	
+	public void ediatrtarea(){
+		if(descripcion.equals("") || comentario.equals("")){
+			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
+			
+		}else{
+			
+			
+			JSONObject objPersona=new JSONObject();
+			try {
+				objPersona.put("Descripcion",descripcion);
+				objPersona.put("Comentario",comentario);
+				objPersona.put("Fecha_inicio",fechaini);
+				objPersona.put("Fecha_fin",fechafin);
+				objPersona.put("Empleado",id_Empleado(empleadoSpinner.getSelectedItem().toString()));
+				objPersona.put("Nivel_tarea",id_NivelTarea(nivelSpinner.getSelectedItem().toString()));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			SoapObject request = new SoapObject(NAMESPACE, METODO);
+			request.addProperty("request1" , objPersona);
+		  	
+		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+		      Envoltorio.setOutputSoapObject (request);
+		  	  
+		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	
+		  	try {
+		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+		  	   
+		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  		
+		  		if(result != null){
+		  			
+		  			if(result.getProperty(0).toString().equals("0")){
+						Toast.makeText(this, "Tarea Agregado Correctamente ", Toast.LENGTH_LONG).show();
+						
+					}
+					if(result.getProperty(0).toString().equals("1")){
+						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
+						
+					}
+					if(result.getProperty(0).toString().equals("2")){
+						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
+						
+					}
+		  		
+		  		
+		  		}else{
+		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+		  		}
+		  		
+		  		
+		  		}catch (Exception e) {
+		  			e.printStackTrace();
+		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+		  	  		
+		  		}
+			
+			Toast.makeText(this, "Tarea Editada correctmente", Toast.LENGTH_LONG).show();
+			finish();
+		}	
+	}
+	
+	public void eliminartarea(){
+		if(descripcion.equals("") || comentario.equals("")){
+			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
+			
+		}else{
+			
+			
+			JSONObject objPersona=new JSONObject();
+			try {
+				objPersona.put("Descripcion",descripcion);
+				objPersona.put("Comentario",comentario);
+				objPersona.put("Fecha_inicio",fechaini);
+				objPersona.put("Fecha_fin",fechafin);
+				objPersona.put("Empleado",id_Empleado(empleadoSpinner.getSelectedItem().toString()));
+				objPersona.put("Nivel_tarea",id_NivelTarea(nivelSpinner.getSelectedItem().toString()));
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			SoapObject request = new SoapObject(NAMESPACE, METODO);
+			request.addProperty("request1" , objPersona);
+		  	
+		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+		      Envoltorio.setOutputSoapObject (request);
+		  	  
+		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	
+		  	try {
+		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+		  	   
+		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  		
+		  		if(result != null){
+		  			
+		  			if(result.getProperty(0).toString().equals("0")){
+						Toast.makeText(this, "Tarea Agregado Correctamente ", Toast.LENGTH_LONG).show();
+						
+					}
+					if(result.getProperty(0).toString().equals("1")){
+						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
+						
+					}
+					if(result.getProperty(0).toString().equals("2")){
+						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
+						
+					}
+		  		
+		  		
+		  		}else{
+		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+		  		}
+		  		
+		  		
+		  		}catch (Exception e) {
+		  			e.printStackTrace();
+		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+		  	  		
+		  		}
+			
+			Toast.makeText(this, "Tarea Eliminada correctmente", Toast.LENGTH_LONG).show();
+			finish();
+		}	
+	}
 	
 	public String id_Empleado(String empleado){
 		SoapObject request = new SoapObject(NAMESPACE, METODO2);

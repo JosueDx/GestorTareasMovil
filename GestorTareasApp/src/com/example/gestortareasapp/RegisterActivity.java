@@ -36,11 +36,11 @@ public class RegisterActivity extends Activity {
 	TextView textviewUsuario,textviewContrasenia,textviewCedula;
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/registro";
+	static String URL = "http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio/registro";
 	private String METODO="registro";
 	
-	private String SOAP_ACTION2="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
+	private String SOAP_ACTION2="http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
 	private String METODO2="id_departamento";
 	
 	
