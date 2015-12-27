@@ -16,6 +16,7 @@ import org.ksoap2.transport.HttpTransportSE;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Menu;
@@ -33,12 +34,13 @@ public class NuevaTarea extends Activity {
 	
 	    private EditText edittextDescripcion,edittextComentario;
 	    private Spinner empleadoSpinner, nivelSpinner;
-	    private Button btnFechaInicio,btnFechaFin;    
+	    private Button btnFechaInicio,btnFechaFin,btnGuardar;    
 	    private int añoIni,añoFin;    
 	    private int mesIni,mesFin;    
 	    private int diaIni,diaFin;    
 	    String fechaini, fechafin,descripcion,comentario;
 	    String cmes1="",cmes2="",cdia1="",cdia2="";
+	    String opcion;
      static final int DATE_DIALOG_ID = 0;
 	    static final int DATE_DIALOG_ID2 = 1;
 	    
@@ -104,6 +106,68 @@ public class NuevaTarea extends Activity {
 		inicializar();
 		fechaIni();
 		fechaFin();
+		
+		 Intent intent = this.getIntent();
+		opcion= intent.getStringExtra("opc");
+		
+//		Intent intent=null;	
+		int opcionInt= Integer.parseInt(opcion);
+		
+		
+		
+		if(opcionInt==2){
+			edittextComentario.setText("manual usuarios");
+			edittextDescripcion.setText("");
+			btnFechaInicio.setText("");
+			btnFechaFin.setText("");
+			empleadoSpinner.setSelection(-1);
+			nivelSpinner.setSelection(-1);
+			
+			edittextComentario.setEnabled(false);
+			edittextDescripcion.setEnabled(false);
+			btnFechaInicio.setEnabled(false);
+			btnFechaFin.setEnabled(false);
+			empleadoSpinner.setEnabled(false);
+			nivelSpinner.setEnabled(false);
+			
+			btnGuardar.setVisibility(View.INVISIBLE);
+			
+		}else{
+			if(opcionInt==3){
+				edittextComentario.setText("manual tecnico");
+				edittextDescripcion.setText("");
+				btnFechaInicio.setText("");
+				btnFechaFin.setText("");
+				empleadoSpinner.setSelection(-1);
+				nivelSpinner.setSelection(-1);
+				btnGuardar.setText("GUARDAR");
+			}
+			else{
+				if(opcionInt==4){
+					edittextComentario.setText("manual operativo");
+					edittextDescripcion.setText("");
+					btnFechaInicio.setText("");
+					btnFechaFin.setText("");
+					empleadoSpinner.setSelection(-1);
+					nivelSpinner.setSelection(-1);
+					
+					edittextComentario.setEnabled(false);
+					edittextDescripcion.setEnabled(false);
+					btnFechaInicio.setEnabled(false);
+					btnFechaFin.setEnabled(false);
+					empleadoSpinner.setEnabled(false);
+					nivelSpinner.setEnabled(false);
+					btnGuardar.setText("ELIMINAR");
+				}
+				else{
+					btnGuardar.setText("Guardar");
+					
+				}
+				
+			}
+		}
+		
+		
 	}
 
 	public void inicializar(){
@@ -113,6 +177,7 @@ public class NuevaTarea extends Activity {
 		edittextDescripcion=(EditText) findViewById(R.id.editTextDescripcion);
 		empleadoSpinner=(Spinner) findViewById(R.id.spinnerPersona);
 		nivelSpinner=(Spinner) findViewById(R.id.spinnerTipoTarea);
+		btnGuardar=(Button) findViewById(R.id.buttonBuscarTarea);
 		
 		String json = "['Karen Bonilla','Josue Aquino','Carlos Torres','Leam Lee']";
 		

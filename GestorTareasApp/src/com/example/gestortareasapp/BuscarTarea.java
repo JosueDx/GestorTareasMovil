@@ -6,14 +6,18 @@ import com.modelo.informacion.Tarea;
 import com.modelos.DbUsuarios;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class BuscarTarea extends Activity {
 
@@ -21,6 +25,7 @@ public class BuscarTarea extends Activity {
 	EditText edittextCriterio;
 	ListView listviewTareas;
 	Button buttonBuscar;
+	String opcion;
 	
 	
 	@Override
@@ -30,6 +35,14 @@ public class BuscarTarea extends Activity {
 		
 		edittextCriterio= (EditText) findViewById(R.id.editTextCriterioBusqueda);
 		listviewTareas = (ListView) findViewById(R.id.listViewTareas);
+		 Intent intent = this.getIntent();
+         
+	     
+	opcion= intent.getStringExtra("op");
+			
+		
+		
+		
 	}
 
 	@Override
@@ -51,7 +64,57 @@ public class BuscarTarea extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	//clase interna
+	class MyItemClickListener implements OnItemClickListener{
 
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View componente, 
+				int posicion,
+				long arg3) {
+			// TODO Auto-generated method stub
+			
+		//definir el comportamiento que tendrá la lista cuando se 
+		//seleccione un item
+			
+	Tarea itemtarea =(Tarea) listviewTareas.getItemAtPosition(posicion);
+	
+	
+	Intent intent=null;	
+	int opcionInt= Integer.parseInt(opcion);
+	
+	switch (opcionInt) {
+			case 1: //nuevo
+				
+		break;
+			case 2: //BUSCAR
+	    	 intent = new Intent(componente.getContext(),NuevaTarea.class);
+	         intent.putExtra("idTarea", itemtarea.getId_tarea());			
+	         intent.putExtra("opc", "2");
+	         startActivity(intent);
+		break;
+			case 3: //EDITAR
+				intent = new Intent(componente.getContext(),NuevaTarea.class);
+	            intent.putExtra("idTarea", itemtarea.getId_tarea());
+				intent.putExtra("opc", "3");
+				startActivity(intent);
+		break;
+		
+			case 4: //Eliminar
+				intent = new Intent(componente.getContext(),NuevaTarea.class);
+	            intent.putExtra("idTarea", itemtarea.getId_tarea());
+				intent.putExtra("opc", "4");
+				startActivity(intent);
+		break;
+	default:
+		break;
+	}
+	
+		}
+		
+	}
+	
+	
+	
 
 public void onBuscarTarea(View v){
 	DbUsuarios bd_tarea = new DbUsuarios();
@@ -63,9 +126,8 @@ public void onBuscarTarea(View v){
 	
 	
             listviewTareas.setAdapter(Adaptador);
-         //   listviewTareas.setOnItemClickListener(new MyItemClickListener());
+            listviewTareas.setOnItemClickListener(new MyItemClickListener());
             listviewTareas.refreshDrawableState();
 	
-            Toast.makeText(this, "ando x aki ", Toast.LENGTH_LONG).show();
 }
 }

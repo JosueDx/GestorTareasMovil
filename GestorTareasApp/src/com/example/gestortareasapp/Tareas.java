@@ -23,20 +23,26 @@ public class Tareas extends Activity {
 
 	public void onCrearTarea(View boton){
 		Intent intent= new Intent(this,NuevaTarea.class);
+		intent.putExtra("opc", "1");
 		startActivity(intent);
 		
 	}
 	public void onBuscarTarea(View boton){
 		Intent intent= new Intent(this,BuscarTarea.class);
+		intent.putExtra("op", "2");
 		startActivity(intent);
 			}
 	public void onEditarTarea(View boton){
-		Toast.makeText(this, "Estamos en Mantenimiento", Toast.LENGTH_LONG).show();
+		Intent intent= new Intent(this,BuscarTarea.class);
+		intent.putExtra("op", "3");
+		startActivity(intent);
+		
 		
 	}
 	public void onEliminarTarea(View boton){
-		Toast.makeText(this, "Estamos en Mantenimiento", Toast.LENGTH_LONG).show();
-		
+		Intent intent= new Intent(this,BuscarTarea.class);
+		intent.putExtra("op", "4");
+		startActivity(intent);
 	}
 	public void onSalir(View boton){
 		finish();

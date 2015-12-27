@@ -24,6 +24,12 @@ public class DbUsuarios {
 	public static final String TABLA_NAME_usuarios = "usuarios";
 	public static final String TABLA_NAME_tipousuarios = "tipousuarios";
 	
+	private String Sql = "[{'id_tarea':1, 'descripcion':'Descripcion1', 'comentario':'Comentario1', 'nivel_tarea':'bajo'},"
+			+ "{'id_tarea':2, 'descripcion':'Descripcion2', 'comentario':'Comentario1', 'nivel_tarea':'medio'},"
+			+ "{'id_tarea':3, 'descripcion':'Descripcion3', 'comentario':'Comentario1', 'nivel_tarea':'alto'},"
+			+ "{'id_tarea':4, 'descripcion':'Descripcion4', 'comentario':'Comentario1', 'nivel_tarea':'medio'},"
+			+ "{'id_tarea':5, 'descripcion':'Descripcion5', 'comentario':'Comentario1', 'nivel_tarea':'alto'}]";
+	
 public Datosusuarios Listalogin(Context contexto, String usuario, String contrasenia ){
 		
 	Datosusuarios listario =null;
@@ -67,28 +73,25 @@ public Datosusuarios Listalogin(Context contexto, String usuario, String contras
 	}
 	
 public ArrayList<Tarea> listartexto(){
-	ArrayList<Tarea> listaGastos = null;
+	ArrayList<Tarea> listaTarea = null;
 	//GastosSqlLite gastosbd = new GastosSqlLite(contexto, DB_NAME, null, 1);
 	//SQLiteDatabase db = gastosbd.getWritableDatabase();
 	
-	listaGastos = new ArrayList<Tarea>();
+	listaTarea = new ArrayList<Tarea>();
 	//String [] parametrosBusqueda = new String[]{"%"+criterio+"%"};
-	String Sql = "[{'descripcion':'Descripcion1', 'comentario':'Comentario1', 'nivel_tarea':'bajo'},"
-			+ "{'descripcion':'Descripcion2', 'comentario':'Comentario1', 'nivel_tarea':'medio'},"
-			+ "{'descripcion':'Descripcion3', 'comentario':'Comentario1', 'nivel_tarea':'alto'},"
-			+ "{'descripcion':'Descripcion4', 'comentario':'Comentario1', 'nivel_tarea':'medio'},"
-			+ "{'descripcion':'Descripcion5', 'comentario':'Comentario1', 'nivel_tarea':'alto'}]";
+	
 	
 	try {
 		JSONArray array = new JSONArray(Sql);
 		for (int i = 0; i < array.length(); i++) {
 		    JSONObject row = array.getJSONObject(i);
 		    Tarea item = new Tarea();
+		    item.setId_tarea(row.getInt("id_tarea"));
 		    item.setDescripcion(row.getString("descripcion"));
 		    item.setComentario(row.getString("comentario"));
 		    item.setNivel_tarea(row.getString("nivel_tarea"));
 		    
-		    listaGastos.add(item);
+		    listaTarea.add(item);
 		}
 	} catch (JSONException e) {
 		// TODO Auto-generated catch block
@@ -120,7 +123,7 @@ public ArrayList<Tarea> listartexto(){
 	}
 	cursor.close();
 	db.close();*/
-	return listaGastos;
+	return listaTarea;
 }	
 
 
