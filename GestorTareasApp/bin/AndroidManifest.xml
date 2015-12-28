@@ -68,6 +68,10 @@
             android:name=".Prueba"
             android:label="@string/title_activity_prueba" >
         </activity>
+        <activity
+            android:name=".TareaRealizada"
+            android:label="@string/title_activity_tarea_realizada" >
+        </activity>
     </application>
 
 </manifest>

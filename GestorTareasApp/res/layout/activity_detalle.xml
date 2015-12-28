@@ -60,29 +60,31 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonTRGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewDNivelTarea"
         android:layout_below="@+id/textViewDNivelTarea"
         android:layout_marginTop="51dp"
+        android:onClick="onTareaRealizada"
         android:text="Asignar Tarea" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/buttonTRCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button1"
-        android:layout_alignBottom="@+id/button1"
+        android:layout_alignBaseline="@+id/buttonTRGuardar"
+        android:layout_alignBottom="@+id/buttonTRGuardar"
         android:layout_marginLeft="25dp"
-        android:layout_toRightOf="@+id/button1"
+        android:layout_toRightOf="@+id/buttonTRGuardar"
+        android:onClick="onCancelar"
         android:text="Cancelar" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button1"
+        android:layout_below="@+id/buttonTRGuardar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="26dp"
         android:text="Iniciar Recordatorio" />

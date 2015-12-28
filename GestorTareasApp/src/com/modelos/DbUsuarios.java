@@ -163,6 +163,8 @@ public Tarea tareabuscar(String id_tarea){
 		    item.setComentario(row.getString("comentario"));
 		    item.setNivel_tarea(row.getString("nivel_tarea"));
 		    item.setEstado(row.getString("estado"));
+		    item.setFecha_inicio("20/05/2015");
+		    item.setFecha_fin("21/05/2015");
 		    }
 		}
 	} catch (JSONException e) {

@@ -32,7 +32,7 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonTRCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/buttonCrearTarea"
@@ -44,8 +44,8 @@
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/button2"
-            android:layout_below="@+id/button2"
+            android:layout_alignLeft="@+id/buttonTRCancelar"
+            android:layout_below="@+id/buttonTRCancelar"
             android:onClick="onEditarTarea"
             android:text="Editar" />
 

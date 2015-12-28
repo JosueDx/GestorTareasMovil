@@ -1107,7 +1107,7 @@ containing a value of this type.
         public static final int Rcedula=0x7f050067;
         public static final int Rcontrasenia=0x7f05006c;
         public static final int Rdireccion=0x7f050068;
-        public static final int RelativeLayout1=0x7f050074;
+        public static final int RelativeLayout1=0x7f05007a;
         public static final int Remail=0x7f050069;
         public static final int Rnombre=0x7f050065;
         public static final int RspinnerDepartamentos=0x7f05006f;
@@ -1124,14 +1124,12 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f050078;
+        public static final int action_settings=0x7f05007e;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
-        public static final int button1=0x7f050049;
-        public static final int button2=0x7f05004a;
         public static final int button3=0x7f05004b;
-        public static final int button4=0x7f050071;
+        public static final int button4=0x7f050077;
         public static final int buttonBuscarTarea=0x7f05003e;
         public static final int buttonBuscarTareaEmpleado=0x7f050042;
         public static final int buttonCerrarSesion=0x7f050055;
@@ -1140,6 +1138,8 @@ containing a value of this type.
         public static final int buttonFechaFin=0x7f05005e;
         public static final int buttonGestorTareas=0x7f050050;
         public static final int buttonRealizarTareas=0x7f050051;
+        public static final int buttonTRCancelar=0x7f05004a;
+        public static final int buttonTRGuardar=0x7f050049;
         public static final int checkbox=0x7f05002d;
         public static final int collapseActionView=0x7f05000d;
         public static final int default_activity_button=0x7f050028;
@@ -1150,6 +1150,7 @@ containing a value of this type.
         public static final int editTextComentario=0x7f05005a;
         public static final int editTextCriterioBusqueda=0x7f05003d;
         public static final int editTextDescripcion=0x7f050058;
+        public static final int editTextTRDescripcion=0x7f050074;
         public static final int edit_query=0x7f050030;
         public static final int end=0x7f050013;
         public static final int expand_activities_button=0x7f050026;
@@ -1199,17 +1200,22 @@ containing a value of this type.
         public static final int tableRow6=0x7f050061;
         public static final int tableRow7=0x7f050064;
         public static final int tableRow8=0x7f050063;
-        public static final int textViewComentarioList=0x7f050072;
+        public static final int textView1=0x7f050073;
+        public static final int textView2=0x7f050071;
+        public static final int textView3=0x7f050075;
+        public static final int textViewComentarioList=0x7f050078;
         public static final int textViewDComentario=0x7f050045;
         public static final int textViewDDescripcion=0x7f050044;
         public static final int textViewDFechaFin=0x7f050047;
         public static final int textViewDFechaInicio=0x7f050046;
         public static final int textViewDNivelTarea=0x7f050048;
-        public static final int textViewDescripcionEmpleado=0x7f050075;
-        public static final int textViewFechaFinEmpleado=0x7f050077;
-        public static final int textViewFechaInicioEmpleado=0x7f050076;
-        public static final int textViewNivelList=0x7f050073;
+        public static final int textViewDescripcionEmpleado=0x7f05007b;
+        public static final int textViewFechaFinEmpleado=0x7f05007d;
+        public static final int textViewFechaInicioEmpleado=0x7f05007c;
+        public static final int textViewNivelList=0x7f050079;
         public static final int textViewNombreList=0x7f05004d;
+        public static final int textViewTRDescripcion=0x7f050072;
+        public static final int textViewTRFecha=0x7f050076;
         public static final int textViewUsuario=0x7f050056;
         public static final int textViewValidadContrasenia=0x7f05006e;
         public static final int textViewValidarCedula=0x7f050053;
@@ -1279,10 +1285,11 @@ containing a value of this type.
         public static final int activity_prueba=0x7f03001e;
         public static final int activity_register=0x7f03001f;
         public static final int activity_spinner=0x7f030020;
-        public static final int activity_tareas=0x7f030021;
-        public static final int support_simple_spinner_dropdown_item=0x7f030022;
-        public static final int tarea_list=0x7f030023;
-        public static final int tarea_list_empleado=0x7f030024;
+        public static final int activity_tarea_realizada=0x7f030021;
+        public static final int activity_tareas=0x7f030022;
+        public static final int support_simple_spinner_dropdown_item=0x7f030023;
+        public static final int tarea_list=0x7f030024;
+        public static final int tarea_list_empleado=0x7f030025;
     }
     public static final class menu {
         public static final int buscar_tarea=0x7f0d0000;
@@ -1294,7 +1301,8 @@ containing a value of this type.
         public static final int prueba=0x7f0d0006;
         public static final int register=0x7f0d0007;
         public static final int spinner=0x7f0d0008;
-        public static final int tareas=0x7f0d0009;
+        public static final int tarea_realizada=0x7f0d0009;
+        public static final int tareas=0x7f0d000a;
     }
     public static final class string {
         public static final int Hola_tu=0x7f0a0012;
@@ -1349,6 +1357,7 @@ containing a value of this type.
         public static final int title_activity_prueba=0x7f0a0019;
         public static final int title_activity_register=0x7f0a0011;
         public static final int title_activity_spinner=0x7f0a0016;
+        public static final int title_activity_tarea_realizada=0x7f0a001a;
         public static final int title_activity_tareas=0x7f0a0013;
     }
     public static final class style {
