@@ -33,5 +33,8 @@
 
     <string name="title_activity_buscar_tarea">BuscarTarea</string>
     <string name="title_activity_spinner">SpinnerActivity</string>
+    <string name="title_activity_buscar_tarea_empleado">BuscarTareaEmpleadoActivity</string>
+    <string name="title_activity_detalle">DetalleActivity</string>
+    <string name="title_activity_prueba">Prueba</string>
 
 </resources>

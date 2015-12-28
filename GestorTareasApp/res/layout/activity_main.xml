@@ -56,8 +56,9 @@
             android:layout_above="@+id/buttonEficienciaTareas"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:textColor="#a31c16"
-            android:text="Realizar Tarea" />
+            android:onClick="onRealizarTareas"
+            android:text="Realizar Tarea"
+            android:textColor="#a31c16" />
 
         <Button
             android:id="@+id/buttonGestorTareas"

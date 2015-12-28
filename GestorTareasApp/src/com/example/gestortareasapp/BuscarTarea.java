@@ -119,7 +119,7 @@ public class BuscarTarea extends Activity {
 
 public void onBuscarTarea(View v){
 	if(edittextCriterio.getText().toString().equals("")){
-		Toast.makeText(this, "Hola Guapo :3", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, "Ingrese descripcion", Toast.LENGTH_SHORT).show();
 	}else{
 		cargarlista(edittextCriterio.getText().toString());
 	}
@@ -138,6 +138,9 @@ DbUsuarios bd_tarea = new DbUsuarios();
             listviewTareas.setOnItemClickListener(new MyItemClickListener());
             listviewTareas.refreshDrawableState();
 }
+
+
+
 public void cargarlista(String criterio){
 DbUsuarios bd_tarea = new DbUsuarios();
 	

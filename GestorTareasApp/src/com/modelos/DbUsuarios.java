@@ -85,7 +85,8 @@ public ArrayList<Tarea> listartexto(){
 		    item.setDescripcion(row.getString("descripcion"));
 		    item.setComentario(row.getString("comentario"));
 		    item.setNivel_tarea(row.getString("nivel_tarea"));
-		    
+		    item.setFecha_inicio("2/05/2015");
+		    item.setFecha_fin("16/05/2015");
 		    listaTarea.add(item);
 		}
 	} catch (JSONException e) {
@@ -94,7 +95,28 @@ public ArrayList<Tarea> listartexto(){
 	}
 	
 	return listaTarea;
-}	
+}
+
+public ArrayList<Tarea> listartexto2(){
+	ArrayList<Tarea> listaTarea = null;
+	listaTarea = new ArrayList<Tarea>();
+	try {
+		JSONArray array = new JSONArray(Sql);
+		for (int i = 0; i < array.length(); i++) {
+		    JSONObject row = array.getJSONObject(i);
+		    Tarea item = new Tarea();
+		    item.setDescripcion(row.getString("descripcion"));
+		    item.setFecha_inicio("2/05/2015");
+		    item.setFecha_fin("16/05/2015");
+		    listaTarea.add(item);
+		}
+	} catch (JSONException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	
+	return listaTarea;
+}
 
 public ArrayList<Tarea> listartexto(String criterio){
 	ArrayList<Tarea> listaTarea = null;

@@ -57,6 +57,12 @@ public class MainActivity extends Activity {
 		textUsuario=(TextView) findViewById(R.id.textViewUsuario);
 	}
 	
+	public void onRealizarTareas(View v){
+		Intent intent= new Intent(this,BuscarTareaEmpleadoActivity.class);
+		Log.e("pruebaxaki", ".l.");
+		startActivity(intent);
+	}
+	
 	
 	
 	@Override
