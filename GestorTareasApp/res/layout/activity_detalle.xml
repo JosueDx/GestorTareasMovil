@@ -59,34 +59,38 @@
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <Button
-        android:id="@+id/buttonTRGuardar"
+    <TimePicker
+        android:id="@+id/timePicker1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textViewDNivelTarea"
-        android:layout_below="@+id/textViewDNivelTarea"
-        android:layout_marginTop="51dp"
-        android:onClick="onTareaRealizada"
-        android:text="Asignar Tarea" />
+        android:layout_above="@+id/btn_notificacion"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/btn_notificacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Recordatorio" />
 
     <Button
         android:id="@+id/buttonTRCancelar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/buttonTRGuardar"
-        android:layout_alignBottom="@+id/buttonTRGuardar"
-        android:layout_marginLeft="25dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="26dp"
         android:layout_toRightOf="@+id/buttonTRGuardar"
         android:onClick="onCancelar"
         android:text="Cancelar" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/buttonTRGuardar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttonTRGuardar"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="Iniciar Recordatorio" />
+        android:layout_alignLeft="@+id/textViewDNivelTarea"
+        android:layout_centerVertical="true"
+        android:onClick="onTareaRealizada"
+        android:text="Asignar Tarea" />
 
 </RelativeLayout>

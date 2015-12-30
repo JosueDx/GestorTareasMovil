@@ -59,7 +59,6 @@ public class MainActivity extends Activity {
 	
 	public void onRealizarTareas(View v){
 		Intent intent= new Intent(this,BuscarTareaEmpleadoActivity.class);
-		Log.e("pruebaxaki", ".l.");
 		startActivity(intent);
 	}
 	
