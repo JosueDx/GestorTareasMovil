@@ -49,11 +49,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/buttonCrearTarea"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fecha Inicio" />
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/buttonCrearTarea"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.60"
+                    android:text="Fecha Inicio" />
+
+                <Button
+                    android:id="@+id/buttonHoraInicioo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hora Inicio" />
+            </LinearLayout>
 
         </TableRow>
 
@@ -62,11 +74,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" >
 
-            <Button
-                android:id="@+id/buttonFechaFin"
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fecha Fin" />
+                android:layout_height="wrap_content" >
+
+                <Button
+                    android:id="@+id/buttonFechaFin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.26"
+                    android:text="Fecha Fin" />
+
+                <Button
+                    android:id="@+id/buttonHoraFinn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hora Fin" />
+            </LinearLayout>
 
         </TableRow>
 

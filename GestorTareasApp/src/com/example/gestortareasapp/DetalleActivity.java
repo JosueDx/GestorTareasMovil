@@ -9,7 +9,9 @@ import com.modelo.informacion.Tarea;
 import com.modelos.DbUsuarios;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -20,6 +22,9 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.support.v4.app.NotificationCompat;
+import android.text.Layout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +38,7 @@ import android.widget.Toast;
 
 public class DetalleActivity extends Activity {
 	private final int NOTIFICATION_ID = 1010;
+	int notificationID = 1;
 	TextView textdescripcion, textcomentario, textfechaini, textfechafin, textnivel;
 	Tarea tobj = new Tarea();
 	TimePicker timePicker1;
@@ -48,26 +54,25 @@ public class DetalleActivity extends Activity {
 	private void triggerNotification(){
 			
 	        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-	        Notification notification = new Notification(R.drawable.ic_launcher, ""+ tobj.getDescripcion() , System.currentTimeMillis());
-	 
-	        RemoteViews contentView = new RemoteViews(getPackageName(), R.layout.notification_layout);
-	        contentView.setImageViewResource(R.id.img_notification, R.drawable.ic_launcher);
-	        contentView.setTextViewText(R.id.txt_notification, ""+ tobj.getComentario());
-	 
-	        notification.contentView = contentView;
-	 
-	        Intent notificationIntent = new Intent(this, MainActivity.class);
-	        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
-	        notification.contentIntent = contentIntent;
-	 
-	        notificationManager.notify(NOTIFICATION_ID, notification);
 	        
-	        // Sonido por defecto de notificaciones, podemos usar otro
-	        Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+	        Intent i = new Intent(this, NotificationView.class);
+	        i.putExtra("notificationID", notificationID);
 	         
-	        // Uso en API 10 o menor
-	        notification.sound = defaultSound;
-	        
+	        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
+	        CharSequence ticker ="Notificacion de TAREA";
+	        CharSequence contentTitle = ""+ tobj.getDescripcion();
+	        CharSequence contentText = ""+ tobj.getComentario();
+	        Notification noti = new NotificationCompat.Builder(this)
+                    .setContentIntent(pendingIntent)
+                    .setTicker(ticker)
+                    .setContentTitle(contentTitle)
+                    .setContentText(contentText)
+                    .setSmallIcon(R.drawable.ic_launcher)
+                    .addAction(R.drawable.ic_launcher, ticker, pendingIntent)
+                    //.setVibrate(new long[] {100, 250, 100, 500})
+                    .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                    .build();
+	        notificationManager.notify(notificationID, noti);
 	        Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 	        v.vibrate(8000);
 	
@@ -124,6 +129,7 @@ public class DetalleActivity extends Activity {
 		Intent intent = this.getIntent();
 		idTarea = intent.getStringExtra("idTarea");
 		cargar_tarea(idTarea);
+		
 	}
 	
 	public void inicializar(){
@@ -150,6 +156,7 @@ public class DetalleActivity extends Activity {
 	          public void onClick(View v)
 	          {
 	          	tomartiempo();
+	          	triggerAlert();
 	              Timer timer = new Timer();
 	              TimerTask timerTask = new TimerTask()
 	              {
@@ -158,6 +165,7 @@ public class DetalleActivity extends Activity {
 	                  {
 	                  	
 	                  	triggerNotification();
+	                  	
 	                    //  funciono();
 	                  	
 	                  }
@@ -173,6 +181,20 @@ public class DetalleActivity extends Activity {
 	      total=0;
 	      
 		}
+	
+	public void triggerAlert(){
+		Calendar t = Calendar.getInstance();
+        t.add(Calendar.SECOND, total);
+ 
+        Intent i = new Intent(this, AlarmActivity.class);
+        i.putExtra("Descripcion", tobj.getDescripcion());
+        i.putExtra("Hora", tobj.getFecha_fin());
+        PendingIntent pending = PendingIntent.getActivity(this,1235, i, PendingIntent.FLAG_CANCEL_CURRENT);
+ 
+        AlarmManager alarm = (AlarmManager)getSystemService(Activity.ALARM_SERVICE);
+        alarm.set(AlarmManager.RTC_WAKEUP, t.getTimeInMillis(),pending);
+
+	}
 	
 	public void cargar_tarea(String idTarea){
 		

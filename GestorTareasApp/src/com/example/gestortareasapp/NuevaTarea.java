@@ -19,6 +19,7 @@ import com.modelos.DbUsuarios;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -38,10 +39,15 @@ public class NuevaTarea extends Activity {
 	
 	    private EditText edittextDescripcion,edittextComentario;
 	    private Spinner empleadoSpinner, nivelSpinner;
-	    private Button btnFechaInicio,btnFechaFin,btnGuardar;    
+	    private Button btnFechaInicio,btnFechaFin,btnGuardar,btn_HoraInicio,btnHoraFin;    
 	    private int añoIni,añoFin;    
 	    private int mesIni,mesFin;    
-	    private int diaIni,diaFin;    
+	    private int diaIni,diaFin;   
+	    private int hour;
+		private int minute;
+		private int hour2;
+		private int minute2;
+	    
 	    String fechaini, fechafin,descripcion,comentario;
 	    String cmes1="",cmes2="",cdia1="",cdia2="";
 	    String opcion;
@@ -61,6 +67,8 @@ public class NuevaTarea extends Activity {
 		private String SOAP_ACTION3="http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio/id_nivel_tarea";
 		private String METODO3="id_nivel_tarea";
 	    
+	
+		
 
 	 // la devolución de llamada recibida cuando el usuario "fija " la fecha en el diálogo 
 	    private DatePickerDialog.OnDateSetListener mDateSetListener =            
@@ -80,8 +88,12 @@ public class NuevaTarea extends Activity {
 	    		
 	    		fechaini= añoIni+"-"+cmes1+ mesIni +"-"+cdia1+diaIni;	    		
 	    		updateTextViewFechaIni();                
-	    		}            
+	    		}  
 	    	};
+	    	  
+	    	
+
+	    	
 	    	
 	    	
 	    private DatePickerDialog.OnDateSetListener mDateSetListener2 =            
@@ -104,6 +116,9 @@ public class NuevaTarea extends Activity {
 	    	};
 	/////////////////////
 	    
+	    	
+	    	
+	    	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -221,6 +236,8 @@ public class NuevaTarea extends Activity {
 		empleadoSpinner=(Spinner) findViewById(R.id.spinnerPersona);
 		nivelSpinner=(Spinner) findViewById(R.id.spinnerTipoTarea);
 		btnGuardar=(Button) findViewById(R.id.buttonBuscarTarea);
+		btn_HoraInicio=(Button) findViewById(R.id.buttonHoraInicioo);
+		btnHoraFin=(Button) findViewById(R.id.buttonHoraFinn);
 		
 		String json = "['Karen Bonilla','Josue Aquino','Carlos Torres','Leam Lee']";
 		
@@ -483,7 +500,7 @@ public class NuevaTarea extends Activity {
 			finish();
 		}	
 	}
-	
+	 	
 	public String id_Empleado(String empleado){
 		SoapObject request = new SoapObject(NAMESPACE, METODO2);
 		request.addProperty("request1" , empleado);

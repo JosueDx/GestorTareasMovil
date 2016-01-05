@@ -17,7 +17,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -72,6 +73,18 @@
         <activity
             android:name=".TareaRealizada"
             android:label="@string/title_activity_tarea_realizada" >
+        </activity>
+        <activity
+            android:name=".NotificationView"
+            android:label="@string/title_activity_notification_view" >
+        </activity>
+        <activity
+            android:name=".Bye"
+            android:label="@string/title_activity_bye" >
+        </activity>
+        <activity
+            android:name=".AlarmActivity"
+            android:label="@string/title_activity_alarm" >
         </activity>
     </application>
 
