@@ -86,6 +86,8 @@
             android:name=".AlarmActivity"
             android:label="@string/title_activity_alarm" >
         </activity>
+        
+        <service android:name=".MiIntentService"></service>
     </application>
 
 </manifest>

@@ -45,6 +45,10 @@ public class MainActivity extends Activity {
 		}
 		if(opcion1==2){
 			buttonGestor.setVisibility(View.INVISIBLE);
+			Log.e("servicios: ",op1);
+			Intent msgIntent = new Intent(MainActivity.this, MiIntentService.class);
+			msgIntent.putExtra("iteraciones", 100);
+			startService(msgIntent);
 		}
 	}
 	

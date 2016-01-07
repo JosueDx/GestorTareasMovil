@@ -32,8 +32,8 @@ public class LoginActivity extends Activity {
 	Context contexto;
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.6:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.6:8080/Servicio_Tarea/services/funciones_servicio/login";
+	static String URL = "http://192.168.1.11:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.1.11:8080/Servicio_Tarea/services/funciones_servicio/login";
 	private String METODO="login";
 	
 	
@@ -75,9 +75,6 @@ public class LoginActivity extends Activity {
 			
 		}
 		else{
-			
-			
-			
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
 			request.addProperty("request1" , NombreUsuario);
 		  	request.addProperty("request2" , ClaveUsuario);
