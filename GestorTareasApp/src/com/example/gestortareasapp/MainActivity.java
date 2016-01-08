@@ -48,6 +48,7 @@ public class MainActivity extends Activity {
 			Log.e("servicios: ",op1);
 			Intent msgIntent = new Intent(MainActivity.this, MiIntentService.class);
 			msgIntent.putExtra("iteraciones", 100);
+			msgIntent.putExtra("id_empleado", 1);
 			startService(msgIntent);
 		}
 	}
