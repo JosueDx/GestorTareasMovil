@@ -25,6 +25,7 @@ public class MainActivity extends Activity {
 	String opcion2;
 	int opcion1;
 	String op1;
+	String id_personas,nombrepersonas;
 	Intent intent;
 	
 	
@@ -36,10 +37,13 @@ public class MainActivity extends Activity {
 		//opcion2= this.getIntent().getStringExtra("opcion");
 		//Datosusuarios datosusuarios ;
 		op1=this.getIntent().getStringExtra("op");
+		//id_personas=this.getIntent().getStringExtra("id_persona");
+		nombrepersonas=this.getIntent().getStringExtra("nombre_persona");
 		Log.e("cool: ",op1);
+		Log.e("persona",nombrepersonas );
+		textUsuario.setText(nombrepersonas);
 		opcion1= Integer.parseInt(op1);
-		//Log.e("nombre: ",opcion2);
-		textUsuario.setText("Bienvenido Usuario");
+
 		if(opcion1==1){
 			buttonRealizar.setVisibility(View.INVISIBLE);
 		}

@@ -1,12 +1,15 @@
 package com.example.gestortareasapp;
 
 
+import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import com.modelo.informacion.Datosusuarios;
+import com.modelo.informacion.Persona;
+import com.modelo.informacion.Usuarios;
 import com.modelos.DbUsuarios;
 
 import android.app.Activity;
@@ -30,15 +33,15 @@ public class LoginActivity extends Activity {
 	String NombreUsuario;
 	String ClaveUsuario;
 	Context contexto;
+	Persona objPersona;
+	Usuarios objUsuario;
 	
-	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.11:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.11:8080/Servicio_Tarea/services/funciones_servicio/login";
+		
+	static String NAMESPACE  ="http://servicio.servicio.com";
+	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/login";
 	private String METODO="login";
-	
-	
-	
-	
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -91,20 +94,43 @@ public class LoginActivity extends Activity {
 		  		
 		  		if(result != null){
 		  			Log.e("TIPO ACCION: 2-- ","opcion");
-		  			Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+		  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
 		  			
-		  			if(result.getProperty(0).toString().equals("jefe")){
+		  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+					//personas
+					JSONTokener jsontokenerpersonas = new JSONTokener(jsondatos.get("persona").toString());
+					JSONObject jsonpersonas = (JSONObject)jsontokenerpersonas.nextValue();
+					objPersona =  new Persona();
+					objPersona.setDireccion( jsonpersonas.getString("direccion"));
+					objPersona.setNombre(jsonpersonas.getString("nombres"));
+					objPersona.setApellido(jsonpersonas.getString("apellidos"));
+					objPersona.setEmail(jsonpersonas.getString("email"));
+					objPersona.setDepartamento(jsonpersonas.getInt("id_departamento"));
+					objPersona.setCedula(jsonpersonas.getString("cedula"));
+					objPersona.setIdPersona(jsonpersonas.getInt("id_persona"));
+					
+					//datosusuarios
+					JSONTokener jsontokenerdatosusuario = new JSONTokener(jsondatos.get("usuario").toString());
+					JSONObject jsondatosusuario = (JSONObject)jsontokenerdatosusuario.nextValue();
+					objUsuario = new Usuarios();
+					objUsuario.setId_tipousuario(jsondatosusuario.getInt("id_tipousuario"));
+				
+		  				  			
+		  			if(objUsuario.getId_tipousuario()==2){
 						Toast.makeText(this, "Bienvenido Jefe ", Toast.LENGTH_LONG).show();
 						intent= new Intent(this,MainActivity.class);
 			    		System.out.println("Usuario");
 			    		intent.putExtra("op", "1");
+			    		intent.putExtra("id_persona", objPersona.getIdPersona());
+			    		intent.putExtra("nombre_persona", objPersona.getNombre() +" "+ objPersona.getApellido());
 			    		startActivity(intent);
 					}
-					if(result.getProperty(0).toString().equals("empleado")){
+					if(objUsuario.getId_tipousuario()==3){
 						Toast.makeText(this, "Bienvenido Empleado", Toast.LENGTH_LONG).show();
 						intent= new Intent(this,MainActivity.class);
 						intent.putExtra("op", "2");
-				    	System.out.println("Usuario");
+			    		intent.putExtra("id_persona", objPersona.getIdPersona());
+			    		intent.putExtra("nombre_persona", objPersona.getNombre() +" "+ objPersona.getApellido());
 			    		startActivity(intent);
 					}
 		  		

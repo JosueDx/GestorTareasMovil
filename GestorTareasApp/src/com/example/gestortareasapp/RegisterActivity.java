@@ -7,10 +7,14 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
+
+import com.modelo.informacion.Persona;
+import com.modelo.informacion.Usuarios;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -36,12 +40,21 @@ public class RegisterActivity extends Activity {
 	TextView textviewUsuario,textviewContrasenia,textviewCedula;
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/registro";
-	private String METODO="registro";
+	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/registrar_usuario";
+	private String METODO="registrar_usuario";
 	
-	private String SOAP_ACTION2="http://192.168.1.15:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
+	private String SOAP_ACTION2="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
 	private String METODO2="id_departamento";
+	
+	private String SOAP_ACTION3="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/validar_cedula";
+	private String METODO3="validar_cedula";
+	
+	private String SOAP_ACTION4="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/validar_usuario";
+	private String METODO4="validar_usuario";
+	
+	private String SOAP_ACTION5="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/lista_departamento";
+	private String METODO5="lista_departamento";
 	
 	
 	@Override
@@ -70,9 +83,6 @@ public class RegisterActivity extends Activity {
 		textviewContrasenia=(TextView) findViewById(R.id.textViewValidadContrasenia);
 		textviewUsuario=(TextView) findViewById(R.id.textViewValidarUsuario);
 		
-		
-		
-
 		edittextRepetirContrasenia.addTextChangedListener(new TextWatcher() {
 
 			   public void afterTextChanged(Editable s) {
@@ -96,8 +106,7 @@ public class RegisterActivity extends Activity {
 				   
 			   }
 			  });
-		
-		
+				
 		edittextCedula.addTextChangedListener(new TextWatcher() {
 
 			   public void afterTextChanged(Editable s) {
@@ -154,25 +163,41 @@ public class RegisterActivity extends Activity {
 		
 		
 		
-		
-		
-		String json = "['Financiero','Contabilidad','RRHH','Administracion','Sistemas']";
-		
-		//ArrayList<String> list = new ArrayList<String>();     
-		List<String> list = new ArrayList<String>();
-		try {
-			JSONArray jsonArray = new JSONArray(json);
-					
-			for (int i=0; i<jsonArray.length(); i++) {
-				//Toast.makeText(this, jsonArray.getString(i), Toast.LENGTH_LONG).show();
-			    list.add( jsonArray.getString(i) );
-			}
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		SoapObject request = new SoapObject(NAMESPACE, METODO5);
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	  
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	List<String> list = new ArrayList<String>();
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION5, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+	  		if(result != null){
+	  			Log.e("TIPO ACCION: 2-- ","opcion");
+	  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+	  			
+	  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+	  			JSONArray arr = jsondatos.getJSONArray("departamentos");
+	  			for (int i = 0; i < arr.length(); i++)
+	  			{
+	  			  String departamentoNombre = arr.getJSONObject(i).getString("nombre");
+	  			  list.add(departamentoNombre);
+	  			}
+	  			
+	  			
+	  		}else{
+	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+	  		}
+	  		
+	  		
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+	  	  		
+	  		}
 
 		// Application of the Array to the Spinner
 		ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item, list);
@@ -185,19 +210,26 @@ public class RegisterActivity extends Activity {
 	public String validacioncedula(String cedula){
 		String validacion="";
 		
-		String jsonCedula = "['2400085151','2400090201','0927511618','0987654321']";
 		
-		//ArrayList<String> list = new ArrayList<String>();     
-		List<String> listCedula = new ArrayList<String>();
-		try {
-			JSONArray jsonArray = new JSONArray(jsonCedula);
-					
-			for (int i=0; i<jsonArray.length(); i++) {
-				//Toast.makeText(this, jsonArray.getString(i), Toast.LENGTH_LONG).show();
-				//listCedula.add( jsonArray.getString(i) );
-				if(jsonArray.getString(i).equals(cedula)){
+		SoapObject request = new SoapObject(NAMESPACE, METODO3);
+		request.addProperty("request1" , cedula);
+	  	
+	  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	      Envoltorio.setOutputSoapObject (request);
+	  	  
+	  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION3, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+	  		if(result != null){
+	  			Log.e("TIPO ACCION: 2-- ","opcion");
+	  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+	  			
+	  			if(result.getProperty(0).toString().equals("Si")){
 					validacion ="true";
-					i = jsonArray.length();
 				}
 				else{
 					if (edittextCedula.length()<10){
@@ -206,13 +238,20 @@ public class RegisterActivity extends Activity {
 					validacion ="false";
 					}
 				}
-			}
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	  			
+	  		
+	  		}else{
+	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+	  		}
+	  		
+	  		
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+	  	  		
+	  		}
+
+
 		return validacion;
 	}
 	
@@ -220,38 +259,54 @@ public class RegisterActivity extends Activity {
 	public String validacionUsuario(String usuario){
 		String validacion="";
 		
-		String jsonUsuario = "['JosueDx','Alvar1','Carlos1','Josue1']";
 		
-		//ArrayList<String> list = new ArrayList<String>();     
-		List<String> listUsuario = new ArrayList<String>();
-		try {
-			JSONArray jsonArray = new JSONArray(jsonUsuario);
-					
-			for (int i=0; i<jsonArray.length(); i++) {
-				//Toast.makeText(this, jsonArray.getString(i), Toast.LENGTH_LONG).show();
-				//listCedula.add( jsonArray.getString(i) );
-				if(jsonArray.getString(i).equals(usuario)){
+		SoapObject request = new SoapObject(NAMESPACE, METODO4);
+		request.addProperty("request1" , usuario);
+	  	
+	  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	      Envoltorio.setOutputSoapObject (request);
+	  	  
+	  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION4, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+	  		if(result != null){
+	  			Log.e("TIPO ACCION: 2-- ","opcion");
+	  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+	  			
+	  			if(result.getProperty(0).toString().equals("Si")){
 					validacion ="true";
-					i = jsonArray.length();
 				}
 				else{
-					
-					validacion ="false";
-					
+					if (edittextUsuario.length()<1){
+						 validacion ="true";
+						}else{
+						validacion ="false";
+						}
 				}
-			}
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	  			
+	  		
+	  		}else{
+	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+	  		}
+	  		
+	  		
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+	  	  		
+	  		}
+		
 		
 		return validacion;
 	}
 	
 	
 
-public void OnRegistar(View v){
+	public void OnRegistar(View v){
 		
 		inicializar();
 		String Nombre = edittextNombre.getText().toString();
@@ -277,40 +332,38 @@ public void OnRegistar(View v){
 			
 			JSONObject objPersona=new JSONObject();
 			try {
-				objPersona.put("Nombre",Nombre);
-				objPersona.put("Departamento", id_Departamento(spinnerDepartamento.getSelectedItem().toString()));
-				objPersona.put("Apellido",Apellido);
-				objPersona.put("Cedula",Cedula);
-				objPersona.put("Direccion",Direccion);
-				objPersona.put("Email",Email);
+				objPersona.put("nombres",Nombre);
+				objPersona.put("id_departamento", id_Departamento(spinnerDepartamento.getSelectedItem().toString()));
+				objPersona.put("apellidos",Apellido);
+				objPersona.put("cedula",Cedula);
+				objPersona.put("direccion",Direccion);
+				objPersona.put("email",Email);
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
-			
-			JSONObject objusuario=new JSONObject();
-			try {
-				objusuario.put("Tipo_Usuario",3);
-			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
 			
 			JSONObject objdatosusuario=new JSONObject();
 			try {
-				objdatosusuario.put("Usuario",Usuario);
-				objdatosusuario.put("Contraseña",Contraseña);
+				objdatosusuario.put("usuario",Usuario);
+				objdatosusuario.put("contraseña",Contraseña);
+				objdatosusuario.put("id_tipousuario",3);
+			} catch (JSONException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			JSONObject jsonobject = new JSONObject();
+			try {
+				jsonobject.put("personas", objPersona);
+				jsonobject.put("datosusuarios", objdatosusuario);
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
-			
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
-			request.addProperty("request1" , objPersona);
-		  	request.addProperty("request2" , objusuario);
-		  	request.addProperty("request3" , objdatosusuario);
+			request.addProperty("request1" , jsonobject.toString());
 		  	
 		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 		      Envoltorio.setOutputSoapObject (request);
@@ -324,15 +377,15 @@ public void OnRegistar(View v){
 		  		
 		  		if(result != null){
 		  			
-		  			if(result.getProperty(0).toString().equals("0")){
+		  			if(result.getProperty(0).toString().equals("1")){
 						Toast.makeText(this, "Usuario Agregado Correctamente ", Toast.LENGTH_LONG).show();
 						
 					}
-					if(result.getProperty(0).toString().equals("1")){
+					if(result.getProperty(0).toString().equals("2")){
 						Toast.makeText(this, "Error al registrar", Toast.LENGTH_LONG).show();
 						
 					}
-					if(result.getProperty(0).toString().equals("2")){
+					if(result.getProperty(0).toString().equals("0")){
 						Toast.makeText(this, "Error al registrar", Toast.LENGTH_LONG).show();
 						
 					}
@@ -356,8 +409,17 @@ public void OnRegistar(View v){
 	}
 	
 	public String id_Departamento(String departamento){
+		
+		JSONObject pruebadepartamento = new JSONObject();
+		try {
+			pruebadepartamento.put("descripcion", departamento);
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		SoapObject request = new SoapObject(NAMESPACE, METODO2);
-		request.addProperty("request1" , departamento);
+		request.addProperty("request1" , pruebadepartamento.toString());
 	  	
 	  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 	      Envoltorio.setOutputSoapObject (request);
@@ -370,8 +432,11 @@ public void OnRegistar(View v){
 	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
 	  		
 	  		if(result != null){
-	  			
-	  			return result.getProperty(0).toString();
+	  			Log.e("yo ando x aki", "sdfsd");
+	  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+	  				  			
+	  			return ""+jsondatos.getString("id_tipodepartamento");
+	  			//return result.getProperty(0).toString();
 	  			
 	  		}else{
 	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
