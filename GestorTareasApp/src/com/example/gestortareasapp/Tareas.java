@@ -12,6 +12,7 @@ import android.widget.Toast;
 public class Tareas extends Activity {
 
 	Button buttonCrearTarea;
+	int id_personas,id_departamento;
 	
 	
 	@Override
@@ -19,22 +20,31 @@ public class Tareas extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_tareas);
 		
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
+		
 	}
 
 	public void onCrearTarea(View boton){
 		Intent intent= new Intent(this,NuevaTarea.class);
 		intent.putExtra("opc", "1");
+		intent.putExtra("id_persona", id_personas);
+		intent.putExtra("id_departamento", id_departamento);
 		startActivity(intent);
 		
 	}
 	public void onBuscarTarea(View boton){
 		Intent intent= new Intent(this,BuscarTarea.class);
 		intent.putExtra("op", "2");
+		intent.putExtra("id_persona", id_personas);
+		intent.putExtra("id_departamento", id_departamento);
 		startActivity(intent);
 			}
 	public void onEditarTarea(View boton){
 		Intent intent= new Intent(this,BuscarTarea.class);
 		intent.putExtra("op", "3");
+		intent.putExtra("id_persona", id_personas);
+		intent.putExtra("id_departamento", id_departamento);
 		startActivity(intent);
 		
 		
@@ -42,6 +52,8 @@ public class Tareas extends Activity {
 	public void onEliminarTarea(View boton){
 		Intent intent= new Intent(this,BuscarTarea.class);
 		intent.putExtra("op", "4");
+		intent.putExtra("id_persona", id_personas);
+		intent.putExtra("id_departamento", id_departamento);
 		startActivity(intent);
 	}
 	public void onSalir(View boton){

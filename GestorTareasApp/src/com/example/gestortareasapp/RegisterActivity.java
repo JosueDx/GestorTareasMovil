@@ -258,7 +258,7 @@ public class RegisterActivity extends Activity {
 	//validar usuario
 	public String validacionUsuario(String usuario){
 		String validacion="";
-		
+		//Toast.makeText(this, ""+id_Departamento(spinnerDepartamento.getSelectedItem().toString()), Toast.LENGTH_LONG).show();
 		
 		SoapObject request = new SoapObject(NAMESPACE, METODO4);
 		request.addProperty("request1" , usuario);
@@ -307,8 +307,7 @@ public class RegisterActivity extends Activity {
 	
 
 	public void OnRegistar(View v){
-		
-		inicializar();
+		//inicializar();
 		String Nombre = edittextNombre.getText().toString();
 		String Apellido= edittextApellido.getText().toString();
 		String Cedula= edittextCedula.getText().toString();
@@ -402,9 +401,7 @@ public class RegisterActivity extends Activity {
 		  	  		
 		  		}
 
-			
-			
-			Toast.makeText(this, "Estamos en Mantenimientoo", Toast.LENGTH_LONG).show();
+			finish();
 		}
 	}
 	

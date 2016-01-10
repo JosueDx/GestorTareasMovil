@@ -122,6 +122,7 @@ public class LoginActivity extends Activity {
 			    		System.out.println("Usuario");
 			    		intent.putExtra("op", "1");
 			    		intent.putExtra("id_persona", objPersona.getIdPersona());
+			    		intent.putExtra("id_departamento", objPersona.getDepartamento());
 			    		intent.putExtra("nombre_persona", objPersona.getNombre() +" "+ objPersona.getApellido());
 			    		startActivity(intent);
 					}
@@ -130,6 +131,7 @@ public class LoginActivity extends Activity {
 						intent= new Intent(this,MainActivity.class);
 						intent.putExtra("op", "2");
 			    		intent.putExtra("id_persona", objPersona.getIdPersona());
+			    		intent.putExtra("id_departamento", objPersona.getDepartamento());
 			    		intent.putExtra("nombre_persona", objPersona.getNombre() +" "+ objPersona.getApellido());
 			    		startActivity(intent);
 					}

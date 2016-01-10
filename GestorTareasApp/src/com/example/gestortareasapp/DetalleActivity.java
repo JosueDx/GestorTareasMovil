@@ -199,7 +199,7 @@ public class DetalleActivity extends Activity {
 	public void cargar_tarea(String idTarea){
 		
 		DbUsuarios bd =new DbUsuarios();
-		tobj = bd.tareabuscar(idTarea);
+		tobj = bd.tareabuscarFutura(idTarea);
 		
 		textdescripcion.setText(tobj.getDescripcion());
 		textcomentario.setText(tobj.getComentario());

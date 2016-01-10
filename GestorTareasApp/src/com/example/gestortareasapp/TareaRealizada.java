@@ -29,7 +29,7 @@ import android.widget.Toast;
 public class TareaRealizada extends Activity {
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	static String URL = "http://192.168.1.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
 	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/tarearealizado";
 	private String METODO="tarearealizado";
 	
@@ -47,10 +47,10 @@ public class TareaRealizada extends Activity {
 		cargar_tarea(idTarea);
 	}
 	
-public void cargar_tarea(String idTarea){
+	public void cargar_tarea(String idTarea){
 		
 		DbUsuarios bd =new DbUsuarios();
-		tobj = bd.tareabuscar(idTarea);
+		tobj = bd.tareabuscarFutura(idTarea);
 		
 		textdescripcion.setText("   "+tobj.getDescripcion());
 	}

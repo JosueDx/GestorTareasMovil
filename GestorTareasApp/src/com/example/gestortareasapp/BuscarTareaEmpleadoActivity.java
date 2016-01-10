@@ -28,14 +28,15 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 	Button buttonBuscar;
 	String opcion;
 	
-	
+	int id_personas;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_buscar_tarea_empleado);
-	
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);	
+		
 	listviewTareasEmpleado = (ListView) findViewById(R.id.listViewBuscarTareaEmpleado);
 	edittextCriterio = (EditText) findViewById(R.id.editTextBuscarTareaEmpleado);
 	cargarlista();
@@ -44,7 +45,7 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 	public void cargarlista(){
 		DbUsuarios bd_tarea = new DbUsuarios();
 			
-			ArrayList<Tarea> listatareas = bd_tarea.listartexto();
+			ArrayList<Tarea> listatareas = bd_tarea.listartexto(id_personas);
 			
 		    CustomListViewTareaEmpleado Adaptador = new CustomListViewTareaEmpleado(
 			this,R.layout.tarea_list_empleado,listatareas);

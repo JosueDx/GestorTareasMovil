@@ -26,7 +26,7 @@ public class BuscarTarea extends Activity {
 	ListView listviewTareas;
 	Button buttonBuscar;
 	String opcion;
-	
+	int id_personas,id_departamento;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,9 @@ public class BuscarTarea extends Activity {
          
 	     
 		opcion= intent.getStringExtra("op");
-			
-		cargarlista();
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);	
+		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
+		cargarlista(id_personas);
 		
 	}
 	
@@ -91,12 +92,17 @@ public class BuscarTarea extends Activity {
 	    	 intent = new Intent(componente.getContext(),NuevaTarea.class);
 	         intent.putExtra("idTarea", itemtarea.getId_tarea()+"");			
 	         intent.putExtra("opc", "2");
+	         //Log.e("id_persona", id_personas+"");
+	         intent.putExtra("id_persona", id_personas);
+	         intent.putExtra("id_departamento", id_departamento);
 	         startActivity(intent);
 		break;
 			case 3: //EDITAR
 				intent = new Intent(componente.getContext(),NuevaTarea.class);
 	            intent.putExtra("idTarea", itemtarea.getId_tarea()+"");
 				intent.putExtra("opc", "3");
+				intent.putExtra("id_persona", id_personas);
+				intent.putExtra("id_departamento", id_departamento);
 				startActivity(intent);
 		break;
 		
@@ -104,6 +110,8 @@ public class BuscarTarea extends Activity {
 				intent = new Intent(componente.getContext(),NuevaTarea.class);
 	            intent.putExtra("idTarea", itemtarea.getId_tarea()+"");
 				intent.putExtra("opc", "4");
+				intent.putExtra("id_persona", id_personas);
+				intent.putExtra("id_departamento", id_departamento);
 				startActivity(intent);
 		break;
 	default:
@@ -121,14 +129,14 @@ public void onBuscarTarea(View v){
 	if(edittextCriterio.getText().toString().equals("")){
 		Toast.makeText(this, "Ingrese descripcion", Toast.LENGTH_SHORT).show();
 	}else{
-		cargarlista(edittextCriterio.getText().toString());
+		cargarlista(id_personas, edittextCriterio.getText().toString());
 	}
 }
 
-public void cargarlista(){
+public void cargarlista(int id_personas){
 DbUsuarios bd_tarea = new DbUsuarios();
 	
-	ArrayList<Tarea> listatareas = bd_tarea.listartexto();
+	ArrayList<Tarea> listatareas = bd_tarea.listartexto(id_personas);
 	
     CustomListViewTareas Adaptador = new CustomListViewTareas(
 	this,R.layout.tarea_list,listatareas);
@@ -141,10 +149,10 @@ DbUsuarios bd_tarea = new DbUsuarios();
 
 
 
-public void cargarlista(String criterio){
+public void cargarlista(int id_personas, String criterio){
 DbUsuarios bd_tarea = new DbUsuarios();
 	
-	ArrayList<Tarea> listatareas = bd_tarea.listartexto(criterio);
+	ArrayList<Tarea> listatareas = bd_tarea.listartexto(id_personas, criterio);
 	
     CustomListViewTareas Adaptador = new CustomListViewTareas(
 	this,R.layout.tarea_list,listatareas);

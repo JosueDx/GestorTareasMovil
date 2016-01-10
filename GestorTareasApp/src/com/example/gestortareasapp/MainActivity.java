@@ -25,9 +25,9 @@ public class MainActivity extends Activity {
 	String opcion2;
 	int opcion1;
 	String op1;
-	String id_personas,nombrepersonas;
+	String nombrepersonas;
 	Intent intent;
-	
+	int id_personas,id_departamento;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +37,8 @@ public class MainActivity extends Activity {
 		//opcion2= this.getIntent().getStringExtra("opcion");
 		//Datosusuarios datosusuarios ;
 		op1=this.getIntent().getStringExtra("op");
-		//id_personas=this.getIntent().getStringExtra("id_persona");
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
 		nombrepersonas=this.getIntent().getStringExtra("nombre_persona");
 		Log.e("cool: ",op1);
 		Log.e("persona",nombrepersonas );
@@ -52,7 +53,7 @@ public class MainActivity extends Activity {
 			Log.e("servicios: ",op1);
 			Intent msgIntent = new Intent(MainActivity.this, MiIntentService.class);
 			msgIntent.putExtra("iteraciones", 100);
-			msgIntent.putExtra("id_empleado", 1);
+			msgIntent.putExtra("id_empleado", id_personas);
 			startService(msgIntent);
 		}
 	}
@@ -114,6 +115,8 @@ public class MainActivity extends Activity {
 
 	public void onGestorTareas(View v){
 		Intent intent= new Intent(this,Tareas.class);
+		intent.putExtra("id_persona", id_personas);
+		intent.putExtra("id_departamento", id_departamento);
 		startActivity(intent);
 	}
 	public void onSesion(View v){
