@@ -30,12 +30,14 @@ public class TareaRealizada extends Activity {
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
 	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/tarearealizado";
-	private String METODO="tarearealizado";
+	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/registrartarearealizada";
+	private String METODO="registrartarearealizada";
 	
 	TextView textdescripcion, textfecha;
 	EditText editdescripcion;
 	Tarea tobj = new Tarea();
+	
+	String descripcion, idTarea;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,16 +45,14 @@ public class TareaRealizada extends Activity {
 		setContentView(R.layout.activity_tarea_realizada);
 		inicializar();
 		Intent intent = this.getIntent();
-		String idTarea = intent.getStringExtra("idTarea");
-		cargar_tarea(idTarea);
+		idTarea = intent.getStringExtra("idTarea");
+		descripcion = intent.getStringExtra("descripcion");
+		cargar_tarea();
 	}
 	
-	public void cargar_tarea(String idTarea){
-		
-		DbUsuarios bd =new DbUsuarios();
-		tobj = bd.tareabuscarFutura(idTarea);
-		
-		textdescripcion.setText("   "+tobj.getDescripcion());
+	public void cargar_tarea(){
+
+		textdescripcion.setText(descripcion);
 	}
 	
 	void inicializar(){
@@ -60,7 +60,7 @@ public class TareaRealizada extends Activity {
 		textdescripcion =  (TextView) findViewById(R.id.textViewTRDescripcion);
 		textfecha =  (TextView) findViewById(R.id.textViewTRFecha);
 		editdescripcion = (EditText) findViewById(R.id.editTextTRDescripcion);
-		textfecha.setText("   "+getDatePhone());
+		textfecha.setText(""+getDatePhone());
 		
 	}
 
@@ -87,7 +87,7 @@ public class TareaRealizada extends Activity {
 	{
 	    Calendar cal = new GregorianCalendar();
 	    Date date = cal.getTime();
-	    SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+	    SimpleDateFormat df = new SimpleDateFormat("yyy-MM-dd");
 	    String formatteDate = df.format(date);
 	    return formatteDate;
 	}
@@ -101,9 +101,12 @@ public class TareaRealizada extends Activity {
 			
 			JSONObject objRealizada=new JSONObject();
 			try {
-				objRealizada.put("id_tarea", tobj.getId_tarea());
-				objRealizada.put("descripcion", editdescripcion.getText().toString());
-				objRealizada.put("fecha_fin",textfecha.getText().toString());
+				objRealizada.put("id_Tarea_realizada",0);
+				objRealizada.put("id_tarea", idTarea);
+				objRealizada.put("descipcion", editdescripcion.getText().toString());
+				objRealizada.put("fecha_fin",textfecha.getText().toString()+" 00:00:00");
+				objRealizada.put("estado","A");
+				objRealizada.put("archivo_env","");
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -111,8 +114,8 @@ public class TareaRealizada extends Activity {
 			
 			
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
-			request.addProperty("request1" , objRealizada);
-		  	
+			request.addProperty("request1" , objRealizada.toString());
+		  	Log.e("objRealizado tarea", objRealizada.toString());
 		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 		      Envoltorio.setOutputSoapObject (request);
 		  	  
@@ -125,11 +128,11 @@ public class TareaRealizada extends Activity {
 		  		
 		  		if(result != null){
 		  			
-		  			if(result.getProperty(0).toString().equals("true")){
+		  			if(result.getProperty(0).toString().equals("1")){
 						Toast.makeText(this, "Registro exitoso ", Toast.LENGTH_LONG).show();
 						finish();
 					}
-					if(result.getProperty(0).toString().equals("false")){
+					if(result.getProperty(0).toString().equals("0")){
 						Toast.makeText(this, "Error al registrar", Toast.LENGTH_LONG).show();
 					}
 		  		

@@ -43,6 +43,14 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 	cargarlista();
 	}
 	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		cargarlista();
+	}
+	
 	public void cargarlista(){
 		DbUsuarios bd_tarea = new DbUsuarios();
 		Log.e("id_persona cargar", id_personas+"");
