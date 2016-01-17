@@ -41,11 +41,22 @@ public class BuscarTarea extends Activity {
 		opcion= intent.getStringExtra("op");
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);	
 		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
+		Log.e("id personas :3", id_personas+"");
 		cargarlista(id_personas);
 		
+	}	
+
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		
+		cargarlista(id_personas);
 	}
-	
-	
+
+
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

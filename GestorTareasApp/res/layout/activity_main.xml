@@ -94,8 +94,7 @@
             android:id="@+id/textViewUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/buttonCerrarSesion"
-            android:layout_alignBottom="@+id/buttonCerrarSesion"
+            android:layout_above="@+id/buttonCerrarSesion"
             android:layout_alignParentLeft="true"
             android:text="Usuario"
             android:textAppearance="?android:attr/textAppearanceMedium" />

@@ -1,6 +1,7 @@
 package com.example.gestortareasapp;
 
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 import java.util.ArrayList;
 
@@ -36,7 +37,7 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_buscar_tarea_empleado);
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);	
-		
+		Log.e("id_persona", id_personas+"");
 	listviewTareasEmpleado = (ListView) findViewById(R.id.listViewBuscarTareaEmpleado);
 	edittextCriterio = (EditText) findViewById(R.id.editTextBuscarTareaEmpleado);
 	cargarlista();
@@ -44,8 +45,8 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 	
 	public void cargarlista(){
 		DbUsuarios bd_tarea = new DbUsuarios();
-			
-			ArrayList<Tarea> listatareas = bd_tarea.listartexto(id_personas);
+		Log.e("id_persona cargar", id_personas+"");
+			ArrayList<Tarea> listatareas = bd_tarea.listartextoempleado(id_personas);
 			
 		    CustomListViewTareaEmpleado Adaptador = new CustomListViewTareaEmpleado(
 			this,R.layout.tarea_list_empleado,listatareas);
@@ -75,6 +76,7 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 		
 		intent = new Intent(componente.getContext(),DetalleActivity.class);
 		intent.putExtra("idTarea", itemtarea.getId_tarea()+"");
+		intent.putExtra("id_personas", id_personas);
          startActivity(intent);
 		
 				

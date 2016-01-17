@@ -30,6 +30,9 @@ public class DbUsuarios {
 	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/lista_tareas";
 	private String METODO="lista_tareas";
 	
+	private String SOAP_ACTION2="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/devolucion_tarea";
+	private String METODO2="devolucion_tarea";
+	
 	private String Sql = "["
 			+ "{'id_tarea':1, 'descripcion':'Descripcion1', 'comentario':'Comentario1', 'nivel_tarea':'bajo', 'estado':'A'},"
 			+ "{'id_tarea':2, 'descripcion':'Descripcion2', 'comentario':'Comentario2', 'nivel_tarea':'medio', 'estado':'A'},"
@@ -86,6 +89,57 @@ public ArrayList<Tarea> listartexto(int id_personas){
 		JSONObject pruebalistatarea = new JSONObject();
 		pruebalistatarea.put("id_persona", id_personas);
 		
+		SoapObject request = new SoapObject(NAMESPACE, METODO);
+		request.addProperty("request1" , pruebalistatarea.toString());
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  			JSONArray arr = jsondatos.getJSONArray("tareas");
+			  			for (int i = 0; i < arr.length(); i++)
+			  			{
+				  			Tarea item = new Tarea();
+						    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+						    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+						    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+						    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+						    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+						    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+						    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+						    listaTarea.add(item);
+			  			}
+			  			
+			  			//return listaTarea;
+			  		}else{
+			  			//return listaTarea;
+			  		}
+		  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	return listaTarea;
+}
+
+public ArrayList<Tarea> listartextoempleado(int id_personas){
+	ArrayList<Tarea> listaTarea = null;
+	listaTarea = new ArrayList<Tarea>();
+	try {
+		JSONObject pruebalistatarea = new JSONObject();
+		pruebalistatarea.put("id_persona", id_personas);
+		Log.e("cargarlista tareas", id_personas+"");
 		SoapObject request = new SoapObject(NAMESPACE, METODO);
 		request.addProperty("request1" , pruebalistatarea.toString());
 	  	
@@ -223,7 +277,7 @@ public Tarea tareabuscar(int id_personas, int id_tarea){
 				  					item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
 								    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
 								    item.setComentario(arr.getJSONObject(i).getString("comentario"));
-								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+								    item.setId_nivel_tarea(arr.getJSONObject(i).getInt("id_tipotarea"));
 								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
 								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
 				  				   }
@@ -247,8 +301,50 @@ public Tarea tareabuscar(int id_personas, int id_tarea){
 	return item;
 }	
 
+public Tarea tareabuscarempleado(int id_tarea){
+	
+	//ArrayList<Tarea> listaTarea = null;
+	//listaTarea = new ArrayList<Tarea>();
+	Tarea item = new Tarea();
+	try {
+			
+		SoapObject request = new SoapObject(NAMESPACE, METODO2);
+		request.addProperty("request1" , id_tarea+"");
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION2, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  
+			  					item.setId_tarea(jsondatos.getInt("id_tarea"));
+			  					item.setId_empleado(jsondatos.getInt("id_persotarea"));
+							    item.setDescripcion(jsondatos.getString("descripcion"));
+							    item.setComentario(jsondatos.getString("comentario"));
+							    item.setId_nivel_tarea(jsondatos.getInt("id_tipotarea"));
+							    item.setFecha_inicio(jsondatos.getString("fecha_inicio"));
+							    item.setFecha_fin(jsondatos.getString("fecha_fin"));
+			  				   
+			  		}
+			  		
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	return item;
+
+}	
 
 	
-	
-	
 }
+	

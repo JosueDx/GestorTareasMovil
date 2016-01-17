@@ -33,29 +33,33 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class NuevaTarea extends Activity {
 	
 	    private EditText edittextDescripcion,edittextComentario;
 	    private Spinner empleadoSpinner, nivelSpinner;
-	    private Button btnFechaInicio,btnFechaFin,btnGuardar,btn_HoraInicio,btnHoraFin;    
+	    private Button btnFechaInicio,btnFechaFin,btnGuardar,btn_HoraInicio,btn_HoraFin;    
 	    private int añoIni,añoFin;    
 	    private int mesIni,mesFin;    
 	    private int diaIni,diaFin;   
 	    private int hour;
-		private int minute;
+		private int minutes;
 		private int hour2;
-		private int minute2;
+		private int minutes2;
 		
 		int id_personas,id_departamento;
 	    
-	    String fechaini, fechafin,descripcion,comentario;
+	    String fechaini, fechafin,descripcion,comentario,horaini,horafin;
+	    String fecha1,fecha2;
 	    String cmes1="",cmes2="",cdia1="",cdia2="";
-	    String opcion;
+	    String opcion, id_tarea;
 	    int opcionInt;
-     static final int DATE_DIALOG_ID = 0;
+        static final int DATE_DIALOG_ID = 0;
 	    static final int DATE_DIALOG_ID2 = 1;
+	    static final int DATE_DIALOG_ID3 = 2;
+	    static final int DATE_DIALOG_ID4 = 3;
 	    
 	    
 	    static String NAMESPACE = "http://servicio.servicio.com";
@@ -75,10 +79,67 @@ public class NuevaTarea extends Activity {
 		private String SOAP_ACTION5="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/lista_niveltareas";
 		private String METODO5="lista_niveltareas";
 		
-		private String SOAP_ACTION6="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/lista_niveltareas";
-		private String METODO6="lista_niveltareas";
+		private String SOAP_ACTION6="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
+		private String METODO6="id_empleado";
+		
+		private String SOAP_ACTION7="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/actualizartarea";
+		private String METODO7="actualizartarea";
+		
+		private String SOAP_ACTION8="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/eliminartarea";
+		private String METODO8="eliminartarea";
+		
+		private String SOAP_ACTION9="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/lista_empleados2";
+		private String METODO9="lista_empleados2";
 
-	 // la devolución de llamada recibida cuando el usuario "fija " la fecha en el diálogo 
+		// la devolución de llamada recibida cuando el usuario "fija " la hora en el diálogo 
+	    private TimePickerDialog.OnTimeSetListener mDateTimeSetListener =            
+	    	new TimePickerDialog.OnTimeSetListener() {
+
+				@Override
+				public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+					// TODO Auto-generated method stub
+					hour = hourOfDay;  
+		    		minutes = minute;                    
+		    		horaini= hour+":"+minutes+":00";	    		
+		    		updateTextViewHoraIni(); 
+				}
+
+				private void updateTextViewHoraIni() {
+					// TODO Auto-generated method stub
+					btn_HoraInicio.setText(            
+			    			new StringBuilder()                    
+			    			// Month is 0 based so add 1   
+			    			.append(hour).append(":")
+			    			.append(minutes).append(":00")
+			    			);    
+				}                
+			   	};
+		
+		// la devolución de llamada recibida cuando el usuario "fija " la hora en el diálogo 
+		private TimePickerDialog.OnTimeSetListener mDateTimeSetListener2 =            
+			    	new TimePickerDialog.OnTimeSetListener() {
+
+						@Override
+						public void onTimeSet(TimePicker view, int hourOfDay2, int minute2) {
+							// TODO Auto-generated method stub
+							hour2 = hourOfDay2;  
+				    		minutes2 = minute2;                    
+				    		horafin= hour2+":"+minutes2+":00";	    		
+				    		updateTextViewHoraFin(); 
+						}
+
+						private void updateTextViewHoraFin() {
+							// TODO Auto-generated method stub
+							btn_HoraFin.setText(            
+					    			new StringBuilder()                    
+					    			// Month is 0 based so add 1   
+					    			.append(hour2).append(":")
+					    			.append(minutes2).append(":00")
+					    			);    
+						}                
+					   	};
+		
+	    // la devolución de llamada recibida cuando el usuario "fija " la fecha en el diálogo 
 	    private DatePickerDialog.OnDateSetListener mDateSetListener =            
 	    	new DatePickerDialog.OnDateSetListener() {                
 	    	public void onDateSet(DatePicker view, int year,                                       
@@ -98,9 +159,9 @@ public class NuevaTarea extends Activity {
 	    		updateTextViewFechaIni();                
 	    		}  
 	    	};
-	    	  
-	    	
-	    private DatePickerDialog.OnDateSetListener mDateSetListener2 =            
+	    	      	
+	    private DatePickerDialog.OnDateSetListener mDateSetListener2 =     
+	    		
 	    	new DatePickerDialog.OnDateSetListener() {                
 	       	public void onDateSet(DatePicker view, int year,                                       
 	    	    	int monthOfYear, int dayOfMonth) {                    
@@ -118,7 +179,7 @@ public class NuevaTarea extends Activity {
 	    	    updateTextViewFechafin();                
 	    	    }            
 	    	};
-	/////////////////////
+	    /////////////////////
 	    
 	    	
 	    	
@@ -130,12 +191,16 @@ public class NuevaTarea extends Activity {
 		
 		Intent intent = this.getIntent();
 		opcion= intent.getStringExtra("opc");
+		id_tarea= intent.getStringExtra("idTarea");
+		Toast.makeText(this, id_tarea, Toast.LENGTH_LONG).show();
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);
 		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
 		
 		inicializar();
 		fechaIni();
 		fechaFin();
+		horaIni();
+		horaFin();
 		
 //		Intent intent=null;	
 		opcionInt= Integer.parseInt(opcion);
@@ -153,23 +218,32 @@ public class NuevaTarea extends Activity {
 			
 			edittextComentario.setText(tobj.getComentario());
 			edittextDescripcion.setText(tobj.getDescripcion());
-			btnFechaInicio.setText("");
-			btnFechaFin.setText("");
+			String fe1 = CapturarFechaInicio(tobj.getFecha_inicio());
+			btnFechaInicio.setText(fe1);
+			String ho1= CapturarHoraInicio(tobj.getFecha_inicio());
+			btn_HoraInicio.setText(ho1);
+			String fe2=CapturarFechaInicio(tobj.getFecha_fin());
+			btnFechaFin.setText(fe2);
+			String ho2 =CapturarHoraInicio(tobj.getFecha_fin());
+			btn_HoraFin.setText(ho2);
+			
 			//empleadoSpinner.setSelection(-1);
 			Log.e("id_empleado", ""+tobj.getId_empleado());
 			cargarempleado(id_departamento, tobj.getId_empleado());
-			/*if(tobj.getNivel_tarea().equals("bajo")){
-				nivelSpinner.setSelection(2);
-			}else if(tobj.getNivel_tarea().equals("medio")){
+			if(tobj.getId_nivel_tarea()==1){
+				nivelSpinner.setSelection(0);
+			}else if(tobj.getId_nivel_tarea()==2){
 				nivelSpinner.setSelection(1);	
 			}else{
-				nivelSpinner.setSelection(0);
-			}*/
+				nivelSpinner.setSelection(2);
+			}
 						
 			edittextComentario.setEnabled(false);
 			edittextDescripcion.setEnabled(false);
 			btnFechaInicio.setEnabled(false);
 			btnFechaFin.setEnabled(false);
+			btn_HoraFin.setEnabled(false);
+			btn_HoraInicio.setEnabled(false);
 			empleadoSpinner.setEnabled(false);
 			nivelSpinner.setEnabled(false);
 			
@@ -186,15 +260,22 @@ public class NuevaTarea extends Activity {
 				
 				edittextComentario.setText(tobj.getComentario());
 				edittextDescripcion.setText(tobj.getDescripcion());
-				btnFechaInicio.setText("");
-				btnFechaFin.setText("");
-				empleadoSpinner.setSelection(-1);
-				if(tobj.getNivel_tarea().equals("bajo")){
-					nivelSpinner.setSelection(2);
-				}else if(tobj.getNivel_tarea().equals("medio")){
+				String fe1 = CapturarFechaInicio(tobj.getFecha_inicio());
+				btnFechaInicio.setText(fe1);
+				String ho1= CapturarHoraInicio(tobj.getFecha_inicio());
+				btn_HoraInicio.setText(ho1);
+				String fe2=CapturarFechaInicio(tobj.getFecha_fin());
+				btnFechaFin.setText(fe2);
+				String ho2 =CapturarHoraInicio(tobj.getFecha_fin());
+				btn_HoraFin.setText(ho2);
+				//empleadoSpinner.setSelection(-1);
+				cargarempleado(id_departamento, tobj.getId_empleado());
+				if(tobj.getId_nivel_tarea()==1){
+					nivelSpinner.setSelection(0);
+				}else if(tobj.getId_nivel_tarea()==2){
 					nivelSpinner.setSelection(1);	
 				}else{
-					nivelSpinner.setSelection(0);
+					nivelSpinner.setSelection(2);
 				}
 				btnGuardar.setText("GUARDAR");
 			}
@@ -209,21 +290,30 @@ public class NuevaTarea extends Activity {
 					
 					edittextComentario.setText(tobj.getComentario());
 					edittextDescripcion.setText(tobj.getDescripcion());
-					btnFechaInicio.setText("");
-					btnFechaFin.setText("");
-					empleadoSpinner.setSelection(-1);
-					if(tobj.getNivel_tarea().equals("bajo")){
-						nivelSpinner.setSelection(2);
-					}else if(tobj.getNivel_tarea().equals("medio")){
+					String fe1 = CapturarFechaInicio(tobj.getFecha_inicio());
+					btnFechaInicio.setText(fe1);
+					String ho1= CapturarHoraInicio(tobj.getFecha_inicio());
+					btn_HoraInicio.setText(ho1);
+					String fe2=CapturarFechaInicio(tobj.getFecha_fin());
+					btnFechaFin.setText(fe2);
+					String ho2 =CapturarHoraInicio(tobj.getFecha_fin());
+					btn_HoraFin.setText(ho2);
+					//empleadoSpinner.setSelection(-1);
+					cargarempleado(id_departamento, tobj.getId_empleado());
+					if(tobj.getId_nivel_tarea()==1){
+						nivelSpinner.setSelection(0);
+					}else if(tobj.getId_nivel_tarea()==2){
 						nivelSpinner.setSelection(1);	
 					}else{
-						nivelSpinner.setSelection(0);
+						nivelSpinner.setSelection(2);
 					}
 					
 					edittextComentario.setEnabled(false);
 					edittextDescripcion.setEnabled(false);
 					btnFechaInicio.setEnabled(false);
 					btnFechaFin.setEnabled(false);
+					btn_HoraFin.setEnabled(false);
+					btn_HoraInicio.setEnabled(false);
 					empleadoSpinner.setEnabled(false);
 					nivelSpinner.setEnabled(false);
 					btnGuardar.setText("ELIMINAR");
@@ -238,7 +328,27 @@ public class NuevaTarea extends Activity {
 		
 		
 	}
-
+	
+	
+	public String CapturarFechaInicio(String cadena){
+		String fecha1="";
+		String sCadena = cadena;
+		for (int x=0;x<=9;x++) {
+			fecha1 = fecha1 + sCadena.charAt(x);
+			}
+		return fecha1;
+	}
+	
+	public String CapturarHoraInicio(String cadena){
+		String hora1="";
+		String sCadena = cadena;
+		for (int x=11;x<= 15;x++) {
+			hora1 = hora1 + sCadena.charAt(x);
+			}
+		return hora1;
+	}
+	
+	
 	public void inicializar(){
 		btnFechaInicio=(Button) findViewById(R.id.buttonCrearTarea);
 		btnFechaFin=(Button) findViewById(R.id.buttonFechaFin);
@@ -248,12 +358,12 @@ public class NuevaTarea extends Activity {
 		nivelSpinner=(Spinner) findViewById(R.id.spinnerTipoTarea);
 		btnGuardar=(Button) findViewById(R.id.buttonBuscarTarea);
 		btn_HoraInicio=(Button) findViewById(R.id.buttonHoraInicioo);
-		btnHoraFin=(Button) findViewById(R.id.buttonHoraFinn);
+		btn_HoraFin=(Button) findViewById(R.id.buttonHoraFinn);
 		
 		
-		
+		Log.e("departamento", id_departamento+"");
 		SoapObject request = new SoapObject(NAMESPACE, METODO4);
-		request.addProperty("request1" , id_departamento+"");
+		request.addProperty("request1" , id_personas+"");
 	  	
 	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 	    Envoltorio.setOutputSoapObject (request);
@@ -267,6 +377,8 @@ public class NuevaTarea extends Activity {
 	  		
 	  		if(result != null){
 	  			Log.e("TIPO ACCION: 2-- ","opcion");
+	  			Log.e("lista empleado: 2-- ","lista");
+	  			Log.e("resultado", result.getProperty(0).toString());
 	  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
 	  			
 	  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
@@ -276,6 +388,7 @@ public class NuevaTarea extends Activity {
 	  			  String departamentoNombre = arr.getJSONObject(i).getString("nombres");
 	  			  String departamentoApellido = arr.getJSONObject(i).getString("apellidos");
 	  			  list.add(departamentoNombre +" "+ departamentoApellido);
+	  			  Log.e("empleado: ",departamentoNombre +" "+ departamentoApellido);
 	  			}
 	  			
 	  			
@@ -346,8 +459,8 @@ public class NuevaTarea extends Activity {
 	
 	public void cargarempleado(int id_departamento, int id_persona){
 		
-		SoapObject request = new SoapObject(NAMESPACE, METODO4);
-		request.addProperty("request1" , id_departamento+"");
+		SoapObject request = new SoapObject(NAMESPACE, METODO9);
+		request.addProperty("request1" , id_persona+"");
 	  	
 	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 	    Envoltorio.setOutputSoapObject (request);
@@ -355,7 +468,7 @@ public class NuevaTarea extends Activity {
 	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
 	  	List<String> list = new ArrayList<String>();
 	  	try {
-	  		TransporteHttp.call(SOAP_ACTION4, Envoltorio);
+	  		TransporteHttp.call(SOAP_ACTION9, Envoltorio);
 	  	   
 	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
 	  		
@@ -376,6 +489,20 @@ public class NuevaTarea extends Activity {
 			  			  String departamentoApellido = arr.getJSONObject(i).getString("apellidos");
 			  			  list.add(departamentoNombre +" "+ departamentoApellido);
 		  			 }
+	  			}
+	  			
+	  			for (int i = 0; i < arr.length(); i++)
+	  			{
+	  				Log.e("id empleado for "," "+id_persona);
+	  				if (id_persona == arr.getJSONObject(i).getInt("id_persona"))
+	  				{
+	  					 
+		  			}else{
+		  				  Log.e("empleado ",":3");
+			  			  String departamentoNombre = arr.getJSONObject(i).getString("nombres");
+			  			  String departamentoApellido = arr.getJSONObject(i).getString("apellidos");
+			  			  list.add(departamentoNombre +" "+ departamentoApellido);
+		  			}
 	  			}
 	  			
 	  			
@@ -413,6 +540,78 @@ public class NuevaTarea extends Activity {
 		 
 		 	
 		}
+	public int funcionidnivel(String valor ){
+		int id_nivel = 0;
+		
+		SoapObject request = new SoapObject(NAMESPACE, METODO3);
+		request.addProperty("request1" , valor);
+	  	
+	  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	      Envoltorio.setOutputSoapObject (request);
+	  	  
+	  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION3, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+	  		if(result != null){
+	  			
+	  			id_nivel = Integer.parseInt(result.getProperty(0).toString());
+	  		
+	  		}else{
+	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+	  		}
+	  		
+	  		
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+	  	  		
+	  		}
+
+	  	Log.e("id_nivel_tarea_almacenar", ""+id_nivel);
+		return id_nivel;
+	}
+	
+	public int funcionidempleado(String valor){
+		int id_empleado=0;
+		SoapObject request = new SoapObject(NAMESPACE, METODO6);
+		request.addProperty("request1" , valor);
+	  	
+	  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	      Envoltorio.setOutputSoapObject (request);
+	  	  
+	  	  HttpTransportSE TransporteHttp3 = new HttpTransportSE(URL);
+	  	
+	  	try {
+	  		TransporteHttp3.call(SOAP_ACTION6, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+	  		if(result != null){
+	  			
+	  			id_empleado = Integer.parseInt(result.getProperty(0).toString());
+	  		
+	  		}else{
+	  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+	  		}
+	  		
+	  		
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+	  	  		
+	  		}
+
+		
+	  	Log.e("id_empleado_almacenar", ""+id_empleado);
+
+		
+		return id_empleado;
+	}
+	
 	public void guardartarea(){
 		Toast.makeText(this, fechaini, Toast.LENGTH_LONG).show();
 		if(descripcion.equals("") || comentario.equals("")){
@@ -420,20 +619,25 @@ public class NuevaTarea extends Activity {
 			
 		}else{
 			
+			fecha1=fechaini+" "+horaini;
+			fecha2=fechafin+" "+horafin;
+			
+			int id_nivel_tarea_almacenar = funcionidnivel(nivelSpinner.getSelectedItem().toString());
+		  	int id_empleado_almacenar = funcionidempleado(empleadoSpinner.getSelectedItem().toString());			
 			
 			JSONObject objTarea=new JSONObject();
 			try {
-				objTarea.put("id_tarea",0);// no queremos este valor
-				objTarea.put("id_tipotarea",3);
+				//objTarea.put("id_tarea",0);// no queremos este valor
+				objTarea.put("id_tipotarea",id_nivel_tarea_almacenar);
 				objTarea.put("id_persona",id_personas);
-				objTarea.put("id_persotarea",7);
+				objTarea.put("id_persotarea",id_empleado_almacenar);
 				objTarea.put("descripcion",descripcion);
-				objTarea.put("archivo",comentario);// no queremos este valor
+				//objTarea.put("archivo",comentario);// no queremos este valor
 				objTarea.put("comentario",comentario);
-				objTarea.put("fecha_inicio",fechaini);
-				objTarea.put("fecha_fin", fechafin);
+				objTarea.put("fecha_inicio",btnFechaInicio.getText()+" "+btn_HoraInicio.getText());
+				objTarea.put("fecha_fin", btnFechaFin.getText()+" "+btn_HoraFin.getText());
 				objTarea.put("estado","P");
-				objTarea.put("estado_tarea",2);// no queremos este valor
+				//objTarea.put("estado_tarea",2);// no queremos este valor
 				
 				//objPersona.put("Empleado",id_Empleado(empleadoSpinner.getSelectedItem().toString()));
 				//objPersona.put("Nivel_tarea",id_NivelTarea(nivelSpinner.getSelectedItem().toString()));
@@ -441,7 +645,7 @@ public class NuevaTarea extends Activity {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+			Log.e("json", objTarea.toString());
 			/*JSONObject jsonobject = new JSONObject();
 			try {
 				jsonobject.put("tarea", objTarea);
@@ -450,18 +654,18 @@ public class NuevaTarea extends Activity {
 				e1.printStackTrace();
 			}*/
 			
-			SoapObject request = new SoapObject(NAMESPACE, METODO);
-			request.addProperty("request1" , objTarea.toString());
+			SoapObject request2 = new SoapObject(NAMESPACE, METODO);
+			request2.addProperty("request1" , objTarea.toString());
 		  	
-		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
-		      Envoltorio.setOutputSoapObject (request);
+		  	  SoapSerializationEnvelope Envoltorio2 = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+		      Envoltorio2.setOutputSoapObject (request2);
 		  	  
-		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	  HttpTransportSE TransporteHttp2 = new HttpTransportSE(URL);
 		  	
 		  	try {
-		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+		  		TransporteHttp2.call(SOAP_ACTION, Envoltorio2);
 		  	   
-		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  		SoapObject result = (SoapObject) Envoltorio2.bodyIn;
 		  		
 		  		if(result != null){
 		  			
@@ -495,20 +699,27 @@ public class NuevaTarea extends Activity {
 			
 		}else{
 			
-
+			int id = Integer.parseInt(id_tarea);
+			
+			fecha1=fechaini+" "+horaini;
+			fecha2=fechafin+" "+horafin;
+			
+			int id_nivel_tarea_almacenar = funcionidnivel(nivelSpinner.getSelectedItem().toString());
+		  	int id_empleado_almacenar = funcionidempleado(empleadoSpinner.getSelectedItem().toString());			
+			
 			JSONObject objTarea=new JSONObject();
 			try {
-				objTarea.put("id_tarea",1);// no queremos este valor
-				objTarea.put("id_tipotarea",3);
+				objTarea.put("id_tarea",id);// no queremos este valor
+				objTarea.put("id_tipotarea",id_nivel_tarea_almacenar);
 				objTarea.put("id_persona",id_personas);
-				objTarea.put("id_persotarea",7);
+				objTarea.put("id_persotarea",id_empleado_almacenar);
 				objTarea.put("descripcion",descripcion);
-				objTarea.put("archivo",comentario);// no queremos este valor
+				//objTarea.put("archivo",comentario);// no queremos este valor
 				objTarea.put("comentario",comentario);
-				objTarea.put("fecha_inicio",fechaini);
-				objTarea.put("fecha_fin", fechafin);
+				objTarea.put("fecha_inicio", btnFechaInicio.getText()+" "+btn_HoraInicio.getText());
+				objTarea.put("fecha_fin", btnFechaFin.getText()+" "+btn_HoraFin.getText());
 				objTarea.put("estado","P");
-				objTarea.put("estado_tarea",2);// no queremos este valor
+				//objTarea.put("estado_tarea",2);// no queremos este valor
 				
 				//objPersona.put("Empleado",id_Empleado(empleadoSpinner.getSelectedItem().toString()));
 				//objPersona.put("Nivel_tarea",id_NivelTarea(nivelSpinner.getSelectedItem().toString()));
@@ -516,7 +727,7 @@ public class NuevaTarea extends Activity {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
+			Log.e("json", objTarea.toString());			
 			/*JSONObject jsonobject = new JSONObject();
 			try {
 				jsonobject.put("tarea", objTarea);
@@ -525,7 +736,7 @@ public class NuevaTarea extends Activity {
 				e1.printStackTrace();
 			}*/
 			
-			SoapObject request = new SoapObject(NAMESPACE, METODO6);
+			SoapObject request = new SoapObject(NAMESPACE, METODO7);
 			request.addProperty("request1" , objTarea.toString());
 		  	
 		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
@@ -534,7 +745,7 @@ public class NuevaTarea extends Activity {
 		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
 		  	
 		  	try {
-		  		TransporteHttp.call(SOAP_ACTION6, Envoltorio);
+		  		TransporteHttp.call(SOAP_ACTION7, Envoltorio);
 		  	   
 		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
 		  		
@@ -568,23 +779,18 @@ public class NuevaTarea extends Activity {
 			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
 			
 		}else{
-			
-			
+			int id = Integer.parseInt(id_tarea);
 			JSONObject objPersona=new JSONObject();
 			try {
-				objPersona.put("Descripcion",descripcion);
-				objPersona.put("Comentario",comentario);
-				objPersona.put("Fecha_inicio",fechaini);
-				objPersona.put("Fecha_fin",fechafin);
-				objPersona.put("Empleado",id_Empleado(empleadoSpinner.getSelectedItem().toString()));
-				objPersona.put("Nivel_tarea",id_NivelTarea(nivelSpinner.getSelectedItem().toString()));
+				objPersona.put("id_tarea",id);
+				
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 			
-			SoapObject request = new SoapObject(NAMESPACE, METODO);
-			request.addProperty("request1" , objPersona);
+			SoapObject request = new SoapObject(NAMESPACE, METODO8);
+			request.addProperty("request1" , objPersona.toString());
 		  	
 		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 		      Envoltorio.setOutputSoapObject (request);
@@ -592,26 +798,21 @@ public class NuevaTarea extends Activity {
 		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
 		  	
 		  	try {
-		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+		  		TransporteHttp.call(SOAP_ACTION8, Envoltorio); 
 		  	   
 		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
 		  		
 		  		if(result != null){
 		  			
 		  			if(result.getProperty(0).toString().equals("0")){
-						Toast.makeText(this, "Tarea Agregado Correctamente ", Toast.LENGTH_LONG).show();
+						Toast.makeText(this, "Error ", Toast.LENGTH_LONG).show();
 						
 					}
 					if(result.getProperty(0).toString().equals("1")){
-						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
+						Toast.makeText(this, "Eliminar correctamente", Toast.LENGTH_LONG).show();
 						
 					}
-					if(result.getProperty(0).toString().equals("2")){
-						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();
-						
-					}
-		  		
-		  		
+					
 		  		}else{
 		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
 		  		}
@@ -727,9 +928,9 @@ public class NuevaTarea extends Activity {
     	btnFechaInicio.setText(            
     			new StringBuilder()                    
     			// Month is 0 based so add 1   
-    			.append(diaIni ).append(" de ")
-    			.append(mes ).append(" del ")
-    			.append(añoIni).append(" ")		                    
+    			.append(añoFin).append("-")
+    			.append(mesIni).append("-")                    
+    			.append(diaFin).append("")		                    
     			);    
     }
     
@@ -767,9 +968,9 @@ public class NuevaTarea extends Activity {
     	btnFechaFin.setText(            
     			new StringBuilder()                    
     			// Month is 0 based so add 1   
-    			.append(diaFin ).append(" de ")
-    			.append(mes ).append(" del ")                    
-    			.append(añoFin).append("")
+    			.append(añoFin ).append("-")
+    			.append(mesFin).append("-")                    
+    			.append(diaFin).append("")
     			);    
     }
     
@@ -777,7 +978,7 @@ public class NuevaTarea extends Activity {
     	
     	try {
 			File tarjeta = Environment.getExternalStorageDirectory();
-			File file = new File(tarjeta.getAbsoluteFile(),"");
+			File file = new File(tarjeta.getAbsoluteFile(),"archivo_prueba.docx");
 			
     		
 			
@@ -785,6 +986,40 @@ public class NuevaTarea extends Activity {
 			// TODO: handle exception
 		}
     }
+    
+    public void horaIni(){
+    	//
+    	btn_HoraInicio.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+    			showDialog(DATE_DIALOG_ID3);            
+    			}
+		});
+    	
+    	final Calendar ci = Calendar.getInstance();        
+    	hour = ci.get(Calendar.HOUR);      
+    	minutes= ci.get(Calendar.MINUTE);    
+    	
+    }
+    public void horaFin(){
+    	//
+    	btn_HoraFin.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+    			showDialog(DATE_DIALOG_ID4);            
+    			}
+		});
+    	
+    	final Calendar ci = Calendar.getInstance();        
+    	hour2 = ci.get(Calendar.HOUR);      
+    	minutes2= ci.get(Calendar.MINUTE);    
+    	
+    }
+    
     
     public void fechaIni(){
     	// add a click listener to the button        
@@ -800,7 +1035,7 @@ public class NuevaTarea extends Activity {
     	mesIni = ci.get(Calendar.MONTH) + 1 ;        
     	diaIni = ci.get(Calendar.DAY_OF_MONTH);       
     }
-	
+    
 	public void fechaFin(){
     	// add a click listener to the button        
     	
@@ -830,7 +1065,14 @@ public class NuevaTarea extends Activity {
     			return new DatePickerDialog(this,                    
     					mDateSetListener2,                    
     					añoFin,( mesFin - 1), diaFin);   
-    			} 
+    			
+    		case DATE_DIALOG_ID3:
+    	    	 return new TimePickerDialog(this, mDateTimeSetListener, hour, minutes, false);
+    	
+    		case DATE_DIALOG_ID4:
+   	    	 return new TimePickerDialog(this, mDateTimeSetListener2, hour2, minutes2, false);
+  
+    	} 
     	return null;
     	}
 	@Override

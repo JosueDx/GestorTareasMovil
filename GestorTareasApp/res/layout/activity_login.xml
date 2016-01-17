@@ -81,12 +81,5 @@
     android:text="CREAR CUENTA"
     android:textAlignment="center"
     android:textColor="#a31c16" />
-
-<Button
-    android:id="@+id/buttonBuscarTarea"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:onClick="onSpinner"
-    android:text="Button" />
  
 </LinearLayout>

@@ -3,11 +3,12 @@
     android:id="@+id/RelativeLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+     >
 
     <TextView
         android:id="@+id/textViewDescripcionEmpleado"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
@@ -18,7 +19,7 @@
 
     <TextView
         android:id="@+id/textViewFechaInicioEmpleado"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/textViewDescripcionEmpleado"
         android:layout_below="@+id/textViewDescripcionEmpleado"
@@ -27,12 +28,10 @@
 
     <TextView
         android:id="@+id/textViewFechaFinEmpleado"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewFechaInicioEmpleado"
-        android:layout_alignBottom="@+id/textViewFechaInicioEmpleado"
-        android:layout_marginLeft="40dp"
-        android:layout_toRightOf="@+id/textViewDescripcionEmpleado"
+        android:layout_alignLeft="@+id/textViewFechaInicioEmpleado"
+        android:layout_below="@+id/textViewFechaInicioEmpleado"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

@@ -48,14 +48,14 @@ public class DetalleActivity extends Activity {
 	private int minute;
 	private Calendar calendar;
 	private String format = "";
-	int cal1,cal2,total;
-	
+	int cal1,cal2,total, id_personas;
+		
 	
 	private void triggerNotification(){
 			
 	        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
 	        
-	        Intent i = new Intent(this, NotificationView.class);
+	        Intent i = new Intent(this, MainActivity.class);
 	        i.putExtra("notificationID", notificationID);
 	         
 	        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
@@ -128,6 +128,7 @@ public class DetalleActivity extends Activity {
 		inicializar();
 		Intent intent = this.getIntent();
 		idTarea = intent.getStringExtra("idTarea");
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);
 		cargar_tarea(idTarea);
 		
 	}
@@ -164,7 +165,7 @@ public class DetalleActivity extends Activity {
 	                  public void run()
 	                  {
 	                  	
-	                  	triggerNotification();
+	                  	//triggerNotification();
 	                  	
 	                    //  funciono();
 	                  	
@@ -197,9 +198,9 @@ public class DetalleActivity extends Activity {
 	}
 	
 	public void cargar_tarea(String idTarea){
-		
+		int idTarea2 = Integer.parseInt(idTarea);
 		DbUsuarios bd =new DbUsuarios();
-		tobj = bd.tareabuscarFutura(idTarea);
+		tobj = bd.tareabuscarempleado(idTarea2);
 		
 		textdescripcion.setText(tobj.getDescripcion());
 		textcomentario.setText(tobj.getComentario());
@@ -216,7 +217,8 @@ public class DetalleActivity extends Activity {
 	
 	public void onTareaRealizada(View boton){ 
 		Intent intent= new Intent(this,TareaRealizada.class);
-		intent.putExtra("idTarea", tobj.getId_tarea()+"");
+		intent.putExtra("idTarea", idTarea);
+		intent.putExtra("descripcion", tobj.getDescripcion());
 		startActivity(intent);	
 	}
 	

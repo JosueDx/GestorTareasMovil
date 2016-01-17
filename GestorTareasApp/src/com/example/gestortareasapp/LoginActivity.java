@@ -36,7 +36,8 @@ public class LoginActivity extends Activity {
 	Persona objPersona;
 	Usuarios objUsuario;
 	
-		
+	
+	
 	static String NAMESPACE  ="http://servicio.servicio.com";
 	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
 	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/login";
@@ -56,12 +57,6 @@ public class LoginActivity extends Activity {
 	}
 	
 
-	public void onSpinner(View v){
-		Intent intent= new Intent(this,SpinnerActivity.class);
-		startActivity(intent);
-		
-	}
-	
 	void inicializar(){
 		edittextUser = (EditText) findViewById(R.id.EdittextUser);
 		edittextPassword = (EditText) findViewById(R.id.EditttextPassword);
@@ -85,7 +80,7 @@ public class LoginActivity extends Activity {
 		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 		      Envoltorio.setOutputSoapObject (request);
 		  	  
-		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL,12000);
 		  	
 		  	try {
 		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);

@@ -22,15 +22,13 @@ import android.widget.Toast;
 
 public class MiIntentService extends IntentService {
 	
-	public static final String ACTION_PROGRESO = "net.sgoliver.intent.action.PROGRESO";
-	public static final String ACTION_FIN = "net.sgoliver.intent.action.FIN";
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.11:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.11:8080/Servicio_Tarea/services/funciones_servicio/notificacion";
+	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/notificacion";
 	private String METODO="notificacion";
 	
-	private String SOAP_ACTION2="http://192.168.1.11:8080/Servicio_Tarea/services/funciones_servicio/tareaespecifica";
+	private String SOAP_ACTION2="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/tareaespecifica";
 	private String METODO2="tareaespecifica";
 	
 	int notificationID = 1;
@@ -49,7 +47,7 @@ public class MiIntentService extends IntentService {
 		String validacion = "0";
 		for(int i=1; i<=iter; i++) {
 			tareaLarga();
-			
+			// desde aki comentar para prueba
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
 			request.addProperty("request1" , ""+id_empleado);
 		  	
@@ -66,10 +64,10 @@ public class MiIntentService extends IntentService {
 		  		if(result != null){
 		  			
 		  			if(result.getProperty(0).toString().equals("1")){
-		  				validacion = "1";
+		  				validacion = "1"; // si tiene tarea pendiente 
 					}
 					if(result.getProperty(0).toString().equals("0")){
-						validacion = "0";
+						validacion = "0"; // si no tiene tarea pendiente
 					}
 		  		
 		  		}else{
@@ -82,6 +80,11 @@ public class MiIntentService extends IntentService {
 		  			//Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
 		  	  		
 		  		}	
+		  	// hasta aki comentar en prueba
+		  	
+		  /*	if (i == 25){
+		  		validacion = "1";
+		  	}*/
 			
 			if(validacion.equals("1")){
 				triggerNotification();
@@ -105,6 +108,7 @@ public class MiIntentService extends IntentService {
         //i.putExtra("notificationID", notificationID);
         
         
+        //comentar desde aki en prueba
         SoapObject request = new SoapObject(NAMESPACE, METODO2);
 		request.addProperty("request1" , ""+id_empleado);
 	  	
@@ -138,12 +142,12 @@ public class MiIntentService extends IntentService {
 	  			//Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
 	  	  		
 	  		}	
-        
+        // hasta aki comentar
          
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
         CharSequence ticker ="Notificacion de TAREA NUEVA";
-        CharSequence contentTitle = item.getDescripcion();
-        CharSequence contentText = item.getComentario();
+        CharSequence contentTitle = item.getDescripcion(); // cambiar por un string "Notificacion"
+        CharSequence contentText = item.getComentario(); // cambiar por un string "Notificacion"
         Notification noti = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
                 .setTicker(ticker)
