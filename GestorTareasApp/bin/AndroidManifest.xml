@@ -86,8 +86,22 @@
             android:name=".AlarmActivity"
             android:label="@string/title_activity_alarm" >
         </activity>
-        
-        <service android:name=".MiIntentService"></service>
+
+        <service android:name=".MiIntentService" >
+        </service>
+
+        <activity
+            android:name=".EficienciaActivity"
+            android:label="@string/title_activity_eficiencia" >
+        </activity>
+        <activity
+            android:name=".EficienciaGeneral"
+            android:label="@string/title_activity_eficiencia_general" >
+        </activity>
+        <activity
+            android:name=".Eficiencia_tarea"
+            android:label="@string/title_activity_eficiencia_tarea" >
+        </activity>
     </application>
 
 </manifest>

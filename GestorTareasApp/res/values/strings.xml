@@ -40,5 +40,8 @@
     <string name="title_activity_notification_view">NotificationView</string>
     <string name="title_activity_bye">Bye</string>
     <string name="title_activity_alarm">AlarmActivity</string>
+    <string name="title_activity_eficiencia">EficienciaActivity</string>
+    <string name="title_activity_eficiencia_general">EficienciaGeneral</string>
+    <string name="title_activity_eficiencia_tarea">Eficiencia_tarea</string>
 
 </resources>

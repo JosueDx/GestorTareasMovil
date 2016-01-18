@@ -146,6 +146,12 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	public void onEficiencia(View v){
+
+		Intent intent= new Intent(this,EficienciaActivity.class);
+		startActivity(intent);
+	}	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
