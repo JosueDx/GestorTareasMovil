@@ -26,11 +26,11 @@ public class DbUsuarios {
 	public static final String TABLA_NAME_tipousuarios = "tipousuarios";
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/lista_tareas";
+	static String URL = "http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/lista_tareas";
 	private String METODO="lista_tareas";
 	
-	private String SOAP_ACTION2="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/devolucion_tarea";
+	private String SOAP_ACTION2="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/devolucion_tarea";
 	private String METODO2="devolucion_tarea";
 	
 	private String Sql = "["
@@ -85,6 +85,7 @@ public Datosusuarios Listalogin(Context contexto, String usuario, String contras
 public float[] listarEficiencia(int id_personas){
 	float[] variable = {0, 0, 0, 0};
 	
+	Log.e("id persona", id_personas+"");
 	ArrayList<Tarea> listaTarea = null;
 
 	listaTarea = new ArrayList<Tarea>();

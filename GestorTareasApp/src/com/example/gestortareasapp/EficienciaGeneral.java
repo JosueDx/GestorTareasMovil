@@ -1,6 +1,7 @@
 package com.example.gestortareasapp;
 
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 
 import com.modelos.DbUsuarios;
 
@@ -29,7 +30,7 @@ public class EficienciaGeneral extends Activity {
 		inicializar();
 		DbUsuarios db= new DbUsuarios();
 		float[] variable = {0, 0, 0, 0};
-		
+		Log.e("id persona", id_personas+"");
 		variable=db.listarEficiencia(id_personas);
 		textviewTotales.setText(variable[0]+"");
 		textviewRealizado.setText(variable[1]+"");
