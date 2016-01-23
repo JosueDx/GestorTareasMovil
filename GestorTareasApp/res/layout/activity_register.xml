@@ -193,7 +193,7 @@
             android:text="[hola]" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textViewDescripcionEficiencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="                             Departamento" />

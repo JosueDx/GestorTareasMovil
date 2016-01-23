@@ -200,6 +200,80 @@ public ArrayList<Tarea> listartexto(int id_personas){
 	return listaTarea;
 }
 
+//eficiencia
+public ArrayList<Tarea> listartextoeficiencia(int id_personas){
+	ArrayList<Tarea> listaTarea = null;
+	listaTarea = new ArrayList<Tarea>();
+	try {
+		JSONObject pruebalistatarea = new JSONObject();
+		pruebalistatarea.put("id_persona", id_personas);
+		
+		SoapObject request = new SoapObject(NAMESPACE, METODO);
+		request.addProperty("request1" , pruebalistatarea.toString());
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  			JSONArray arr = jsondatos.getJSONArray("tareas");
+			  			for (int i = 0; i < arr.length(); i++)
+			  			{
+			  				
+			  				if((arr.getJSONObject(i).getString("estado").equals("R")) || (arr.getJSONObject(i).getString("estado").equals("T"))){
+			  		
+			  					if(arr.getJSONObject(i).getString("estado").equals("R")){
+			  						Tarea item = new Tarea();
+								    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+								    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+								    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+								    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+								    item.setEstado("100%");
+								    listaTarea.add(item);
+							    }
+							    if(arr.getJSONObject(i).getString("estado").equals("T")){
+							    	Tarea item = new Tarea();
+								    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+								    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+								    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+								    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+								    item.setEstado("50%");
+								    listaTarea.add(item);
+							    }
+			  				
+							}
+			  			}
+			  			
+			  			//return listaTarea;
+			  		}else{
+			  			//return listaTarea;
+			  		}
+		  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	return listaTarea;
+}
+
+
+
 public ArrayList<Tarea> listartextoempleado(int id_personas){
 	ArrayList<Tarea> listaTarea = null;
 	listaTarea = new ArrayList<Tarea>();

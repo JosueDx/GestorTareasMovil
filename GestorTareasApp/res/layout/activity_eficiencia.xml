@@ -30,8 +30,7 @@
         android:layout_marginBottom="46dp"
         android:layout_marginRight="26dp"
         android:onClick="onCerrar"
-        android:text="CERRAR"
-        android:textColor="#ba5202" />
+        android:text="CERRAR" />
 
     <Button
         android:id="@+id/button2"
@@ -41,8 +40,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp"
         android:onClick="onTareas"
-        android:text="POR TAREAS"
-        android:textColor="#ba5202" />
+        android:text="POR TAREAS" />
 
     <Button
         android:id="@+id/button1"
@@ -52,7 +50,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="17dp"
         android:onClick="onGeneral"
-        android:text="GENERAL"
-        android:textColor="#ba5202" />
+        android:text="GENERAL" />
 
 </RelativeLayout>

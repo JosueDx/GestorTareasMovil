@@ -18,7 +18,7 @@
         android:text="Stop" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textViewDescripcionEficiencia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -31,8 +31,8 @@
         android:id="@+id/analogClock1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignRight="@+id/textViewDescripcionEficiencia"
+        android:layout_below="@+id/textViewDescripcionEficiencia"
         android:layout_marginTop="18dp" />
 
     <TextView
@@ -46,7 +46,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewEficienciaPorc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/txtDescripcionTarea"
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/txtHoraTarea"
-        android:layout_alignRight="@+id/textView2"
+        android:layout_alignRight="@+id/textViewEficienciaPorc"
         android:text="Fecha:" />
 
 </RelativeLayout>

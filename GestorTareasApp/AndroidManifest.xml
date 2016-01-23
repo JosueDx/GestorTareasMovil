@@ -102,6 +102,10 @@
             android:name=".Eficiencia_tarea"
             android:label="@string/title_activity_eficiencia_tarea" >
         </activity>
+        <activity
+            android:name=".BuscarEficiencia"
+            android:label="@string/title_activity_buscar_eficiencia" >
+        </activity>
     </application>
 
 </manifest>

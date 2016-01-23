@@ -43,5 +43,6 @@
     <string name="title_activity_eficiencia">EficienciaActivity</string>
     <string name="title_activity_eficiencia_general">EficienciaGeneral</string>
     <string name="title_activity_eficiencia_tarea">Eficiencia_tarea</string>
+    <string name="title_activity_buscar_eficiencia">BuscarEficiencia</string>
 
 </resources>

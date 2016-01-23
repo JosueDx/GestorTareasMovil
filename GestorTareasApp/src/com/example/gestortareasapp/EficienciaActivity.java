@@ -39,7 +39,8 @@ public class EficienciaActivity extends Activity {
 	
 	public void onTareas(View v){
 
-		Intent intent= new Intent(this,Eficiencia_tarea.class);
+		Intent intent= new Intent(this,BuscarEficiencia.class);
+		intent.putExtra("id_persona", id_personas);
 		startActivity(intent);
 	}
 	public void onCerrar(View v){
