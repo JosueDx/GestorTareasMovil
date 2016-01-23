@@ -16,7 +16,7 @@
         android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageViewVisto"
             android:layout_width="match_parent"
             android:layout_height="116dp"
             android:src="@drawable/ic_launcher" />
@@ -70,8 +70,7 @@
     android:layout_gravity="center"
     android:onClick="onLogin"
     android:text="INICIAR"
-    android:textAlignment="center"
-    android:textColor="#a31c16" />
+    android:textAlignment="center" />
 
 <Button
     android:id="@+id/buttonRealizarTareas"
@@ -79,7 +78,6 @@
     android:layout_height="80px"
     android:onClick="onRegister"
     android:text="CREAR CUENTA"
-    android:textAlignment="center"
-    android:textColor="#a31c16" />
+    android:textAlignment="center" />
  
 </LinearLayout>

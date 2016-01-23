@@ -10,12 +10,51 @@
     tools:context="com.example.gestortareasapp.EficienciaGeneral" >
 
     <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="Tareas Totales"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:text="CERRAR"
+        android:textColor="#ba5202" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Button01"
+        android:layout_alignRight="@+id/TextView01"
+        android:layout_marginBottom="27dp"
+        android:text="Tareas Atrasadas"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/TextView02"
+        android:layout_alignLeft="@+id/textView2"
+        android:layout_marginBottom="32dp"
+        android:text="Tareas Realizadas"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
         android:id="@+id/textViewNombreList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignLeft="@+id/TextView02"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="78dp"
+        android:layout_marginTop="40dp"
         android:text="Eficiencia General"
         android:textColor="#6aba02"
         android:textSize="30dp"
@@ -25,34 +64,50 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textViewNombreList"
         android:layout_below="@+id/textViewNombreList"
-        android:layout_marginLeft="51dp"
-        android:layout_marginTop="35dp"
-        android:text="Nivel  Eficiencia"
-        android:textColor="#ba5202"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="48dp"
-        android:ems="10" >
+        android:layout_marginTop="18dp"
+        android:text="Nivel  Eficiencia"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#ba5202" />
 
-        <requestFocus />
-    </EditText>
-
-    <Button
-        android:id="@+id/Button01"
+    <TextView
+        android:id="@+id/textViewTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/textViewNombreList"
-        android:layout_below="@+id/editText1"
-        android:layout_marginTop="68dp"
-        android:text="CERRAR"
-        android:textColor="#ba5202" />
+        android:layout_centerVertical="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textViewEficiente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/Button01"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="16dp"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/textViewRealizada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/TextView01"
+        android:layout_alignBottom="@+id/TextView01"
+        android:layout_alignRight="@+id/textViewTotal"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textViewAtrasada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/TextView02"
+        android:layout_alignBottom="@+id/TextView02"
+        android:layout_alignRight="@+id/textViewRealizada"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

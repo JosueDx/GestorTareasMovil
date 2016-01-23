@@ -10,10 +10,17 @@ import android.view.View;
 
 public class EficienciaActivity extends Activity {
 
+	int id_personas;
+		
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_eficiencia);
+	
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		
+		
 	}
 
 	@Override
@@ -26,6 +33,7 @@ public class EficienciaActivity extends Activity {
 	public void onGeneral(View v){
 
 		Intent intent= new Intent(this,EficienciaGeneral.class);
+		intent.putExtra("id_persona", id_personas);
 		startActivity(intent);
 	}
 	

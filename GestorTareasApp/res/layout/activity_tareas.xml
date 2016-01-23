@@ -12,7 +12,7 @@
     tools:context="com.example.gestortareasapp.Tareas" >
 
     <ImageView
-        android:id="@+id/imageView1"
+        android:id="@+id/imageViewVisto"
         android:layout_width="match_parent"
         android:layout_height="116dp"
         android:src="@drawable/ic_launcher" />
@@ -27,9 +27,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:text="JOB TASK"
+            
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="30sp"
+            android:text="     JOB TASK     "
+            android:textColor="#baae01"
+            android:textSize="40dp"
             android:textStyle="bold" />
 
         <Button

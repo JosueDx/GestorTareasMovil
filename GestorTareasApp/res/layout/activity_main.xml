@@ -22,21 +22,11 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="16dp"
-            android:text="JOB TASK"
+            android:text="         JOB TASK     "
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="30sp"
+            android:textColor="#baae01"
+            android:textSize="40dp"
             android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/textViewNombreList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textViewValidarCedula"
-            android:layout_marginRight="39dp"
-            android:layout_toLeftOf="@+id/textViewValidarCedula"
-            android:text="Funciones "
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="italic|bold" />
 
         <Button
             android:id="@+id/buttonEficienciaTareas"
@@ -47,8 +37,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginBottom="88dp"
             android:onClick="onEficiencia"
-            android:text="Eficiencia Tarea"
-            android:textColor="#a31c16" />
+            android:text="Eficiencia Tarea" />
 
         <Button
             android:id="@+id/buttonRealizarTareas"
@@ -58,28 +47,16 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:onClick="onRealizarTareas"
-            android:text="Realizar Tarea"
-            android:textColor="#a31c16" />
-
-        <Button
-            android:id="@+id/buttonGestorTareas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/buttonRealizarTareas"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
-            android:onClick="onGestorTareas"
-            android:text="Gestor Tareas"
-            android:textColor="#a31c16" />
+            android:text="Realizar Tarea" />
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageViewVisto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/buttonGestorTareas"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/textViewNombreList"
+            android:layout_below="@+id/textViewValidarCedula"
             android:src="@drawable/ic_gestortarea" />
 
         <Button
@@ -87,6 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:onClick="onSesion"
             android:text="Cerrar Sesión" />
@@ -99,6 +77,16 @@
             android:layout_alignParentLeft="true"
             android:text="Usuario"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/buttonGestorTareas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:onClick="onGestorTareas"
+            android:text="Gestor Tareas" />
 
     </RelativeLayout>
 

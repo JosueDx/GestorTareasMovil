@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -38,22 +39,23 @@ public class RegisterActivity extends Activity {
 	EditText edittextNombre, edittextApellido, edittextCedula, edittextDreccion, 
 	edittextEmail, edittextUsuario, edittextContraseña, edittextRepetirContrasenia;
 	TextView textviewUsuario,textviewContrasenia,textviewCedula;
+	ImageView imageVisto,imageError,imagev2,imagee2,imagev3,imagee3;
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/registrar_usuario";
+	static String URL = "http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/registrar_usuario";
 	private String METODO="registrar_usuario";
 	
-	private String SOAP_ACTION2="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
+	private String SOAP_ACTION2="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
 	private String METODO2="id_departamento";
 	
-	private String SOAP_ACTION3="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/validar_cedula";
+	private String SOAP_ACTION3="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/validar_cedula";
 	private String METODO3="validar_cedula";
 	
-	private String SOAP_ACTION4="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/validar_usuario";
+	private String SOAP_ACTION4="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/validar_usuario";
 	private String METODO4="validar_usuario";
 	
-	private String SOAP_ACTION5="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/lista_departamento";
+	private String SOAP_ACTION5="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/lista_departamento";
 	private String METODO5="lista_departamento";
 	
 	
@@ -62,6 +64,9 @@ public class RegisterActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
 		inicializar();
+		imageVisto.setVisibility(View.INVISIBLE);
+		imagev2.setVisibility(View.INVISIBLE);
+		imagev3.setVisibility(View.INVISIBLE);
 		
 		
 	}
@@ -80,8 +85,12 @@ public class RegisterActivity extends Activity {
 		edittextContraseña  = (EditText) findViewById(R.id.Rcontrasenia);
 		edittextRepetirContrasenia= (EditText) findViewById(R.id.RConfirmarContrasenia);		
 		textviewCedula = (TextView) findViewById(R.id.textViewValidarCedula);
-		textviewContrasenia=(TextView) findViewById(R.id.textViewValidadContrasenia);
-		textviewUsuario=(TextView) findViewById(R.id.textViewValidarUsuario);
+		imageVisto=(ImageView) findViewById(R.id.imageViewVisto);
+		imageError=(ImageView) findViewById(R.id.imageViewE1);
+		imagev2=(ImageView) findViewById(R.id.ImageViewV2);
+		imagee2=(ImageView) findViewById(R.id.ImageViewE2);
+		imagev3=(ImageView) findViewById(R.id.ImageViewV3);
+		imagee3=(ImageView) findViewById(R.id.ImageViewE3);
 		
 		edittextRepetirContrasenia.addTextChangedListener(new TextWatcher() {
 
@@ -96,12 +105,14 @@ public class RegisterActivity extends Activity {
 			     int before, int count) {
 				   
 				   if(edittextContraseña.getText().toString().equals(edittextRepetirContrasenia.getText().toString())){
-					   textviewContrasenia.setText(":D");
-					
+					  // textviewContrasenia.setText(":D");
+					   imagee3.setVisibility(View.INVISIBLE);
+						imagev3.setVisibility(View.VISIBLE);
 					
 					}else{
-						textviewContrasenia.setText("X");
-						
+						//textviewContrasenia.setText("X");
+						 imagee3.setVisibility(View.VISIBLE);
+							imagev3.setVisibility(View.INVISIBLE);
 					}
 				   
 			   }
@@ -125,11 +136,14 @@ public class RegisterActivity extends Activity {
 				   validacion = validacioncedula(edittextCedula.getText().toString());
 				   
 				   if(validacion.equals("false")){
-					   textviewCedula.setText(":D");
-					
+					  // textviewCedula.setText(":D");
+					  imageError.setVisibility(View.INVISIBLE);
+					  imageVisto.setVisibility(View.VISIBLE);
 					}else{
-						textviewCedula.setText("X");
-						
+						//textviewCedula.setText("X");
+						 imageVisto.setVisibility(View.INVISIBLE);
+						  imageError.setVisibility(View.VISIBLE);
+
 					}
 				   
 			   }
@@ -152,11 +166,15 @@ public class RegisterActivity extends Activity {
 				   validacion = validacionUsuario(edittextUsuario.getText().toString());
 				   
 				   if(validacion.equals("false")){
-					   textviewUsuario.setText(":D");
-					
+					   //textviewUsuario.setText(":D");
+					    imagee2.setVisibility(View.INVISIBLE);
+						imagev2.setVisibility(View.VISIBLE);
+								 
 					}else{
-						textviewUsuario.setText("X");
-						
+						//textviewUsuario.setText("X");
+						imagev2.setVisibility(View.INVISIBLE);
+						imagee2.setVisibility(View.VISIBLE);
+
 					}		   
 			   }
 			  });
@@ -205,6 +223,10 @@ public class RegisterActivity extends Activity {
 		spinnerDepartamento.setAdapter(spinnerArrayAdapter);
 		
 		
+	}
+	
+	public void OnCancelar(View v){
+		finish();
 	}
 	
 	public String validacioncedula(String cedula){

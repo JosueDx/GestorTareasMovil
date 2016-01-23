@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
 		}
 		if(opcion1==2){
 			buttonGestor.setVisibility(View.INVISIBLE);
+			buttonEficiencia.setVisibility(View.INVISIBLE);
 			Log.e("servicios: ",op1);
 			Intent msgIntent = new Intent(MainActivity.this, MiIntentService.class);
 			msgIntent.putExtra("iteraciones", 100);
@@ -149,6 +150,8 @@ public class MainActivity extends Activity {
 	public void onEficiencia(View v){
 
 		Intent intent= new Intent(this,EficienciaActivity.class);
+		intent.putExtra("id_persona", id_personas);
+		
 		startActivity(intent);
 	}	
 	

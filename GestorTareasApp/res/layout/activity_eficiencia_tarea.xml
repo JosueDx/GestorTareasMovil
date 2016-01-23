@@ -44,7 +44,7 @@
             android:textColor="#ba5202" />
 
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/editTextN"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/Button02"
@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/textViewNombreList"
-            android:layout_below="@+id/editText1"
+            android:layout_below="@+id/editTextN"
             android:layout_marginTop="37dp"
             android:text="CERRAR"
             android:textColor="#ba5202" />

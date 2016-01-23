@@ -39,8 +39,8 @@ public class LoginActivity extends Activity {
 	
 	
 	static String NAMESPACE  ="http://servicio.servicio.com";
-	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/login";
+	static String URL = "http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/login";
 	private String METODO="login";
 
 	

@@ -63,18 +63,25 @@
 
             <EditText
                 android:id="@+id/Rcedula"
-                android:layout_width="246dp"
+                android:layout_width="236dp"
                 android:layout_height="70px"
-                android:layout_weight="1"
                 android:ems="10"
-                android:maxLength="10"
-                android:hint="Cedula" />
+                android:hint="Cedula"
+                android:maxLength="10" />
 
-            <TextView
-                android:id="@+id/textViewValidarCedula"
-                android:layout_width="41dp"
-                android:layout_height="43dp"
-                android:text="X" />
+            <ImageView
+                android:id="@+id/imageViewVisto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_visto" />
+
+            <ImageView
+                android:id="@+id/imageViewE1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_erroneo" />
 
         </LinearLayout>
 
@@ -112,18 +119,24 @@
 
             <EditText
                 android:id="@+id/Rusuario"
-                android:layout_width="241dp"
+                android:layout_width="233dp"
                 android:layout_height="70px"
-                android:layout_weight="0.29"
                 android:ems="10"
                 android:hint="Usuario" />
 
-            <TextView
-                android:id="@+id/textViewValidarUsuario"
+            <ImageView
+                android:id="@+id/ImageViewV2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.29"
-                android:text="X" />
+                android:layout_weight="1"
+                android:src="@drawable/ic_visto" />
+
+            <ImageView
+                android:id="@+id/ImageViewE2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_erroneo" />
 
         </LinearLayout>
 
@@ -148,19 +161,25 @@
 
             <EditText
                 android:id="@+id/RConfirmarContrasenia"
-                android:layout_width="238dp"
+                android:layout_width="236dp"
                 android:layout_height="70px"
-                android:layout_weight="1"
                 android:ems="10"
                 android:hint="Repita contraseña"
                 android:inputType="textPassword" />
 
-            <TextView
-                android:id="@+id/textViewValidadContrasenia"
+            <ImageView
+                android:id="@+id/ImageViewV3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="X" />
+                android:src="@drawable/ic_visto" />
+
+            <ImageView
+                android:id="@+id/ImageViewE3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/ic_erroneo" />
 
         </LinearLayout>
 
@@ -173,17 +192,32 @@
             android:prompt="@string/Hola_tu"
             android:text="[hola]" />
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="                             Departamento" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/buttonRealizarTareas"
+                android:id="@+id/Button01"
                 android:layout_width="440px"
                 android:layout_height="80px"
                 android:onClick="OnRegistar"
                 android:text="REGISTRAR"
+                android:textAlignment="center"
+                android:textColor="#a31c16" />
+
+            <Button
+                android:id="@+id/buttonRealizarTareas"
+                android:layout_width="440px"
+                android:layout_height="80px"
+                android:onClick="OnCancelar"
+                android:text="CANCELAR"
                 android:textAlignment="center"
                 android:textColor="#a31c16" />
         </LinearLayout>

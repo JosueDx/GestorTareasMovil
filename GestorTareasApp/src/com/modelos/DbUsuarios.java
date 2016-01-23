@@ -26,11 +26,11 @@ public class DbUsuarios {
 	public static final String TABLA_NAME_tipousuarios = "tipousuarios";
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/lista_tareas";
+	static String URL = "http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/lista_tareas";
 	private String METODO="lista_tareas";
 	
-	private String SOAP_ACTION2="http://192.168.1.8:8080/Servicio_Tarea/services/funciones_servicio/devolucion_tarea";
+	private String SOAP_ACTION2="http://201.201.1.101:8080/Servicio_Tarea/services/funciones_servicio/devolucion_tarea";
 	private String METODO2="devolucion_tarea";
 	
 	private String Sql = "["
@@ -82,6 +82,72 @@ public Datosusuarios Listalogin(Context contexto, String usuario, String contras
 		
 	}
 	
+public float[] listarEficiencia(int id_personas){
+	float[] variable = {0, 0, 0, 0};
+	
+	ArrayList<Tarea> listaTarea = null;
+
+	listaTarea = new ArrayList<Tarea>();
+	try {
+		JSONObject pruebalistatarea = new JSONObject();
+		pruebalistatarea.put("id_persona", id_personas);
+		
+		SoapObject request = new SoapObject(NAMESPACE, METODO);
+		request.addProperty("request1" , pruebalistatarea.toString());
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			//declaracion de variables para el calculo de la eficiencia
+			  			int n=0, r=0, t=0;
+			  			float efi=0;
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  			JSONArray arr = jsondatos.getJSONArray("tareas");
+			  			for (int i = 0; i < arr.length(); i++)
+			  			{
+						    if(arr.getJSONObject(i).getString("estado").equals("R")){
+						    	n=n+1;
+						    	r=r+1;
+						    }
+						    if(arr.getJSONObject(i).getString("estado").equals("T")){
+						    	n=n+1;
+						    	t=t+1;
+						    }
+						  
+			  			}
+			  			
+			  			efi=((r*100)/n);
+			  			variable[0]=n;
+			  			variable[1]=r;
+			  			variable[2]=t;
+			  			variable[3]=efi;
+			  			
+			  			
+			  			//return listaTarea;
+			  		}else{
+			  			//return listaTarea;
+			  		}
+		  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	return variable;
+}
+
+
+
 public ArrayList<Tarea> listartexto(int id_personas){
 	ArrayList<Tarea> listaTarea = null;
 	listaTarea = new ArrayList<Tarea>();
