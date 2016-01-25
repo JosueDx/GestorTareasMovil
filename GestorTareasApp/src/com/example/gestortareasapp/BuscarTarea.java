@@ -138,7 +138,7 @@ public class BuscarTarea extends Activity {
 
 public void onBuscarTarea(View v){
 	if(edittextCriterio.getText().toString().equals("")){
-		Toast.makeText(this, "Ingrese descripcion", Toast.LENGTH_SHORT).show();
+		cargarlista(id_personas);
 	}else{
 		cargarlista(id_personas, edittextCriterio.getText().toString());
 	}

@@ -63,32 +63,32 @@ public class NuevaTarea extends Activity {
 	    
 	    
 	    static String NAMESPACE = "http://servicio.servicio.com";
-		static String URL = "http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-		private String SOAP_ACTION="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/registrartarea";
+		static String URL = "http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+		private String SOAP_ACTION="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/registrartarea";
 		private String METODO="registrartarea";
 		
-		private String SOAP_ACTION2="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
+		private String SOAP_ACTION2="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
 		private String METODO2="id_empleado";
 		
-		private String SOAP_ACTION3="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_nivel_tarea";
+		private String SOAP_ACTION3="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/id_nivel_tarea";
 		private String METODO3="id_nivel_tarea";
 	    
-		private String SOAP_ACTION4="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/lista_empleados";
+		private String SOAP_ACTION4="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/lista_empleados";
 		private String METODO4="lista_empleados";
 	
-		private String SOAP_ACTION5="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/lista_niveltareas";
+		private String SOAP_ACTION5="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/lista_niveltareas";
 		private String METODO5="lista_niveltareas";
 		
-		private String SOAP_ACTION6="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
+		private String SOAP_ACTION6="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/id_empleado";
 		private String METODO6="id_empleado";
 		
-		private String SOAP_ACTION7="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/actualizartarea";
+		private String SOAP_ACTION7="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/actualizartarea";
 		private String METODO7="actualizartarea";
 		
-		private String SOAP_ACTION8="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/eliminartarea";
+		private String SOAP_ACTION8="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/eliminartarea";
 		private String METODO8="eliminartarea";
 		
-		private String SOAP_ACTION9="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/lista_empleados2";
+		private String SOAP_ACTION9="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/lista_empleados2";
 		private String METODO9="lista_empleados2";
 
 		// la devolución de llamada recibida cuando el usuario "fija " la hora en el diálogo 

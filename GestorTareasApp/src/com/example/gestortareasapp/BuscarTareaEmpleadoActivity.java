@@ -65,6 +65,20 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 		    listviewTareasEmpleado.refreshDrawableState();
 		}
 	
+	public void cargarlista(int id_personas, String criterio){
+		DbUsuarios bd_tarea = new DbUsuarios();
+			
+			ArrayList<Tarea> listatareas = bd_tarea.listartextoempleado(id_personas, criterio);
+			
+			CustomListViewTareaEmpleado Adaptador = new CustomListViewTareaEmpleado(
+			this,R.layout.tarea_list_empleado,listatareas);
+			
+			
+		    listviewTareasEmpleado.setAdapter(Adaptador);
+		    listviewTareasEmpleado.setOnItemClickListener(new MyItemClickListener());
+		    listviewTareasEmpleado.refreshDrawableState();
+		}
+	
 
 	//clase interna
 		class MyItemClickListener implements OnItemClickListener{
@@ -92,7 +106,13 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 			
 		}
 
-	
+		public void OnBuscar(View v){
+			if(edittextCriterio.getText().toString().equals("")){
+				cargarlista();
+			}else{
+				cargarlista(id_personas, edittextCriterio.getText().toString());
+			}
+		}
 	
 	
 	@Override

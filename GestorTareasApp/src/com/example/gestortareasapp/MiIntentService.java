@@ -1,5 +1,9 @@
 package com.example.gestortareasapp;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
@@ -24,19 +28,24 @@ public class MiIntentService extends IntentService {
 	
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/notificacion";
-	private String METODO="notificacion";
+	static String URL = "http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/notificacion_tarea";
+	private String METODO="notificacion_tarea";
 	
-	private String SOAP_ACTION2="http://192.168.1.10:8080/Servicio_Tarea/services/funciones_servicio/tareaespecifica";
-	private String METODO2="tareaespecifica";
+	private String SOAP_ACTION2="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/estado_notificacion";
+	private String METODO2="estado_notificacion";
 	
 	int notificationID = 1;
 	int j =0;
 	int id_empleado;
+	String nombrepersonas, op1;
+	Intent intent;
+	int id_departamento;
 	
 	public MiIntentService() {
         super("MiIntentService");
+        
+		
     }
 	
 	@Override
@@ -44,9 +53,13 @@ public class MiIntentService extends IntentService {
 	{
 		int iter = intent.getIntExtra("iteraciones", 0);
 		id_empleado = intent.getIntExtra("id_empleado", 0);
+		id_departamento=intent.getIntExtra("id_departamento", 0);
+		nombrepersonas=intent.getStringExtra("nombre_persona");
+		op1=intent.getStringExtra("op");
 		String validacion = "0";
 		for(int i=1; i<=iter; i++) {
 			tareaLarga();
+			Log.e("secundos", i+""+"");
 			// desde aki comentar para prueba
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
 			request.addProperty("request1" , ""+id_empleado);
@@ -85,7 +98,7 @@ public class MiIntentService extends IntentService {
 		  /*	if (i == 25){
 		  		validacion = "1";
 		  	}*/
-			
+		  				
 			if(validacion.equals("1")){
 				triggerNotification();
 				i=100;
@@ -105,9 +118,15 @@ public class MiIntentService extends IntentService {
         NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
         
         Intent i = new Intent(this, MainActivity.class);
-        //i.putExtra("notificationID", notificationID);
-        
-        
+        i.putExtra("id_empleado", id_empleado);
+		i.putExtra("id_departamento", id_departamento);
+		i.putExtra("nombrepersonas", nombrepersonas);
+		i.putExtra("op", op1);
+		//startActivity(i);
+		
+		
+        ArrayList<Tarea> listaTarea = null;
+    	listaTarea = new ArrayList<Tarea>();
         //comentar desde aki en prueba
         SoapObject request = new SoapObject(NAMESPACE, METODO2);
 		request.addProperty("request1" , ""+id_empleado);
@@ -125,12 +144,20 @@ public class MiIntentService extends IntentService {
 	  		if(result != null){
 	  			
 	  			
-	  			JSONObject row = new JSONObject(result.getProperty(0).toString());
-	  		    item.setDescripcion(row.getString("descripcion"));
-	  		    item.setComentario(row.getString("comentario"));
-	  		    item.setNivel_tarea(row.getString("nivel_tarea"));
-	  		    item.setFecha_inicio("20/05/2015");
-	  		    item.setFecha_fin("21/05/2015");
+	  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+	  			JSONArray arr = jsondatos.getJSONArray("tareas");
+	  			for (int j = 0; j < arr.length(); j++)
+	  			{
+		  			
+				    item.setId_tarea(arr.getJSONObject(j).getInt("id_tarea"));
+				    item.setId_empleado(arr.getJSONObject(j).getInt("id_persotarea"));
+				    item.setDescripcion(arr.getJSONObject(j).getString("descripcion"));
+				    item.setComentario(arr.getJSONObject(j).getString("comentario"));
+				    item.setNivel_tarea(arr.getJSONObject(j).getString("id_tipotarea"));
+				    item.setFecha_inicio(arr.getJSONObject(j).getString("fecha_inicio"));
+				    item.setFecha_fin(arr.getJSONObject(j).getString("fecha_fin"));
+				    listaTarea.add(item);
+	  			}
 	  		
 	  		}else{
 	  			//Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
@@ -143,11 +170,17 @@ public class MiIntentService extends IntentService {
 	  	  		
 	  		}	
         // hasta aki comentar
-         
+	  	
+	  	if(listaTarea.size()>0){
+	  	Iterator<Tarea> iterador = listaTarea.listIterator(); 
+	    while( iterador.hasNext() ) {
+	  		Tarea item2;
+			item2 = new Tarea();
+			item2 = iterador.next();
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, i, 0);
         CharSequence ticker ="Notificacion de TAREA NUEVA";
-        CharSequence contentTitle = item.getDescripcion(); // cambiar por un string "Notificacion"
-        CharSequence contentText = item.getComentario(); // cambiar por un string "Notificacion"
+        CharSequence contentTitle = item2.getDescripcion(); // cambiar por un string "Notificacion"
+        CharSequence contentText = item2.getComentario(); // cambiar por un string "Notificacion"
         Notification noti = new NotificationCompat.Builder(this)
                 .setContentIntent(pendingIntent)
                 .setTicker(ticker)
@@ -161,7 +194,8 @@ public class MiIntentService extends IntentService {
         notificationManager.notify(notificationID, noti);
         Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         v.vibrate(8000);
-
+		}
+	  }
     }
 	
 	private void tareaLarga()

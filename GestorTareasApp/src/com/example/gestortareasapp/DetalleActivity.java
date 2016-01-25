@@ -140,7 +140,6 @@ public class DetalleActivity extends Activity {
 		textcomentario=(TextView) findViewById(R.id.textViewDComentario);
 		textfechaini=(TextView) findViewById(R.id.textViewDFechaInicio);
 		textfechafin=(TextView) findViewById(R.id.textViewDFechaFin);
-		textnivel=(TextView) findViewById(R.id.textViewDNivelTarea);
 		
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 	    int min = calendar.get(Calendar.MINUTE);
@@ -206,13 +205,12 @@ public class DetalleActivity extends Activity {
 		textcomentario.setText(tobj.getComentario());
 		textfechaini.setText(tobj.getFecha_inicio());
 		textfechafin.setText(tobj.getFecha_fin());
-		textnivel.setText(tobj.getNivel_tarea());
 				
 		textcomentario.setEnabled(false);
 		textdescripcion.setEnabled(false);
 		textfechaini.setEnabled(false);
 		textfechafin.setEnabled(false);
-		textnivel.setEnabled(false);
+		
 	}
 	
 	public void onTareaRealizada(View boton){ 
