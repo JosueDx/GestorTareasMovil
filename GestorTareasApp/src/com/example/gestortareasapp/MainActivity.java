@@ -45,7 +45,7 @@ public class MainActivity extends Activity {
 		nombrepersonas=this.getIntent().getStringExtra("nombre_persona");
 		
 		
-		textUsuario.setText(nombrepersonas);
+		textUsuario.setText("Bienvenido  "+nombrepersonas);
 		opcion1= Integer.parseInt(op1);
         user=opcion1;
 		

@@ -2,51 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/f2"
+    android:background="@drawable/f3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.gestortareasapp.EficienciaGeneral" >
-
-    <TextView
-        android:id="@+id/textViewEficienciaPorc"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="Tareas Totales"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="14dp"
-        android:text="CERRAR"
-        android:textColor="#ba5202" />
-
-    <TextView
-        android:id="@+id/TextView02"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Button01"
-        android:layout_alignRight="@+id/TextView01"
-        android:layout_marginBottom="27dp"
-        android:text="Tareas Atrasadas"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/TextView02"
-        android:layout_alignLeft="@+id/textViewEficienciaPorc"
-        android:layout_marginBottom="32dp"
-        android:text="Tareas Realizadas"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/textViewNombreList"
@@ -84,7 +45,7 @@
         android:id="@+id/textViewEficiente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/Button01"
+        android:layout_alignRight="@+id/ButtonTareaRealizada"
         android:layout_below="@+id/textViewDescripcionEficiencia"
         android:layout_marginTop="16dp"
         android:text="Large Text"
@@ -108,6 +69,65 @@
         android:layout_alignBottom="@+id/TextView02"
         android:layout_alignRight="@+id/textViewRealizada"
         android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textViewEficienciaPorc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="20dp"
+        android:text="Tareas Totales"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TextView02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/TextView01"
+        android:layout_below="@+id/TextView01"
+        android:layout_marginTop="25dp"
+        android:text="Tareas Atrasadas"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textViewEficienciaPorc"
+        android:layout_below="@+id/textViewEficienciaPorc"
+        android:layout_marginTop="22dp"
+        android:text="Tareas Realizadas"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/textViewTareasNoCumplidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignParentRight="true"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/ButtonTareaRealizada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="14dp"
+        android:layout_toLeftOf="@+id/textViewTareasNoCumplidas"
+        android:onClick="onCerrar"
+        android:text="Cerrar" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/ButtonTareaRealizada"
+        android:layout_marginBottom="15dp"
+        android:layout_toLeftOf="@+id/textViewTareasNoCumplidas"
+        android:text="Tareas No Cumplidas"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

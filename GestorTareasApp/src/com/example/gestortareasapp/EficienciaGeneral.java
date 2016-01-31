@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 public class EficienciaGeneral extends Activity {
 	
-	TextView textviewEficiencia,textviewTotales,textviewRealizado,textviewAtrasadaa;
+	TextView textviewEficiencia,textviewTotales,textviewRealizado,textviewAtrasadaa,textviewNoCumplida;
 	
     int id_personas;
 	
@@ -29,28 +29,30 @@ public class EficienciaGeneral extends Activity {
 		
 		inicializar();
 		DbUsuarios db= new DbUsuarios();
-		float[] variable = {0, 0, 0, 0};
+		float[] variable = {0, 0, 0, 0,0};
 		Log.e("id persona", id_personas+"");
 		variable=db.listarEficiencia(id_personas);
 		textviewTotales.setText(variable[0]+"");
 		textviewRealizado.setText(variable[1]+"");
 		textviewAtrasadaa.setText(variable[2]+"");
-		textviewEficiencia.setText(variable[3]+" %");
+		textviewNoCumplida.setText(variable[3]+"");
+		textviewEficiencia.setText(variable[4]+" %");
 		
 		
 	}
 
+	public void onCerrar(View v){
+		finish();
+		
+		
+	}
 	void inicializar(){
 	textviewEficiencia=(TextView) findViewById(R.id.textViewEficiente);
 	textviewTotales=(TextView) findViewById(R.id.textViewTotal);	
 	textviewRealizado=(TextView) findViewById(R.id.textViewRealizada);
 	textviewAtrasadaa=(TextView) findViewById(R.id.textViewAtrasada);
-	
+	textviewNoCumplida= (TextView) findViewById(R.id.textViewTareasNoCumplidas);
 	}
-	
-	
-	
-	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

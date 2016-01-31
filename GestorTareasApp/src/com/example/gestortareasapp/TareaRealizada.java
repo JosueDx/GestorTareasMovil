@@ -29,8 +29,8 @@ import android.widget.Toast;
 public class TareaRealizada extends Activity {
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/registrartarearealizada";
+	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/registrartarearealizada";
 	private String METODO="registrartarearealizada";
 	
 	TextView textdescripcion, textfecha;
@@ -38,6 +38,7 @@ public class TareaRealizada extends Activity {
 	Tarea tobj = new Tarea();
 	
 	String descripcion, idTarea;
+	int id_personas,id_departamento;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,10 @@ public class TareaRealizada extends Activity {
 		idTarea = intent.getStringExtra("idTarea");
 		descripcion = intent.getStringExtra("descripcion");
 		cargar_tarea();
+		
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
+		
 	}
 	
 	public void cargar_tarea(){
@@ -104,7 +109,7 @@ public class TareaRealizada extends Activity {
 				objRealizada.put("id_Tarea_realizada",0);
 				objRealizada.put("id_tarea", idTarea);
 				objRealizada.put("descipcion", editdescripcion.getText().toString());
-				objRealizada.put("fecha_fin",textfecha.getText().toString()+" 00:00:00");
+				objRealizada.put("fecha_fin",textfecha.getText().toString()+" 23:50:00");
 				objRealizada.put("estado","A");
 				objRealizada.put("archivo_env","");
 			} catch (JSONException e1) {
@@ -130,10 +135,18 @@ public class TareaRealizada extends Activity {
 		  			
 		  			if(result.getProperty(0).toString().equals("1")){
 						Toast.makeText(this, "Registro exitoso ", Toast.LENGTH_LONG).show();
-						finish();
+						//finish();
+						
+						Intent intent= new Intent(this,BuscarTareaEmpleadoActivity.class);
+						intent.putExtra("id_persona", id_personas);
+						intent.putExtra("id_departamento", id_departamento);
+						startActivity(intent);
+						
+						
 					}
 					if(result.getProperty(0).toString().equals("0")){
 						Toast.makeText(this, "Error al registrar", Toast.LENGTH_LONG).show();
+						
 					}
 		  		
 		  		

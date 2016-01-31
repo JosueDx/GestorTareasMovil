@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">GestorTareasApp</string>
+    <string name="app_name">Menu Principal</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Login</string>
@@ -33,8 +33,8 @@
 
     <string name="title_activity_buscar_tarea">BuscarTarea</string>
     <string name="title_activity_spinner">SpinnerActivity</string>
-    <string name="title_activity_buscar_tarea_empleado">BuscarTareaEmpleadoActivity</string>
-    <string name="title_activity_detalle">DetalleActivity</string>
+    <string name="title_activity_buscar_tarea_empleado">Buscar Tarea Empleado</string>
+    <string name="title_activity_detalle">Detalle de la Tarea</string>
     <string name="title_activity_prueba">Prueba</string>
     <string name="title_activity_tarea_realizada">TareaRealizada</string>
     <string name="title_activity_notification_view">NotificationView</string>
@@ -44,5 +44,7 @@
     <string name="title_activity_eficiencia_general">EficienciaGeneral</string>
     <string name="title_activity_eficiencia_tarea">Eficiencia_tarea</string>
     <string name="title_activity_buscar_eficiencia">BuscarEficiencia</string>
+    <string name="title_activity_menu_empleado">Menu Empleado</string>
+    <string name="title_activity_tarea_pendiente">Tareas Pendientes</string>
 
 </resources>

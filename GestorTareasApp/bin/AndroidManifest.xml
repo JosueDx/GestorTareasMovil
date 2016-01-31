@@ -106,6 +106,14 @@
             android:name=".BuscarEficiencia"
             android:label="@string/title_activity_buscar_eficiencia" >
         </activity>
+        <activity
+            android:name=".MenuEmpleado"
+            android:label="@string/title_activity_menu_empleado" >
+        </activity>
+        <activity
+            android:name=".TareaPendiente"
+            android:label="@string/title_activity_tarea_pendiente" >
+        </activity>
     </application>
 
 </manifest>

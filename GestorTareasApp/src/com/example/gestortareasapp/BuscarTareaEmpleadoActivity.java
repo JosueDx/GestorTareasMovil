@@ -38,7 +38,7 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 		setContentView(R.layout.activity_buscar_tarea_empleado);
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);	
 		Log.e("id_persona", id_personas+"");
-	listviewTareasEmpleado = (ListView) findViewById(R.id.listViewBuscarTareaEmpleado);
+	    listviewTareasEmpleado = (ListView) findViewById(R.id.listViewBuscarTareaEmpleado);
 	edittextCriterio = (EditText) findViewById(R.id.editTextBuscarTareaEmpleado);
 	cargarlista();
 	}
@@ -95,10 +95,9 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 		Tarea itemtarea =(Tarea) listviewTareasEmpleado.getItemAtPosition(posicion);
 		
 		Intent intent=null;	
-		
 		intent = new Intent(componente.getContext(),DetalleActivity.class);
-		intent.putExtra("idTarea", itemtarea.getId_tarea()+"");
-		intent.putExtra("id_personas", id_personas);
+		intent.putExtra("idTarea",itemtarea.getId_tarea()+"");
+	    intent.putExtra("id_personas", id_personas);
          startActivity(intent);
 		
 				

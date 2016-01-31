@@ -28,11 +28,11 @@ public class MiIntentService extends IntentService {
 	
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/notificacion_tarea";
+	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/notificacion_tarea";
 	private String METODO="notificacion_tarea";
 	
-	private String SOAP_ACTION2="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/estado_notificacion";
+	private String SOAP_ACTION2="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/estado_notificacion";
 	private String METODO2="estado_notificacion";
 	
 	int notificationID = 1;

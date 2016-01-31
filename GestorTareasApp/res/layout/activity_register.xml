@@ -204,13 +204,12 @@
             android:orientation="vertical" >
 
             <Button
-                android:id="@+id/Button01"
+                android:id="@+id/ButtonTareaRealizada"
                 android:layout_width="440px"
                 android:layout_height="80px"
                 android:onClick="OnRegistar"
-                android:text="REGISTRAR"
-                android:textAlignment="center"
-                android:textColor="#a31c16" />
+                android:text="Registrar Usuario"
+                android:textAlignment="center" />
 
             <Button
                 android:id="@+id/buttonRealizarTareas"
@@ -218,8 +217,8 @@
                 android:layout_height="80px"
                 android:onClick="OnCancelar"
                 android:text="CANCELAR"
-                android:textAlignment="center"
-                android:textColor="#a31c16" />
+                android:textAlignment="center" />
+
         </LinearLayout>
     </LinearLayout>
 

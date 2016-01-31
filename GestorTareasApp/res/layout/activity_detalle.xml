@@ -3,7 +3,7 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/f2"
+    android:background="@drawable/f3"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,8 +12,8 @@
 
     <LinearLayout
         android:id="@+id/LinearLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="454dp"
+        android:layout_width="302dp"
+        android:layout_height="386dp"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textViewTareasNoCumplidas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Comentario:    "
@@ -113,40 +113,55 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/textViewEtiquetaFecha"
+            android:layout_width="137dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/btn_notificacion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Recordatorio"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:text=" " />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <Button
+                android:id="@+id/btn_notificacion"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="Iniciar Recordatorio"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/imageButtonConfigurar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onConf"
+                android:src="@drawable/ic_configurar" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="302dp"
+            android:layout_height="wrap_content" >
+
+            <Button
                 android:id="@+id/buttonTRGuardar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.41"
                 android:onClick="onTareaRealizada"
-                android:text="Entregar Tarea"
+                android:text="Subir Tarea"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/buttonTRCancelar"
-                android:layout_width="wrap_content"
+                android:layout_width="128dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="26dp"
                 android:onClick="onCancelar"
                 android:text="Cancelar"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </LinearLayout>
 
 </ScrollView>

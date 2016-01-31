@@ -1,10 +1,12 @@
 package com.example.gestortareasapp;
 
 
+import java.io.ObjectOutputStream.PutField;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.modelo.informacion.Alarma;
 import com.modelo.informacion.Tarea;
 import com.modelos.DbUsuarios;
 
@@ -39,17 +41,55 @@ import android.widget.Toast;
 public class DetalleActivity extends Activity {
 	private final int NOTIFICATION_ID = 1010;
 	int notificationID = 1;
-	TextView textdescripcion, textcomentario, textfechaini, textfechafin, textnivel;
+	int botononValidar;
+	TextView textdescripcion, textcomentario, textfechaini, textfechafin, textnivel, txtetiquetFecha;
 	Tarea tobj = new Tarea();
 	TimePicker timePicker1;
 	String idTarea;
+	int validarRecordatorio;
 	Button btn;
 	private int hour;
 	private int minute;
 	private Calendar calendar;
 	private String format = "";
-	int cal1,cal2,total, id_personas;
+	int cal1,cal2,total, id_personas, id_tareas;
+	String horaminuto= ":";
+	  
+	
+	public void Recordatorio(int id, String hora){
 		
+		DbUsuarios dbuser = new DbUsuarios();
+		dbuser.guardarRecordatorio(this, id, hora);
+		}
+	
+	public void EditarRecord(String id, String hora){
+		DbUsuarios dbuser = new DbUsuarios();
+		dbuser.editarRecordatorio(this, id, hora);
+	}
+	
+	public Alarma BuscarRecord(String id){
+		
+		DbUsuarios dbuser = new DbUsuarios();
+		Alarma alar= dbuser.listaRecordatorio(this, id);
+		if (alar != null){
+			return alar;
+		}else{
+			
+			return null;
+		}
+		
+	}
+public String HORA(String id){
+		
+		DbUsuarios dbuser = new DbUsuarios();
+		Alarma alar= dbuser.listaRecordatorio(this, id);
+		if (alar != null){
+			return alar.getHora();
+		}else{
+			return "";
+		}
+		
+	}
 	
 	private void triggerNotification(){
 			
@@ -80,8 +120,11 @@ public class DetalleActivity extends Activity {
 	
 		public void tomartiempo() {
 		      
-			 int hour = timePicker1.getCurrentHour();
+			  int hour = timePicker1.getCurrentHour();
 		      int min = timePicker1.getCurrentMinute();
+		       horaminuto= hour+" : "+min ;
+	    	  
+		      txtetiquetFecha.setText(""+hour+" : "+min);
 		      cal1=(hour*3600)+(min*60);
 		      showTime(hour, min);
 		      int h,m;
@@ -125,12 +168,25 @@ public class DetalleActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalle);
-		inicializar();
+		
 		Intent intent = this.getIntent();
 		idTarea = intent.getStringExtra("idTarea");
+		id_tareas= Integer.parseInt(idTarea);
+		Log.e("idTarea", idTarea);
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		inicializar();
 		cargar_tarea(idTarea);
 		
+		
+	}
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();	
+	}
+	public void onConf(View v){
+		btn.setEnabled(true);
+		 timePicker1.setEnabled(true);
 	}
 	
 	public void inicializar(){
@@ -140,22 +196,64 @@ public class DetalleActivity extends Activity {
 		textcomentario=(TextView) findViewById(R.id.textViewDComentario);
 		textfechaini=(TextView) findViewById(R.id.textViewDFechaInicio);
 		textfechafin=(TextView) findViewById(R.id.textViewDFechaFin);
+		txtetiquetFecha= (TextView) findViewById(R.id.textViewEtiquetaFecha);
 		
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 	    int min = calendar.get(Calendar.MINUTE);
 	     
-	    showTime(hour, min); 
-		
+	    showTime(hour, min);    
+	    
 		 btn = (Button)findViewById(R.id.btn_notificacion);
-		 btn.setText("Recordatorio");
-		 btn.setEnabled(true);
+		 
+		 	Alarma validacion= new Alarma();
+		 	String hor="";
+			validacion=BuscarRecord(idTarea);
+			hor= validacion.getHora();
+			txtetiquetFecha.setText(hor);
+			Log.e("validacion",validacion+"");
+			
+			if(validacion.equals(null))
+					{
+				//nuevo
+				Log.e("guardar ","genial" );
+				validarRecordatorio=1;
+				btn.setText("Iniciar");
+				 btn.setEnabled(true);
+				 timePicker1.setEnabled(true);
+				 
+				 
+			}else{
+				 Log.e("editar","genial" );
+					//editar
+					validarRecordatorio=2;
+					btn.setText("Iniciado");
+					 btn.setEnabled(false);
+					 timePicker1.setEnabled(false);
+			}
 		 
 	      btn.setOnClickListener(new View.OnClickListener()
 	      {
-	          @Override
+	    	  @Override
 	          public void onClick(View v)
 	          {
+	        	int hour2 = calendar.get(Calendar.HOUR_OF_DAY);
+	      	    int min2 = calendar.get(Calendar.MINUTE);
+	      	   
 	          	tomartiempo();
+	          
+	          	if(validarRecordatorio==1){
+	          		//insert nuevo
+	          		Recordatorio(id_tareas,horaminuto);	
+	          		Log.e("DBTAREAS", " nuevo " );
+	          	}
+	          	
+	          	if(validarRecordatorio==2){
+	          		
+	          		//editar
+	          		EditarRecord(idTarea,horaminuto);	
+	          		Log.e("DBTAREAS", "editado " );
+	          	}
+	          	
 	          	triggerAlert();
 	              Timer timer = new Timer();
 	              TimerTask timerTask = new TimerTask()

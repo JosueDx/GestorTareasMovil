@@ -22,7 +22,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/ButtonTareaRealizada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -36,14 +36,14 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Button01"
+        android:layout_above="@+id/ButtonTareaRealizada"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="62dp"
         android:onClick="onTareas"
         android:text="POR TAREAS" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonTareaPendiente"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"

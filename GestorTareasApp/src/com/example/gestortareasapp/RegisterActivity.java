@@ -42,20 +42,20 @@ public class RegisterActivity extends Activity {
 	ImageView imageVisto,imageError,imagev2,imagee2,imagev3,imagee3;
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/registrar_usuario";
+	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/registrar_usuario";
 	private String METODO="registrar_usuario";
 	
-	private String SOAP_ACTION2="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
+	private String SOAP_ACTION2="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/id_departamento";
 	private String METODO2="id_departamento";
 	
-	private String SOAP_ACTION3="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/validar_cedula";
+	private String SOAP_ACTION3="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/validar_cedula";
 	private String METODO3="validar_cedula";
 	
-	private String SOAP_ACTION4="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/validar_usuario";
+	private String SOAP_ACTION4="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/validar_usuario";
 	private String METODO4="validar_usuario";
 	
-	private String SOAP_ACTION5="http://192.168.1.9:8080/Servicio_Tarea/services/funciones_servicio/lista_departamento";
+	private String SOAP_ACTION5="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/lista_departamento";
 	private String METODO5="lista_departamento";
 	
 	
