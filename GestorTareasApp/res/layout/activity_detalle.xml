@@ -21,7 +21,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textViewDescripTareaAtrasada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Descripcion:"
@@ -37,6 +37,25 @@
                 android:text="Medium Text"
                 android:textSize="13sp"
                 android:textStyle="normal|bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Archivo Adjunto" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="31dp"
+                android:onClick="onArchivo"
+                android:text="Visualizar" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -65,7 +84,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textViewFechaFinEmplAtrasada"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fecha Inicio:   "
@@ -86,7 +105,7 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textViewDescripcionTarea"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fecha Fin:      "
@@ -107,10 +126,18 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="               Recordatorio             "
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <TimePicker
                 android:id="@+id/timePicker1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <TextView

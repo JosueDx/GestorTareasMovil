@@ -1,23 +1,49 @@
 package com.example.gestortareasapp;
 
-import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
-public class TareaPendiente extends Activity {
+public class MenuEficienciaEmpleado extends Activity {
 
+	int id_personas;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_tarea_pendiente);
+		setContentView(R.layout.activity_menu_eficiencia_empleado);
+		
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		
 	}
 
+	public void onGeneral(View v){
+
+		Intent intent= new Intent(this,EficienciaGEmpleado.class);
+	intent.putExtra("id_persona", id_personas);
+		startActivity(intent);
+	}
+	
+	public void onTareas(View v){
+
+		Intent intent= new Intent(this,EficienciaTEmpleado.class);
+		intent.putExtra("id_persona", id_personas);
+		startActivity(intent);
+	}
+	public void onCerrar(View v){
+
+		finish();
+	}
+	
+	
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tarea_pendiente, menu);
+		getMenuInflater().inflate(R.menu.menu_eficiencia_empleado, menu);
 		return true;
 	}
 

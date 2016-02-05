@@ -11,27 +11,45 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 
-public class BuscarEficiencia extends Activity {
+public class EficienciaTEmpleado extends Activity {
 	ListView listviewEficiente;
 	int id_personas;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_buscar_eficiencia);
+		setContentView(R.layout.activity_eficiencia_templeado);
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);
 		
-		listviewEficiente=(ListView) findViewById(R.id.listViewEficiencia);
+		listviewEficiente=(ListView) findViewById(R.id.listViewEficienciaEmpleadoo);
 		
-		cargarlista(id_personas);
+		cargarlista(id_personas);	
 		
 		
 	}
+	
+	public void cargarlista(int id_personas){
+		DbUsuarios bd_tarea = new DbUsuarios();
+			
+			ArrayList<Tarea> listatareas = bd_tarea.listarEficienciaEmpleadoTareas(id_personas);
+			
+		    CustomListViewEficiencia Adaptador = new CustomListViewEficiencia(
+			this,R.layout.eficiencia_listempleado,listatareas);
+			
+			
+		    listviewEficiente.setAdapter(Adaptador);
+		 //   listviewEficiente.setOnItemClickListener(new MyItemClickListener());
+		    listviewEficiente.refreshDrawableState();
+		}
+
+	
+	
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.buscar_eficiencia, menu);
+		getMenuInflater().inflate(R.menu.eficiencia_templeado, menu);
 		return true;
 	}
 
@@ -46,22 +64,4 @@ public class BuscarEficiencia extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-	public void cargarlista(int id_personas){
-		DbUsuarios bd_tarea = new DbUsuarios();
-			
-			ArrayList<Tarea> listatareas = bd_tarea.listartextoeficiencia(id_personas);
-			
-		    CustomListViewEficiencia Adaptador = new CustomListViewEficiencia(
-			this,R.layout.eficiencia_list,listatareas);
-			
-			
-		    listviewEficiente.setAdapter(Adaptador);
-		 //   listviewEficiente.setOnItemClickListener(new MyItemClickListener());
-		    listviewEficiente.refreshDrawableState();
-		}
-
-
-
-
 }

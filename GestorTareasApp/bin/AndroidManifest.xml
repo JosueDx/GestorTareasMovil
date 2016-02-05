@@ -111,8 +111,24 @@
             android:label="@string/title_activity_menu_empleado" >
         </activity>
         <activity
-            android:name=".TareaPendiente"
+            android:name=".BuscarTareaEmpleadoRealizado"
             android:label="@string/title_activity_tarea_pendiente" >
+        </activity>
+        <activity
+            android:name=".EditarTareaRealizada"
+            android:label="@string/title_activity_editar_tarea_realizada" >
+        </activity>
+        <activity
+            android:name=".EficienciaGEmpleado"
+            android:label="@string/title_activity_eficiencia_gempleado" >
+        </activity>
+        <activity
+            android:name=".EficienciaTEmpleado"
+            android:label="@string/title_activity_eficiencia_templeado" >
+        </activity>
+        <activity
+            android:name=".MenuEficienciaEmpleado"
+            android:label="@string/title_activity_menu_eficiencia_empleado" >
         </activity>
     </application>
 

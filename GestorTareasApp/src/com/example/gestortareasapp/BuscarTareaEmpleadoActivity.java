@@ -97,6 +97,7 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 		Intent intent=null;	
 		intent = new Intent(componente.getContext(),DetalleActivity.class);
 		intent.putExtra("idTarea",itemtarea.getId_tarea()+"");
+		Log.e("idTarea",itemtarea.getId_tarea()+"");
 	    intent.putExtra("id_personas", id_personas);
          startActivity(intent);
 		

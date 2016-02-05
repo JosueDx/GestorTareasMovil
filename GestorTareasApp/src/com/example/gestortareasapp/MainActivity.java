@@ -118,7 +118,7 @@ public class MainActivity extends Activity {
 	}
 	
 	public void onRealizarTareas(View v){
-		Intent intent= new Intent(this,BuscarTareaEmpleadoActivity.class);
+		Intent intent= new Intent(this,MenuEmpleado.class);
 		intent.putExtra("id_persona", id_personas);
 		intent.putExtra("id_departamento", id_departamento);
 		startActivity(intent);

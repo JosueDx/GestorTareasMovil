@@ -13,6 +13,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import com.modelo.informacion.Alarma;
 import com.modelo.informacion.Tarea;
+import com.modelo.informacion.TareaRealizadaE;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,6 +44,15 @@ public class DbUsuarios {
 	
 	private String SOAP_ACTION5="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/lista_tareas_empleado_parametro";
 	private String METODO5="lista_tareas_empleado_parametro";
+	
+	private String SOAP_ACTION6="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/lista_tarearealizadaxempleado";
+	private String METODO6="lista_tarearealizadaxempleado";
+	
+	private String SOAP_ACTION7="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/lista_tareasrealizadas_empleado_parametro";
+	private String METODO7="lista_tareasrealizadas_empleado_parametro";
+	
+	private String SOAP_ACTION8="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/tarearealizadaxid";
+	private String METODO8="tarearealizadaxid";
 	
 	private String Sql = "["
 			+ "{'id_tarea':1, 'descripcion':'Descripcion1', 'comentario':'Comentario1', 'nivel_tarea':'bajo', 'estado':'A'},"
@@ -180,8 +190,7 @@ public class DbUsuarios {
 			  			JSONArray arr = jsondatos.getJSONArray("tareas");
 			  			for (int i = 0; i < arr.length(); i++)
 			  			{
-
-						    if(arr.getJSONObject(i).getString("estado").equals("R")){
+			  				if(arr.getJSONObject(i).getString("estado").equals("R")){
 						    	n=n+1;
 						    	r=r+1;
 						    }
@@ -225,6 +234,90 @@ public class DbUsuarios {
 	  		}
 	return variable;
 }
+	
+	public float[] listarEficienciaEmpleado(int id_personas){
+	
+		float[] variable = {0, 0, 0, 0,0};
+		
+		Log.e("id persona", id_personas+"");
+		ArrayList<Tarea> listaTarea = null;
+
+		listaTarea = new ArrayList<Tarea>();
+		try {
+			JSONObject pruebalistatarea = new JSONObject();
+			pruebalistatarea.put("id_persona", id_personas);
+			
+			SoapObject request = new SoapObject(NAMESPACE, METODO4);
+			request.addProperty("request1" , pruebalistatarea.toString());
+		  	
+			
+			
+		    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+		    Envoltorio.setOutputSoapObject (request);
+		  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	try {
+		  		TransporteHttp.call(SOAP_ACTION4, Envoltorio);
+		  	   
+		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  		
+				  		if(result != null){
+				  			Log.e("TIPO ACCION: 2-- ","opcion");
+				  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+				  			
+				  			//declaracion de variables para el calculo de la eficiencia
+				  			int n=0, r=0, t=0,a=0;
+				  			float efi=0;
+				  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+				  			JSONArray arr = jsondatos.getJSONArray("tareas");
+				  			for (int i = 0; i < arr.length(); i++)
+				  			{
+				  				Log.e("veces",arr.getJSONObject(i).getString("estado")+" : " +i );
+							    
+				  				if(arr.getJSONObject(i).getString("estado").equals("R")){
+							    	n=n+1;
+							    	r=r+1;
+							    }
+							    if(arr.getJSONObject(i).getString("estado").equals("T")){
+							    	n=n+1;
+							    	t=t+1;
+							    }
+							    					        
+							    if(arr.getJSONObject(i).getString("estado").equals("A")) {
+							    	Date fechaActual = new Date();
+							        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+							        String fechaSistema=formateador.format(fechaActual);
+							    	String resultadoMayor= compararFechasConDate(CapturarFechaInicio(arr.getJSONObject(i).getString("fecha_fin")),fechaSistema);
+							    	if(resultadoMayor.equals("si")){
+							    	n=n+1;
+							    	a=a+1;
+							    	}else{
+							    	}
+							    }
+							  
+				  			}
+				  			
+				  			efi=((r*100)/n);
+				  			variable[0]=n;
+				  			variable[1]=r;
+				  			variable[2]=t;
+				  			variable[3]=a;
+				  			variable[4]=efi;
+				  			
+				  			
+				  			//return listaTarea;
+				  		}else{
+				  			//return listaTarea;
+				  		}
+			  		}catch (JSONException e) {
+			  			// TODO Auto-generated catch block
+			  			e.printStackTrace();
+			  		}
+		  		}catch (Exception e) {
+		  			e.printStackTrace();
+		  		}
+		return variable;
+	}
+	
 	
 	public String CapturarFechaInicio(String cadena){
 		String fecha1="";
@@ -411,6 +504,97 @@ public ArrayList<Tarea> listartextoeficiencia(int id_personas){
 }
 
 
+//LISTAR TAREAS EFICIENCIA POR TAREAS
+public ArrayList<Tarea> listarEficienciaEmpleadoTareas(int id_personas){
+	ArrayList<Tarea> listaTarea = null;
+	listaTarea = new ArrayList<Tarea>();
+	try {
+		JSONObject pruebalistatarea = new JSONObject();
+		pruebalistatarea.put("id_persona", id_personas);
+		SoapObject request = new SoapObject(NAMESPACE, METODO4);
+		request.addProperty("request1" , pruebalistatarea.toString());
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION4, Envoltorio);  
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  			JSONArray arr = jsondatos.getJSONArray("tareas");
+			  			for (int i = 0; i < arr.length(); i++)
+			  			{
+			  				if((arr.getJSONObject(i).getString("estado").equals("A")) || (arr.getJSONObject(i).getString("estado").equals("R")) || (arr.getJSONObject(i).getString("estado").equals("T"))){
+						  		
+			  					if(arr.getJSONObject(i).getString("estado").equals("R")){
+			  						Tarea item = new Tarea();
+								    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+								    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+								    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+								    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+								    item.setEstado("Eficiente");
+								    listaTarea.add(item);
+							    }
+							    if(arr.getJSONObject(i).getString("estado").equals("T")){
+							    	Tarea item = new Tarea();
+								    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+								    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+								    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+								    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+								    item.setEstado("M M Eficiente");
+								    listaTarea.add(item);
+							    }
+							    
+							    if(arr.getJSONObject(i).getString("estado").equals("A")) {
+							    	Date fechaActual = new Date();
+							        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+							        String fechaSistema=formateador.format(fechaActual);
+							    	String resultadoMayor= compararFechasConDate(CapturarFechaInicio(arr.getJSONObject(i).getString("fecha_fin")),fechaSistema);
+							    	if(resultadoMayor.equals("si")){
+							    		Tarea item = new Tarea();
+									    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+									    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+									    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+									    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+									    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+									    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+									    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+									    item.setEstado("No Eficiente");
+									    listaTarea.add(item);
+							    	}else{
+							    	Log.e("hollaa", "akiiii");
+							    	}
+							    }
+			  				
+							}		
+			  			}
+			  			
+			  			//return listaTarea;
+			  		}else{
+			  			//return listaTarea;
+			  		}
+		  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	return listaTarea;
+}
+
+
 //LISTARR TAREAS EMPLEADO SIN PARAMETRO
 public ArrayList<Tarea> listartextoempleado(int id_personas){
 	ArrayList<Tarea> listaTarea = null;
@@ -438,6 +622,7 @@ public ArrayList<Tarea> listartextoempleado(int id_personas){
 			  			JSONArray arr = jsondatos.getJSONArray("tareas");
 			  			for (int i = 0; i < arr.length(); i++)
 			  			{
+			  				if(arr.getJSONObject(i).getString("estado").equals("A")){
 				  			Tarea item = new Tarea();
 						    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
 						    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
@@ -447,6 +632,7 @@ public ArrayList<Tarea> listartextoempleado(int id_personas){
 						    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
 						    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
 						    listaTarea.add(item);
+			  				}
 			  			}
 			  			
 			  			//return listaTarea;
@@ -516,7 +702,105 @@ public ArrayList<Tarea> listartextoempleado(int id_personas, String criterio){
 	return listaTarea;
 }
 		
+//listar tareas realizadas sin parametro empleados
+public ArrayList<TareaRealizadaE> listartextoempleadorealizado(int id_personas){
+	ArrayList<TareaRealizadaE> listaTarea = null;
+	listaTarea = new ArrayList<TareaRealizadaE>();
+	try {
+		
+		SoapObject request = new SoapObject(NAMESPACE, METODO6);
+		request.addProperty("request1" , id_personas+"");
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION6, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  			JSONArray arr = jsondatos.getJSONArray("tarearealizada");
+			  			for (int i = 0; i < arr.length(); i++)
+			  			{
+				  			TareaRealizadaE item = new TareaRealizadaE();
+						    item.setId(arr.getJSONObject(i).getInt("id_Tarea_realizada"));
+						    item.setIdTarea(arr.getJSONObject(i).getInt("id_tarea"));
+						    item.setDescripcion(arr.getJSONObject(i).getString("descipcion"));
+						    item.setFechafin(arr.getJSONObject(i).getString("fecha_fin"));
+						    item.setEstado(arr.getJSONObject(i).getString("estado"));
+						    listaTarea.add(item);
+			  			}
+			  			
+			  			//return listaTarea;
+			  		}else{
+			  			//return listaTarea;
+			  		}
+		  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	return listaTarea;
+}
 
+//listar tareas realizadas con parametro empleados 
+public ArrayList<TareaRealizadaE> listartextoempleadorealizado(int id_personas, String criterio){
+	ArrayList<TareaRealizadaE> listaTarea = null;
+	listaTarea = new ArrayList<TareaRealizadaE>();
+	try {
+		
+		JSONObject pruebalistatarea = new JSONObject();
+		pruebalistatarea.put("id_persona", id_personas);
+		pruebalistatarea.put("descripcion", criterio);
+		
+		SoapObject request = new SoapObject(NAMESPACE, METODO7);
+		request.addProperty("request1" , pruebalistatarea.toString());
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION7, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  			JSONArray arr = jsondatos.getJSONArray("tarearealizada");
+			  			for (int i = 0; i < arr.length(); i++)
+			  			{
+				  			TareaRealizadaE item = new TareaRealizadaE();
+						    item.setId(arr.getJSONObject(i).getInt("id_Tarea_realizada"));
+						    item.setIdTarea(arr.getJSONObject(i).getInt("id_tarea"));
+						    item.setDescripcion(arr.getJSONObject(i).getString("descipcion"));
+						    item.setFechafin(arr.getJSONObject(i).getString("fecha_fin"));
+						    item.setEstado(arr.getJSONObject(i).getString("estado"));
+						    listaTarea.add(item);
+			  			}
+			  			
+			  			//return listaTarea;
+			  		}else{
+			  			//return listaTarea;
+			  		}
+		  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	return listaTarea;
+}
 
 //LISTARR TAREAS JEFFE CON PARAMETRO
 // cargar la lista con id y haciendo un onchage del  editext al buscar
@@ -662,23 +946,64 @@ public Tarea tareabuscar(int id_personas, int id_tarea){
 	return item;
 }	
 
-public Tarea tareabuscarempleado(int id_tarea){
+	public Tarea tareabuscarempleado(int id_tarea){
+		
+		Tarea item = new Tarea();
+		try {
+				
+			SoapObject request = new SoapObject(NAMESPACE, METODO2);
+			request.addProperty("request1" , id_tarea+"");
+		  	
+		    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+		    Envoltorio.setOutputSoapObject (request);
+		  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	try {
+		  		TransporteHttp.call(SOAP_ACTION2, Envoltorio);
+		  	   
+		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  		
+				  		if(result != null){
+				  			Log.e("TIPO ACCION: 2-- ","opcion");
+				  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+				  			
+				  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+				  
+				  					item.setId_tarea(jsondatos.getInt("id_tarea"));
+				  					item.setId_empleado(jsondatos.getInt("id_persotarea"));
+								    item.setDescripcion(jsondatos.getString("descripcion"));
+								    item.setComentario(jsondatos.getString("comentario"));
+								    item.setArchivo_adjunto(jsondatos.getString("archivo"));
+								    item.setId_nivel_tarea(jsondatos.getInt("id_tipotarea"));
+								    item.setFecha_inicio(jsondatos.getString("fecha_inicio"));
+								    item.setFecha_fin(jsondatos.getString("fecha_fin"));
+				  				   
+				  		}
+				  		
+		  		}catch (Exception e) {
+		  			e.printStackTrace();
+		  		}
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+		return item;
 	
-	//ArrayList<Tarea> listaTarea = null;
-	//listaTarea = new ArrayList<Tarea>();
-	Tarea item = new Tarea();
+	}	
+
+public TareaRealizadaE tareabuscarEditar(int id_tarea){
+	
+	TareaRealizadaE item = new TareaRealizadaE();
 	try {
-			
-		SoapObject request = new SoapObject(NAMESPACE, METODO2);
-		request.addProperty("request1" , id_tarea+"");
+		
+		
+		SoapObject request = new SoapObject(NAMESPACE, METODO8);
+		request.addProperty("request1" ,id_tarea+"");
 	  	
 	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
 	    Envoltorio.setOutputSoapObject (request);
 	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
 	  	try {
-	  		TransporteHttp.call(SOAP_ACTION2, Envoltorio);
-	  	   
-	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		TransporteHttp.call(SOAP_ACTION8, Envoltorio);
+	  	    SoapObject result = (SoapObject) Envoltorio.bodyIn;
 	  		
 			  		if(result != null){
 			  			Log.e("TIPO ACCION: 2-- ","opcion");
@@ -686,25 +1011,26 @@ public Tarea tareabuscarempleado(int id_tarea){
 			  			
 			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
 			  
-			  					item.setId_tarea(jsondatos.getInt("id_tarea"));
-			  					item.setId_empleado(jsondatos.getInt("id_persotarea"));
-							    item.setDescripcion(jsondatos.getString("descripcion"));
-							    item.setComentario(jsondatos.getString("comentario"));
-							    item.setId_nivel_tarea(jsondatos.getInt("id_tipotarea"));
-							    item.setFecha_inicio(jsondatos.getString("fecha_inicio"));
-							    item.setFecha_fin(jsondatos.getString("fecha_fin"));
+			  					 item.setId(jsondatos.getInt("id_Tarea_realizada"));
+			  					 item.setIdTarea(jsondatos.getInt("id_tarea"));
+			  					 item.setDescripcion(jsondatos.getString("descipcion"));
+			  					 item.setFechafin(jsondatos.getString("fecha_fin"));
+			  					item.setFechafin(jsondatos.getString("estado"));			
 			  				   
-			  		}
-			  		
+			  				}
+			  			
+			  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
 	  		}catch (Exception e) {
 	  			e.printStackTrace();
-	  		}
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
-	return item;
+	  		}	
+	
+	//return listaTarea;	
+return item;
+}
 
-}	
 
 	
 }

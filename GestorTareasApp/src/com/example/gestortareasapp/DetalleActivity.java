@@ -43,10 +43,12 @@ public class DetalleActivity extends Activity {
 	int notificationID = 1;
 	int botononValidar;
 	TextView textdescripcion, textcomentario, textfechaini, textfechafin, textnivel, txtetiquetFecha;
+	
 	Tarea tobj = new Tarea();
 	TimePicker timePicker1;
 	String idTarea;
 	int validarRecordatorio;
+	String url;
 	Button btn;
 	private int hour;
 	private int minute;
@@ -55,6 +57,8 @@ public class DetalleActivity extends Activity {
 	int cal1,cal2,total, id_personas, id_tareas;
 	String horaminuto= ":";
 	  
+	public void onArchivo(View v){
+	}
 	
 	public void Recordatorio(int id, String hora){
 		
@@ -79,7 +83,8 @@ public class DetalleActivity extends Activity {
 		}
 		
 	}
-public String HORA(String id){
+	
+	public String HORA(String id){
 		
 		DbUsuarios dbuser = new DbUsuarios();
 		Alarma alar= dbuser.listaRecordatorio(this, id);
@@ -172,10 +177,12 @@ public String HORA(String id){
 		Intent intent = this.getIntent();
 		idTarea = intent.getStringExtra("idTarea");
 		id_tareas= Integer.parseInt(idTarea);
-		Log.e("idTarea", idTarea);
+		Log.e("idTarea", id_tareas+"");
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		
 		inicializar();
 		cargar_tarea(idTarea);
+		
 		
 		
 	}
@@ -198,6 +205,7 @@ public String HORA(String id){
 		textfechafin=(TextView) findViewById(R.id.textViewDFechaFin);
 		txtetiquetFecha= (TextView) findViewById(R.id.textViewEtiquetaFecha);
 		
+		
 		int hour = calendar.get(Calendar.HOUR_OF_DAY);
 	    int min = calendar.get(Calendar.MINUTE);
 	     
@@ -211,9 +219,11 @@ public String HORA(String id){
 			hor= validacion.getHora();
 			txtetiquetFecha.setText(hor);
 			Log.e("validacion",validacion+"");
+		
 			
 			if(validacion.equals(null))
 					{
+		
 				//nuevo
 				Log.e("guardar ","genial" );
 				validarRecordatorio=1;
@@ -236,9 +246,7 @@ public String HORA(String id){
 	    	  @Override
 	          public void onClick(View v)
 	          {
-	        	int hour2 = calendar.get(Calendar.HOUR_OF_DAY);
-	      	    int min2 = calendar.get(Calendar.MINUTE);
-	      	   
+	        
 	          	tomartiempo();
 	          
 	          	if(validarRecordatorio==1){
@@ -303,8 +311,10 @@ public String HORA(String id){
 		textcomentario.setText(tobj.getComentario());
 		textfechaini.setText(tobj.getFecha_inicio());
 		textfechafin.setText(tobj.getFecha_fin());
-				
-		textcomentario.setEnabled(false);
+		
+	    url= tobj.getArchivo_adjunto();			
+		Log.e("url", url);
+	    textcomentario.setEnabled(false);
 		textdescripcion.setEnabled(false);
 		textfechaini.setEnabled(false);
 		textfechafin.setEnabled(false);
@@ -313,6 +323,8 @@ public String HORA(String id){
 	
 	public void onTareaRealizada(View boton){ 
 		Intent intent= new Intent(this,TareaRealizada.class);
+		Log.e("idTarea", idTarea+"");
+		Log.e("descripcion", tobj.getDescripcion()+"");
 		intent.putExtra("idTarea", idTarea);
 		intent.putExtra("descripcion", tobj.getDescripcion());
 		startActivity(intent);	
