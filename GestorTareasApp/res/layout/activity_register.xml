@@ -67,6 +67,7 @@
                 android:layout_height="70px"
                 android:ems="10"
                 android:hint="Cedula"
+                android:inputType="number"
                 android:maxLength="10" />
 
             <ImageView

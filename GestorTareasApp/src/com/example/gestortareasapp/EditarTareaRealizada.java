@@ -11,6 +11,7 @@ import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
 import com.modelo.informacion.Alarma;
+import com.modelo.informacion.Tarea;
 import com.modelo.informacion.TareaRealizadaE;
 import com.modelos.DbUsuarios;
 
@@ -26,10 +27,11 @@ import android.widget.Toast;
 
 public class EditarTareaRealizada extends Activity {
 	EditText edittextDescripcion,edittextDescripcionTarea,edittextComentarioTarea;
-	TextView textviewFecha;
+	TextView textviewFecha,textviewDescripTar,textviewComentTar;
 	int idtarea;
-	int Tarea;
+	int Tarea_id;
 	TareaRealizadaE tobj = new TareaRealizadaE();
+	Tarea tobjtarea = new Tarea();
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
 	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
@@ -42,21 +44,27 @@ public class EditarTareaRealizada extends Activity {
 		setContentView(R.layout.activity_editar_tarea_realizada);
 		edittextDescripcion=(EditText) findViewById(R.id.editTextEditarDescripcion);
 		textviewFecha=(TextView) findViewById(R.id.textViewFechaActual);
-		
+		textviewDescripTar= (TextView) findViewById(R.id.textViewDescripcTareaEditar);
+		textviewComentTar= (TextView) findViewById(R.id.textViewComentarioTareaEditarr);
 		idtarea=this.getIntent().getIntExtra("idTarea", 0);
 		BuscarDatos();
+		
 	}
 	
 public void BuscarDatos(){
 		
 	DbUsuarios dbuser = new DbUsuarios();
 	tobj= dbuser.tareabuscarEditar(idtarea);
-		
 	edittextDescripcion.setText(tobj.getDescripcion());
-	textviewFecha.setText(tobj.getFechafin());
+	Tarea_id=tobj.getIdTarea();
+	Log.e("Tarea_id tu macho", Tarea_id+"");
+	tobjtarea=dbuser.tareabuscarempleado(Tarea_id);
 	
-	Tarea=tobj.getIdTarea();		
-	}
+	textviewDescripTar.setText(tobjtarea.getDescripcion());
+	textviewComentTar.setText(tobjtarea.getComentario());
+	textviewFecha.setText(tobjtarea.getFecha_fin()); 
+	
+}
 
 	
 	public void onGuardar(View v){
@@ -68,7 +76,7 @@ public void BuscarDatos(){
 			JSONObject objTarea=new JSONObject();
 			try {
 				objTarea.put("id_Tarea_realizada",idtarea);// no queremos este valor
-				objTarea.put("id_tarea",Tarea);
+				objTarea.put("id_tarea",Tarea_id);
 				objTarea.put("descipcion",edittextDescripcion.getText().toString());
 				objTarea.put("fecha_fin","2016-01-01");
 				objTarea.put("archivo_env","");

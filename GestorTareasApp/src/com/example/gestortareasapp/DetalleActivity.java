@@ -1,7 +1,6 @@
 package com.example.gestortareasapp;
 
 
-import java.io.ObjectOutputStream.PutField;
 import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -58,6 +57,12 @@ public class DetalleActivity extends Activity {
 	String horaminuto= ":";
 	  
 	public void onArchivo(View v){
+		String link = url;
+		Log.e("link Archivo", link);
+		Intent intent = null;
+		intent = new Intent(intent.ACTION_VIEW,Uri.parse(link));
+		startActivity(intent);
+	
 	}
 	
 	public void Recordatorio(int id, String hora){
@@ -177,26 +182,20 @@ public class DetalleActivity extends Activity {
 		Intent intent = this.getIntent();
 		idTarea = intent.getStringExtra("idTarea");
 		id_tareas= Integer.parseInt(idTarea);
-		Log.e("idTarea", id_tareas+"");
-		id_personas=this.getIntent().getIntExtra("id_persona", 0);
-		
+		Log.e("idTarea OnCREATE", id_tareas+"");
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);	
 		inicializar();
 		cargar_tarea(idTarea);
-		
-		
-		
-	}
-	@Override
-	protected void onResume() {
-		// TODO Auto-generated method stub
-		super.onResume();	
-	}
-	public void onConf(View v){
-		btn.setEnabled(true);
-		 timePicker1.setEnabled(true);
 	}
 	
+	    public void onConf(View v){
+		btn.setEnabled(true);
+		timePicker1.setEnabled(true);
+	}
+	    
+	
 	public void inicializar(){
+		
 		timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
 		calendar = Calendar.getInstance();
 		textdescripcion=(TextView) findViewById(R.id.textViewDDescripcion);
@@ -216,14 +215,14 @@ public class DetalleActivity extends Activity {
 		 	Alarma validacion= new Alarma();
 		 	String hor="";
 			validacion=BuscarRecord(idTarea);
-			hor= validacion.getHora();
-			txtetiquetFecha.setText(hor);
+			
 			Log.e("validacion",validacion+"");
 		
 			
-			if(validacion.equals(null))
+			if(validacion == null)
 					{
-		
+				hor= "No hay recordatorio";
+				txtetiquetFecha.setText(hor);
 				//nuevo
 				Log.e("guardar ","genial" );
 				validarRecordatorio=1;
@@ -233,6 +232,9 @@ public class DetalleActivity extends Activity {
 				 
 				 
 			}else{
+				
+				hor= validacion.getHora();
+				txtetiquetFecha.setText(hor);
 				 Log.e("editar","genial" );
 					//editar
 					validarRecordatorio=2;
@@ -268,24 +270,18 @@ public class DetalleActivity extends Activity {
 	              {
 	                  @Override
 	                  public void run()
-	                  {
-	                  	
+	                  {	                 
 	                  	//triggerNotification();
-	                  	
-	                    //  funciono();
-	                  	
+	                	  //  funciono();
 	                  }
-	              };
-	              
+	              };	          
 	              timer.schedule(timerTask, (total*1000));
 	              timePicker1.setEnabled(false);
 	              btn.setText("Recordatorio iniciado");
 	              btn.setEnabled(false);
-	            
 	          }
 	      });
-	      total=0;
-	      
+	      total=0;      
 		}
 	
 	public void triggerAlert(){
@@ -306,14 +302,14 @@ public class DetalleActivity extends Activity {
 		int idTarea2 = Integer.parseInt(idTarea);
 		DbUsuarios bd =new DbUsuarios();
 		tobj = bd.tareabuscarempleado(idTarea2);
-		
+		Log.e("id_tareaa :P ", idTarea2+"");
 		textdescripcion.setText(tobj.getDescripcion());
 		textcomentario.setText(tobj.getComentario());
 		textfechaini.setText(tobj.getFecha_inicio());
 		textfechafin.setText(tobj.getFecha_fin());
 		
 	    url= tobj.getArchivo_adjunto();			
-		Log.e("url", url);
+		//Log.e("url", url);
 	    textcomentario.setEnabled(false);
 		textdescripcion.setEnabled(false);
 		textfechaini.setEnabled(false);

@@ -1,8 +1,10 @@
 package com.example.gestortareasapp;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -92,7 +94,9 @@ public class NuevaTarea extends Activity {
 		private String METODO9="lista_empleados2";
 
 		// la devolución de llamada recibida cuando el usuario "fija " la hora en el diálogo 
-	    private TimePickerDialog.OnTimeSetListener mDateTimeSetListener =            
+
+		//hora inicio	
+		private TimePickerDialog.OnTimeSetListener mDateTimeSetListener =            
 	    	new TimePickerDialog.OnTimeSetListener() {
 
 				@Override
@@ -116,7 +120,8 @@ public class NuevaTarea extends Activity {
 			   	};
 		
 		// la devolución de llamada recibida cuando el usuario "fija " la hora en el diálogo 
-		private TimePickerDialog.OnTimeSetListener mDateTimeSetListener2 =            
+	//hora fin	
+	private TimePickerDialog.OnTimeSetListener mDateTimeSetListener2 =            
 			    	new TimePickerDialog.OnTimeSetListener() {
 
 						@Override
@@ -140,26 +145,34 @@ public class NuevaTarea extends Activity {
 					   	};
 		
 	    // la devolución de llamada recibida cuando el usuario "fija " la fecha en el diálogo 
-	    private DatePickerDialog.OnDateSetListener mDateSetListener =            
+	    //fecha inicio
+			private DatePickerDialog.OnDateSetListener mDateSetListener =            
 	    	new DatePickerDialog.OnDateSetListener() {                
 	    	public void onDateSet(DatePicker view, int year,                                       
-	    			int monthOfYear, int dayOfMonth) {                    
+	    			int monthOfYear, int dayOfMonth) {       
+	    		String var1;
 	    		añoIni = year;                    
 	    		mesIni = monthOfYear +1;                    
 	    		diaIni = dayOfMonth;
 	    		if(mesIni<10){
 	    			cmes1="0";
-	    		}else{cmes1="";}
-	    			
+	    			Log.e("mesInii", cmes1);
+	    		}
+	    		else{
+	    			cmes1="5";
+	    			Log.e("mesIniElse", cmes1);
+	    			}
 	    		if(diaIni<10){
 	    			cdia1="0";
 	    		}else{cdia1="";}
 	    		
-	    		fechaini= añoIni+"-"+cmes1+ mesIni +"-"+cdia1+diaIni;	    		
+	    		fechaini= añoIni+"-"+cmes1+mesIni+"-"+cdia1+diaIni;	    		
 	    		updateTextViewFechaIni();                
 	    		}  
+	    
 	    	};
-	    	      	
+	   
+	    	//fecha fin      	
 	    private DatePickerDialog.OnDateSetListener mDateSetListener2 =     
 	    		
 	    	new DatePickerDialog.OnDateSetListener() {                
@@ -169,6 +182,7 @@ public class NuevaTarea extends Activity {
 	    	  	mesFin = monthOfYear + 1;                    
 	    	    diaFin = dayOfMonth;
 	    	    if(mesFin<10){
+	    	    	
 	    			cmes2="0";
 	    		}else{cmes2="";}
 	    		if(diaFin<10){
@@ -197,10 +211,13 @@ public class NuevaTarea extends Activity {
 		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
 		
 		inicializar();
+    	
 		fechaIni();
 		fechaFin();
 		horaIni();
 		horaFin();
+		 //en caso de que hagan cambios en el boton btNfECHAINICIO
+		
 		
 //		Intent intent=null;	
 		opcionInt= Integer.parseInt(opcion);
@@ -705,6 +722,7 @@ public class NuevaTarea extends Activity {
 			
 			fecha1=fechaini+" "+horaini;
 			fecha2=fechafin+" "+horafin;
+			String archivo_1 ="";
 			
 			int id_nivel_tarea_almacenar = funcionidnivel(nivelSpinner.getSelectedItem().toString());
 		  	int id_empleado_almacenar = funcionidempleado(empleadoSpinner.getSelectedItem().toString());			
@@ -716,7 +734,7 @@ public class NuevaTarea extends Activity {
 				objTarea.put("id_persona",id_personas);
 				objTarea.put("id_persotarea",id_empleado_almacenar);
 				objTarea.put("descripcion",descripcion);
-				//objTarea.put("archivo",comentario);// no queremos este valor
+				//objTarea.put("archivo",archivo_1);
 				objTarea.put("comentario",comentario);
 				objTarea.put("fecha_inicio", btnFechaInicio.getText()+" "+btn_HoraInicio.getText());
 				objTarea.put("fecha_fin", btnFechaFin.getText()+" "+btn_HoraFin.getText());
@@ -736,7 +754,7 @@ public class NuevaTarea extends Activity {
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}*/
+ 			}*/
 			
 			SoapObject request = new SoapObject(NAMESPACE, METODO7);
 			request.addProperty("request1" , objTarea.toString());
@@ -748,8 +766,7 @@ public class NuevaTarea extends Activity {
 		  	
 		  	try {
 		  		TransporteHttp.call(SOAP_ACTION7, Envoltorio);
-		  	   
-		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  	    SoapObject result = (SoapObject) Envoltorio.bodyIn;
 		  		
 		  		if(result != null){
 		  			
@@ -757,14 +774,12 @@ public class NuevaTarea extends Activity {
 						Toast.makeText(this, "Tarea Editada Correctamente ", Toast.LENGTH_LONG).show();						
 					}
 					if(result.getProperty(0).toString().equals("0")){
-						Toast.makeText(this, "Error al crear tarea", Toast.LENGTH_LONG).show();						
+						Toast.makeText(this, "Error al editar: Tarea Realizada / Atrasada", Toast.LENGTH_LONG).show();						
 					}		  		
 		  		
 		  		}else{
 		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
 		  		}
-		  		
-		  		
 		  		}catch (Exception e) {
 		  			e.printStackTrace();
 		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
@@ -812,14 +827,11 @@ public class NuevaTarea extends Activity {
 					}
 					if(result.getProperty(0).toString().equals("1")){
 						Toast.makeText(this, "Eliminar correctamente", Toast.LENGTH_LONG).show();
-						
-					}
+						}
 					
 		  		}else{
 		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
 		  		}
-		  		
-		  		
 		  		}catch (Exception e) {
 		  			e.printStackTrace();
 		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
@@ -842,11 +854,9 @@ public class NuevaTarea extends Activity {
 	  	
 	  	try {
 	  		TransporteHttp.call(SOAP_ACTION2, Envoltorio);
-	  	   
-	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  	    SoapObject result = (SoapObject) Envoltorio.bodyIn;
 	  		
-	  		if(result != null){
-	  			
+	  		if(result != null){	
 	  			return result.getProperty(0).toString();
 	  			
 	  		}else{
@@ -857,8 +867,7 @@ public class NuevaTarea extends Activity {
 	  			e.printStackTrace();
 	  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
 	  	  		return "";
-	  		}
-		
+	  		}	
 	  }
 	
 	
@@ -895,11 +904,12 @@ public class NuevaTarea extends Activity {
 	public void onCancelar(View boton){
 	finish();	
 	}
-	
-	
+		
 	// updates the date in the TextView    
     private void updateTextViewFechaIni() {        
     	String mes= null;
+    	String mess;
+    	String diaa;
     	if(mesIni== 1){
     		mes="Enero";
     	}else if (mesIni==2) {
@@ -923,23 +933,36 @@ public class NuevaTarea extends Activity {
 		}else if (mesIni==11) {
     		mes="Noviembre";
 		}else if (mesIni==12) {
-    		mes="Dciembre";
+    		mes="Diciembre";
 		}
-    	
-    	
+    	//AAAAA
+    	if(mesIni<10){
+    		mess="0"+mesIni;
+		}
+		else{
+			mess=""+mesIni;
+			}
+		if(diaIni<10){
+			diaa="0"+diaIni;
+		}else{
+			diaa=""+diaIni;
+			}
+		
     	btnFechaInicio.setText(            
     			new StringBuilder()                    
     			// Month is 0 based so add 1   
     			.append(añoIni).append("-")
-    			.append(mesIni).append("-")                    
-    			.append(diaIni).append("")		                    
-    			);    
+    			.append(mess).append("-")                    
+    			.append(diaa).append("")		                    
+    			);
+
+    	    
     }
     
     
     private void updateTextViewFechafin() {
-    	
     	String mes=null;
+    	String mess2,diaa2;
     	if(mesFin== 1){
     		mes="Enero";
     	}else if (mesFin==2) {
@@ -963,26 +986,89 @@ public class NuevaTarea extends Activity {
 		}else if (mesFin==11) {
     		mes="Noviembre";
 		}else if (mesFin==12) {
-    		mes="Dciembre";
-		
+    		mes="Diciembre";
 		}
     	
-    	btnFechaFin.setText(            
-    			new StringBuilder()                    
-    			// Month is 0 based so add 1   
-    			.append(añoFin ).append("-")
-    			.append(mesFin).append("-")                    
-    			.append(diaFin).append("")
-    			);    
+
+    	if(mesFin<10){
+    		mess2="0"+mesFin;
+		}
+		else{
+			mess2=mesFin+"";
+			}
+		if(diaFin<10){
+			diaa2="0"+diaFin;
+		}else{
+			diaa2=""+diaFin;
+			}
+		
+    	
+    
+    	Date fechaActual = new Date();
+        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+        //String fechaSistema=formateador.format(fechaActual);
+        String fechaSistema=añoFin+"-"+mess2+"-"+diaa2;
+    	String resultadoMayor= compararFechasConDate(CapturarFechaInicio(btnFechaInicio.getText().toString()),fechaSistema);
+    	if(resultadoMayor.equals("si")){
+    		
+    		btnFechaFin.setText(            
+        			new StringBuilder()                    
+        			// Month is 0 based so add 1   
+        			.append(añoFin ).append("-")
+        			.append(mess2).append("-")                    
+        			.append(diaa2).append("")
+        			);    
+    		
+    
+    	}else{
+    		btnFechaFin.setText(            
+        			new StringBuilder()                    
+        			// Month is 0 based so add 1   
+        			.append("Fecha").append("-")
+        			.append("no").append("-")                    
+        			.append("valida").append("")
+        			);    
+    		
+            /*
+             * if(btnFechaInicio.getText().toString().equals("   Fecha Inicio   ")){
+    		btnFechaFin.setEnabled(false);
+    	}
+    	else{
+    		btnFechaFin.setEnabled(true);
+    	}
+             * */    		
+    		
+    	}
+    	
     }
+    
+    private String compararFechasConDate(String fecha1, String fechaActual) {  
+		  String resultado="";
+		   /**Obtenemos las fechas enviadas en el formato a comparar*/
+		   SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd"); 
+		   
+		try {
+		   Date fechaDate1 = formateador.parse(fecha1);
+		   Date fechaDate2 = formateador.parse(fechaActual);
+		   Log.e("hollaa", "akilooeeeeegggggg");	    
+		    if ( fechaDate1.before(fechaDate2) ){
+		    resultado= "si";
+		    }else{
+		    resultado="no";
+		    }
+		} catch (java.text.ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		  return resultado;
+		 
+		}
     
     public void onAgregarArchivo(View v){
     	
     	try {
 			File tarjeta = Environment.getExternalStorageDirectory();
 			File file = new File(tarjeta.getAbsoluteFile(),"archivo_prueba.docx");
-			
-    		
 			
 		} catch (Exception e) {
 			// TODO: handle exception
