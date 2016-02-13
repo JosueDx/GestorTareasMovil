@@ -9,18 +9,27 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.gestortareasapp.EficienciaTEmpleado" >
 
-     <LinearLayout
+    <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <TextView
-            android:id="@+id/textViewDescripTareaAtrasada"
+        <EditText
+            android:id="@+id/editTextCriterioEficienciaxTarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Descripcion"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textStyle="bold" />
+            android:layout_weight="1"
+            android:ems="10" >
+
+            <requestFocus />
+        </EditText>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onBuscar"
+            android:text="Buscar" />
 
     </LinearLayout>
 
@@ -28,27 +37,50 @@
         android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearLayout1"
         android:orientation="vertical" >
-
-        <ListView
-            android:id="@+id/listViewEficienciaEmpleadoo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-        </ListView>
-
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewTareasNoCumplidas"
+    <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/linearLayout2"
-        android:layout_alignTop="@+id/linearLayout1"
-        android:layout_marginRight="49dp"
-        android:text="Nivel"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textStyle="bold" />
-    
-    
+        android:layout_alignLeft="@+id/linearLayout2"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="      N.E     NO EFICIENTE"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="         E       EFICIENTE"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:text="      M.E    MUY EFICIENTE"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/listViewEficienciaEmpleadoo"
+        android:layout_width="match_parent"
+        android:layout_height="203dp"
+        android:layout_above="@+id/linearLayout3"
+        android:layout_alignLeft="@+id/linearLayout3"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout1" >
+
+    </ListView>
+
 </RelativeLayout>

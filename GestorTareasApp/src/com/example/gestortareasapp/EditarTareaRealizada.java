@@ -58,7 +58,7 @@ public void BuscarDatos(){
 	edittextDescripcion.setText(tobj.getDescripcion());
 	Tarea_id=tobj.getIdTarea();
 	Log.e("Tarea_id tu macho", Tarea_id+"");
-	tobjtarea=dbuser.tareabuscarempleado(Tarea_id);
+	tobjtarea=dbuser.tareabuscarempleado(idtarea);
 	
 	textviewDescripTar.setText(tobjtarea.getDescripcion());
 	textviewComentTar.setText(tobjtarea.getComentario());

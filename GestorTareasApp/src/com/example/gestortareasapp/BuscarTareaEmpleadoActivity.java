@@ -57,9 +57,7 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 			ArrayList<Tarea> listatareas = bd_tarea.listartextoempleado(id_personas);
 			
 		    CustomListViewTareaEmpleado Adaptador = new CustomListViewTareaEmpleado(
-			this,R.layout.tarea_list_empleado,listatareas);
-			
-			
+			this,R.layout.tarea_list_empleado,listatareas);		
 		    listviewTareasEmpleado.setAdapter(Adaptador);
 		    listviewTareasEmpleado.setOnItemClickListener(new MyItemClickListener());
 		    listviewTareasEmpleado.refreshDrawableState();
@@ -69,17 +67,14 @@ public class BuscarTareaEmpleadoActivity extends Activity {
 		DbUsuarios bd_tarea = new DbUsuarios();
 			
 			ArrayList<Tarea> listatareas = bd_tarea.listartextoempleado(id_personas, criterio);
-			
 			CustomListViewTareaEmpleado Adaptador = new CustomListViewTareaEmpleado(
 			this,R.layout.tarea_list_empleado,listatareas);
-			
 			
 		    listviewTareasEmpleado.setAdapter(Adaptador);
 		    listviewTareasEmpleado.setOnItemClickListener(new MyItemClickListener());
 		    listviewTareasEmpleado.refreshDrawableState();
 		}
 	
-
 	//clase interna
 		class MyItemClickListener implements OnItemClickListener{
 

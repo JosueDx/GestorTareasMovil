@@ -31,7 +31,7 @@ public class BuscarTareaEmpleadoRealizado extends Activity {
 		setContentView(R.layout.activity_buscar_tarea_empleado_realizada);
 		inicializar();
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);
-		Log.e("ando x aki xk jouse no sabe",""+ id_personas);
+		Log.e("ando x aki __ jouse sape",""+ id_personas);
 		cargarlista();
 		
 	}	
@@ -52,31 +52,23 @@ public class BuscarTareaEmpleadoRealizado extends Activity {
 		edittextCriterio=(EditText) findViewById(R.id.editTextDescripcTareaAtrasadaa);
 	}
 	
-	public void cargarlista(){
-		
+	public void cargarlista(){	
 		  	DbUsuarios bd_tarea = new DbUsuarios();
-			ArrayList<TareaRealizadaE> listatareas = bd_tarea.listartextoempleadorealizado(id_personas);
-			
-		    CustomListViewTareaEmpleadoRealizada Adaptador = new CustomListViewTareaEmpleadoRealizada(
-			this,R.layout.tarea_list_empleado_realizado,listatareas);
-			
+			ArrayList<Tarea> listatareas = bd_tarea.listartextoempleadoRealizado(id_personas);
+		    CustomListViewTareaEmpleado Adaptador = new CustomListViewTareaEmpleado(
+			this,R.layout.tarea_list_empleado,listatareas);
 			
 		    listviewTareaEmpleadoRealizado.setAdapter(Adaptador);
 		    listviewTareaEmpleadoRealizado.setOnItemClickListener(new MyItemClickListener());
 		    listviewTareaEmpleadoRealizado.refreshDrawableState();
 		
-		
 		}
 	
 	public void cargarlista(int id_personas, String criterio){
 		DbUsuarios bd_tarea = new DbUsuarios();
-			
-		
-			ArrayList<TareaRealizadaE> listatareas = bd_tarea.listartextoempleadorealizado(id_personas, criterio);
-			
-			CustomListViewTareaEmpleadoRealizada Adaptador = new CustomListViewTareaEmpleadoRealizada(
-			this,R.layout.tarea_list_empleado_realizado,listatareas);
-			
+			ArrayList<Tarea> listatareas = bd_tarea.listartextoempleadoRealizado(id_personas, criterio);
+			CustomListViewTareaEmpleado Adaptador = new CustomListViewTareaEmpleado(
+			this,R.layout.tarea_list_empleado,listatareas);
 			
 			listviewTareaEmpleadoRealizado.setAdapter(Adaptador);
 			listviewTareaEmpleadoRealizado.setOnItemClickListener(new MyItemClickListener());
@@ -94,16 +86,14 @@ public class BuscarTareaEmpleadoRealizado extends Activity {
 				//definir el comportamiento que tendrá la lista cuando se 
 				//seleccione un item
 					
-			TareaRealizadaE itemtarea =(TareaRealizadaE) listviewTareaEmpleadoRealizado.getItemAtPosition(posicion);
-			
+			Tarea itemtarea =(Tarea) listviewTareaEmpleadoRealizado.getItemAtPosition(posicion);
 			
 			Intent intent=null;	
 			intent = new Intent(componente.getContext(),EditarTareaRealizada.class);
-			intent.putExtra("idTarea",itemtarea.getId());
+			Log.e("antes de enviar tarea", itemtarea.getId_tarea()+"");
+			intent.putExtra("idTarea",itemtarea.getId_tarea());
 		    intent.putExtra("id_personas", id_personas);
 	         startActivity(intent);
-			
-					
 				}
 				
 			}
