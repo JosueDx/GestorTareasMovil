@@ -135,12 +135,16 @@ public class TareaRealizada extends Activity {
 		  			
 		  			if(result.getProperty(0).toString().equals("1")){
 						Toast.makeText(this, "Registro exitoso ", Toast.LENGTH_LONG).show();
-					
-						Intent intent= new Intent(TareaRealizada.this,BuscarTareaEmpleadoActivity.class);
-						intent.putExtra("id_persona", id_personas);
-						intent.putExtra("id_departamento", id_departamento);
-						startActivity(intent);
-						this.finish();
+			/*		
+						//Intent intent= new Intent(TareaRealizada.this,BuscarTareaEmpleadoActivity.class);
+					//	intent.putExtra("id_persona", id_personas);
+						//intent.putExtra("id_departamento", id_departamento);
+					//	startActivity(intent);
+						//this.finish();
+				*/		
+				startActivity(new Intent(getBaseContext(), MainActivity.class)
+		        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+			    finish();
 						
 						/*	//finish();
 						Intent intent= new Intent(this,BuscarTareaEmpleadoActivity.class);
@@ -155,19 +159,15 @@ public class TareaRealizada extends Activity {
 						Toast.makeText(this, "Error al registrar", Toast.LENGTH_LONG).show();
 						
 					}
-		  		
 		  		}else{
 		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
 		  		}
-		  		
 		  		
 		  		}catch (Exception e) {
 		  			e.printStackTrace();
 		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
 		  	  		
 		  		}
-			
-
 		}
 
 		

@@ -31,7 +31,7 @@
         <item>Baja</item>
     </string-array>
 
-    <string name="title_activity_buscar_tarea">BuscarTarea</string>
+    <string name="title_activity_buscar_tarea">Buscar Tarea</string>
     <string name="title_activity_spinner">SpinnerActivity</string>
     <string name="title_activity_buscar_tarea_empleado">Buscar Tarea</string>
     <string name="title_activity_detalle">Detalle de la Tarea</string>
@@ -45,7 +45,7 @@
     <string name="title_activity_eficiencia_tarea">Eficiencia_tarea</string>
     <string name="title_activity_buscar_eficiencia">BuscarEficiencia</string>
     <string name="title_activity_menu_empleado">Menu Empleado</string>
-    <string name="title_activity_tarea_pendiente">Tareas Pendientes</string>
+    <string name="title_activity_tarea_pendiente">Tareas </string>
     <string name="title_activity_editar_tarea_realizada">Editar Tarea Realizada</string>
     <string name="title_activity_eficiencia_gempleado">Eficiencia General</string>
     <string name="title_activity_eficiencia_templeado">EficienciaTEmpleado</string>

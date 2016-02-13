@@ -78,8 +78,8 @@ public void BuscarDatos(){
 				objTarea.put("id_Tarea_realizada",idtarea);// no queremos este valor
 				objTarea.put("id_tarea",Tarea_id);
 				objTarea.put("descipcion",edittextDescripcion.getText().toString());
-				objTarea.put("fecha_fin","2016-01-01");
-				objTarea.put("archivo_env","");
+				objTarea.put("fecha_fin","2016-01-01");// poner fecha actual
+				objTarea.put("archivo_env","l");
 				objTarea.put("estado","A");
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block

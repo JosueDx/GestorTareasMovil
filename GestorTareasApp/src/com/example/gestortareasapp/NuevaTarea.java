@@ -1030,7 +1030,7 @@ public class NuevaTarea extends Activity {
         			);    
     		
             /*
-             * if(btnFechaInicio.getText().toString().equals("   Fecha Inicio   ")){
+              if(btnFechaInicio.getText().toString().equals("   Fecha Inicio   ")){
     		btnFechaFin.setEnabled(false);
     	}
     	else{
