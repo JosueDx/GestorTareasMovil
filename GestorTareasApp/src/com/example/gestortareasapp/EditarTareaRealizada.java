@@ -3,6 +3,11 @@ package com.example.gestortareasapp;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.ksoap2.SoapEnvelope;
@@ -17,6 +22,7 @@ import com.modelos.DbUsuarios;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,65 +32,83 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class EditarTareaRealizada extends Activity {
-	EditText edittextDescripcion,edittextDescripcionTarea,edittextComentarioTarea;
 	TextView textviewFecha,textviewDescripTar,textviewComentTar;
-	int idtarea;
-	int Tarea_id;
+	EditText editTextDes;
+	
+	int idtarea,Tarea_id;
 	TareaRealizadaE tobj = new TareaRealizadaE();
 	Tarea tobjtarea = new Tarea();
+	String url;
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
 	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
 	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/actualizartarearealizada";
+	//192.192.192.1  clave redaplicaciones
 	private String METODO="actualizartarearealizada";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_editar_tarea_realizada);
-		edittextDescripcion=(EditText) findViewById(R.id.editTextEditarDescripcion);
+		//edittextDescripcion = (EditText) findViewById(R.id.editTextEditarDescripcion);
 		textviewFecha=(TextView) findViewById(R.id.textViewFechaActual);
 		textviewDescripTar= (TextView) findViewById(R.id.textViewDescripcTareaEditar);
 		textviewComentTar= (TextView) findViewById(R.id.textViewComentarioTareaEditarr);
+		editTextDes=(EditText) findViewById(R.id.editTxtDescripcionTareaR);
+		//ID TAREA 
 		idtarea=this.getIntent().getIntExtra("idTarea", 0);
 		BuscarDatos();
 		
 	}
+	public void onArchivo(View v){
+		String link = url;
+		Log.e("link Archivo", link);
+		Intent intent = null;
+		intent = new Intent(intent.ACTION_VIEW,Uri.parse(link));
+		startActivity(intent);
+	
+	}
+	
 	
 public void BuscarDatos(){
 		
 	DbUsuarios dbuser = new DbUsuarios();
 	tobj= dbuser.tareabuscarEditar(idtarea);
-	edittextDescripcion.setText(tobj.getDescripcion());
-	Tarea_id=tobj.getIdTarea();
-	Log.e("Tarea_id tu macho", Tarea_id+"");
+	editTextDes.setText(tobj.getDescripcion());
+	Tarea_id=tobj.getId();
+	Log.e("Tarea_id tu ....", idtarea+"");
+	Log.e("Tarea_id tu macho", tobj.getId()+"");
 	tobjtarea=dbuser.tareabuscarempleado(idtarea);
-	
+	Integer id_tar;
+	id_tar=tobjtarea.getId_tarea();
+	Log.e("mi tarea ", id_tar+"");
 	textviewDescripTar.setText(tobjtarea.getDescripcion());
 	textviewComentTar.setText(tobjtarea.getComentario());
 	textviewFecha.setText(tobjtarea.getFecha_fin()); 
-	
+	url= tobjtarea.getArchivo_adjunto();
 }
 
 	
 	public void onGuardar(View v){
-		if(edittextDescripcion.getText().toString().equals("")){
+		if(editTextDes.getText().toString().equals("")){
 			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
 		
 		}else{
 			
 			JSONObject objTarea=new JSONObject();
 			try {
-				objTarea.put("id_Tarea_realizada",idtarea);// no queremos este valor
-				objTarea.put("id_tarea",Tarea_id);
-				objTarea.put("descipcion",edittextDescripcion.getText().toString());
-				objTarea.put("fecha_fin","2016-01-01");// poner fecha actual
-				objTarea.put("archivo_env","l");
+				objTarea.put("id_Tarea_realizada",Tarea_id);// no queremos este valor
+				objTarea.put("id_tarea",idtarea);
+				objTarea.put("descipcion",editTextDes.getText().toString());
+				objTarea.put("fecha_fin",getDatePhone());// poner fecha actual
+				objTarea.put("archivo_env","LLLLLLL");
 				objTarea.put("estado","A");
 			} catch (JSONException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			Log.e("idTarRealiz", Tarea_id+"");
+			Log.e("idTarea", idtarea+"");
 			Log.e("json", objTarea.toString());			
 			
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
@@ -119,6 +143,15 @@ public void BuscarDatos(){
 			
 		}
         		
+	}
+	
+	private String getDatePhone()
+	{
+	    Calendar cal = new GregorianCalendar();
+	    Date date = cal.getTime();
+	    SimpleDateFormat df = new SimpleDateFormat("yyy-MM-dd");
+	    String formatteDate = df.format(date);
+	    return formatteDate;
 	}
 	
 	public void onCancelar(View v){

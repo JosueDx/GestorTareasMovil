@@ -285,7 +285,7 @@ public class NuevaTarea extends Activity {
 				btnFechaFin.setText(fe2);
 				String ho2 =CapturarHoraInicio(tobj.getFecha_fin());
 				btn_HoraFin.setText(ho2);
-				//empleadoSpinner.setSelection(-1);
+
 				cargarempleado(id_departamento, tobj.getId_empleado());
 				if(tobj.getId_nivel_tarea()==1){
 					nivelSpinner.setSelection(0);
@@ -748,13 +748,7 @@ public class NuevaTarea extends Activity {
 				e1.printStackTrace();
 			}
 			Log.e("json", objTarea.toString());			
-			/*JSONObject jsonobject = new JSONObject();
-			try {
-				jsonobject.put("tarea", objTarea);
-			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
- 			}*/
+			
 			
 			SoapObject request = new SoapObject(NAMESPACE, METODO7);
 			request.addProperty("request1" , objTarea.toString());

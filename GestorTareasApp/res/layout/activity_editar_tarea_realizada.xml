@@ -37,15 +37,6 @@
             android:text="    Cancelar     " />
 
         <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textViewDescripcTareaEditar"
-            android:text="Descripcion de Tarea"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
             android:id="@+id/textViewDescripcTareaEditar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,18 +50,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView2"
+            android:layout_below="@+id/textViewDescripcTareaEditar"
             android:layout_marginTop="21dp"
             android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textViewComentarioTareaEditarr"
-            android:text="Comentario de la Tarea"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -78,10 +60,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/textView3"
+            android:layout_below="@+id/textViewComentarioTareaEditarr"
             android:layout_marginTop="22dp"
             android:text="Medium Text"
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewDescripcTareaEditar"
+            android:text="Descripcion de la Tarea" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewComentarioTareaEditarr"
+            android:text="Comentario de laTarea" />
 
         <TextView
             android:id="@+id/textView4"
@@ -89,37 +87,43 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/textViewFechaActual"
-            android:text="Fecha Final de la Tarea"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:text="Fecha final de la Tarea" />
 
-        <EditText
-            android:id="@+id/editTextEditarDescripcion"
+        <Button
+            android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/textView4"
-            android:layout_marginTop="48dp"
-            android:ems="10" >
-
-            <requestFocus />
-        </EditText>
+            android:onClick="onArchivo"
+            android:text="Visualizar Archivo de la Tarea" />
 
         <TextView
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/editTextEditarDescripcion"
-            android:text="Descripción :"
+            android:layout_alignRight="@+id/textViewFechaActual"
+            android:layout_below="@+id/editTxtDescripcionTareaR"
+            android:layout_marginTop="14dp"
+            android:text="Descripción "
             android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/editTxtDescripcionTareaR"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/textView1"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/textView5"
+            android:layout_marginTop="25dp"
+            android:ems="10" />
 
         <TextView
             android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/textView4"
-            android:layout_below="@+id/textView4"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/button3"
+            android:layout_centerHorizontal="true"
             android:text="Edicion de la Tarea"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

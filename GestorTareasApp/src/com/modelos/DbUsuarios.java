@@ -1199,7 +1199,6 @@ public TareaRealizadaE tareabuscarEditar(int id_tarea){
 	TareaRealizadaE item = new TareaRealizadaE();
 	try {
 		
-		
 		SoapObject request = new SoapObject(NAMESPACE, METODO8);
 		request.addProperty("request1" ,id_tarea+"");
 	  	
@@ -1213,15 +1212,13 @@ public TareaRealizadaE tareabuscarEditar(int id_tarea){
 			  		if(result != null){
 			  			Log.e("TIPO ACCION: 2-- ","opcion");
 			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
-			  			
 			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
 			  
 			  					 item.setId(jsondatos.getInt("id_Tarea_realizada"));
 			  					 item.setIdTarea(jsondatos.getInt("id_tarea"));
 			  					 item.setDescripcion(jsondatos.getString("descipcion"));
 			  					 item.setFechafin(jsondatos.getString("fecha_fin"));
-			  					item.setFechafin(jsondatos.getString("estado"));			
-			  				   
+			  					item.setFechafin(jsondatos.getString("estado"));					  				   
 			  				}
 			  			
 			  		}catch (JSONException e) {
@@ -1232,7 +1229,6 @@ public TareaRealizadaE tareabuscarEditar(int id_tarea){
 	  			e.printStackTrace();
 	  		}	
 	
-	//return listaTarea;	
 return item;
 }
 

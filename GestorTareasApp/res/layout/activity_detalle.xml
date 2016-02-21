@@ -52,7 +52,7 @@
             <Button
                 android:id="@+id/button1"
                 android:layout_width="wrap_content"
-                android:layout_height="31dp"
+                android:layout_height="wrap_content"
                 android:onClick="onArchivo"
                 android:text="Visualizar" />
 
@@ -174,19 +174,19 @@
                 android:id="@+id/buttonTRGuardar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.41"
                 android:onClick="onTareaRealizada"
-                android:text="Subir Tarea"
+                android:text="Responder Tarea"
                 android:textStyle="bold" />
 
             <Button
                 android:id="@+id/buttonTRCancelar"
-                android:layout_width="128dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="26dp"
                 android:onClick="onCancelar"
                 android:text="Cancelar"
                 android:textStyle="bold" />
+
         </LinearLayout>
 
     </LinearLayout>

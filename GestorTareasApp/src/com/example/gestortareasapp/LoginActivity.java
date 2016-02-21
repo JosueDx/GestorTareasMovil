@@ -131,11 +131,9 @@ public class LoginActivity extends Activity {
 			    		startActivity(intent);
 					}
 		  		
-		  		
-		  		}else{
+		  		}else{	
 		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
 		  		}
-		  		
 		  		
 		  		}catch (Exception e) {
 		  			e.printStackTrace();
