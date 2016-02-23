@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-     android:background="@drawable/f3"
+     android:background="@drawable/fondo_22"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -47,7 +47,7 @@
 
  <EditText
      android:id="@+id/EdittextUser"
-     android:layout_width="440px"
+     android:layout_width="match_parent"
      android:layout_height="80px"
      android:layout_gravity="center"
      android:layout_marginTop="30px"
@@ -56,7 +56,7 @@
  
 <EditText
     android:id="@+id/EditttextPassword"
-    android:layout_width="440px"
+    android:layout_width="match_parent"
     android:layout_height="80px"
     android:layout_gravity="center"
     android:hint="   Contraseña"
@@ -65,7 +65,7 @@
 
 <Button
     android:id="@+id/buttonGestorTareas"
-    android:layout_width="440px"
+    android:layout_width="match_parent"
     android:layout_height="80px"
     android:layout_gravity="center"
     android:onClick="onLogin"
@@ -74,7 +74,7 @@
 
 <Button
     android:id="@+id/buttonRealizarTareas"
-    android:layout_width="440px"
+    android:layout_width="match_parent"
     android:layout_height="80px"
     android:onClick="onRegister"
     android:text="No tiene Cuenta, Registrese"

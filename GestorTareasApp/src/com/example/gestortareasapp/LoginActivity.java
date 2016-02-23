@@ -39,8 +39,8 @@ public class LoginActivity extends Activity {
 	
 	
 	static String NAMESPACE  ="http://servicio.servicio.com";
-	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/login";
+	static String URL = "http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/login";
 	private String METODO="login";
 
 	
@@ -137,7 +137,8 @@ public class LoginActivity extends Activity {
 		  		
 		  		}catch (Exception e) {
 		  			e.printStackTrace();
-		  			Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+		  			//Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+		  			Toast.makeText(this, "Datos no coinciden con la BD", Toast.LENGTH_LONG).show();
 		  	  		
 		  		}
 			

@@ -29,8 +29,8 @@ import android.widget.Toast;
 public class TareaRealizada extends Activity {
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/registrartarearealizada";
+	static String URL = "http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/registrartarearealizada";
 	private String METODO="registrartarearealizada";
 	
 	TextView textdescripcion, textfecha;

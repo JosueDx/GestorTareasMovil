@@ -3,13 +3,13 @@
     android:id="@+id/ScrollView1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/f3"
+    android:background="@drawable/fondo_22"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.gestortareasapp.NuevaTarea" >
-
+    
     <LinearLayout
         android:id="@+id/LinearLayout1"
         android:layout_width="match_parent"
@@ -28,15 +28,17 @@
 
                 <EditText
                     android:id="@+id/editTextDescripcion"
-                    android:layout_width="286dp"
+                    android:layout_width="306dp"
                     android:layout_height="wrap_content"
-                    android:ems="10" />
-
+                    android:ems="10"
+                    android:textStyle="bold" />
+               
                 <TextView
                     android:id="@+id/textViewDescripcionEficiencia"
-                    android:layout_width="match_parent"
+                    android:layout_width="304dp"
                     android:layout_height="wrap_content"
                     android:text="                        Descripcion de la Tarea" />
+
             </LinearLayout>
         </TableRow>
 
@@ -52,16 +54,17 @@
 
                 <EditText
                     android:id="@+id/editTextComentario"
-                    android:layout_width="283dp"
+                    android:layout_width="302dp"
                     android:layout_height="wrap_content"
-                    android:ems="10" >
+                    android:ems="10"
+                    android:textStyle="bold" >
 
                     <requestFocus />
                 </EditText>
 
                 <TextView
                     android:id="@+id/textViewEficienciaPorc"
-                    android:layout_width="wrap_content"
+                    android:layout_width="308dp"
                     android:layout_height="wrap_content"
                     android:text="                         Escriba un comentario" />
             </LinearLayout>
@@ -81,13 +84,15 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="   Fecha Inicio   " />
+                    android:text="   Fecha Inicio   "
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/buttonHoraInicioo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="  Hora Inicio  " />
+                    android:text="  Hora Inicio  "
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </TableRow>
@@ -114,14 +119,17 @@
                     android:layout_weight="1"
                     android:minHeight="48dip"
                     android:minWidth="64dp"
-                    android:text="    Fecha Fin      " />
+                    android:text="    Fecha Fin      "
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/buttonHoraFinn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.64"
-                    android:text="   Hora Fin     " />
+                    android:text="   Hora Fin     "
+                    android:textStyle="bold" />
+
             </LinearLayout>
         </TableRow>
 
@@ -177,13 +185,6 @@
             android:layout_height="wrap_content"
             android:text="                               Nivel de Tarea" />
 
-        <Button
-            android:id="@+id/btn_notificacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onAgregarArchivo"
-            android:text="            Agregar Archivo            " />
-
         <TableRow
             android:id="@+id/tableRow7"
             android:layout_width="wrap_content"
@@ -201,7 +202,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:onClick="onGuardar"
-                    android:text="Guardar " />
+                    android:text="Guardar "
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/buttonTRCancelar"
@@ -213,7 +215,9 @@
                     android:layout_toRightOf="@+id/buttonBuscarTarea"
                     android:layout_weight="0.72"
                     android:onClick="onCancelar"
-                    android:text=" Cancelar " />
+                    android:text=" Cancelar "
+                    android:textStyle="bold" />
+
             </RelativeLayout>
         </TableRow>
     </LinearLayout>

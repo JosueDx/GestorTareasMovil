@@ -9,10 +9,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class BuscarEficiencia extends Activity {
 	ListView listviewEficiente;
+	EditText editextdescripcion;
 	int id_personas;
 
 	@Override
@@ -20,7 +23,8 @@ public class BuscarEficiencia extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_buscar_eficiencia);
 		id_personas=this.getIntent().getIntExtra("id_persona", 0);
-		
+		editextdescripcion=(EditText) findViewById(R.id.editTxtDescripcionEficienciaJefe);
+		//editTxtDescripcionEficienciaJefe
 		listviewEficiente=(ListView) findViewById(R.id.listViewEficiencia);
 		
 		cargarlista(id_personas);
@@ -60,7 +64,29 @@ public class BuscarEficiencia extends Activity {
 		 //   listviewEficiente.setOnItemClickListener(new MyItemClickListener());
 		    listviewEficiente.refreshDrawableState();
 		}
+	
+	public void cargarlista(int id_personas, String criterio){
+		DbUsuarios bd_tarea = new DbUsuarios();
+			
+			ArrayList<Tarea> listatareas = bd_tarea.listartextoeficiencia(id_personas,criterio);
+			
+		    CustomListViewEficiencia Adaptador = new CustomListViewEficiencia(
+			this,R.layout.eficiencia_list,listatareas);
+			
+			
+		    listviewEficiente.setAdapter(Adaptador);
+			 //   listviewEficiente.setOnItemClickListener(new MyItemClickListener());
+			    listviewEficiente.refreshDrawableState();
+			}
+		
 
+	public void onBuscar(View v){
+		if(editextdescripcion.getText().toString().equals("")){
+			cargarlista(id_personas);
+		}else{
+			cargarlista(id_personas, editextdescripcion.getText().toString());
+		}
+	}
 
 
 

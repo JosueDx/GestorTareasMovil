@@ -108,6 +108,41 @@ public class MainActivity extends Activity {
 		
 	}
 
+	
+
+	@Override
+	public void finish() {
+		// TODO Auto-generated method stub
+		super.finish();
+		
+		op1=this.getIntent().getStringExtra("op");
+		id_personas=this.getIntent().getIntExtra("id_persona", 0);
+		id_departamento=this.getIntent().getIntExtra("id_departamento", 0);
+		nombrepersonas=this.getIntent().getStringExtra("nombre_persona");
+		
+		Log.e("coolR: ",opcion1+"");
+		Log.e("id_personasR",id_personas+"");
+		Log.e("id_departamentoR",id_departamento+"");
+		Log.e("nombrepersonasR",nombrepersonas);
+		
+		if(opcion1==1){
+			buttonRealizar.setVisibility(View.INVISIBLE);
+		}
+		if(opcion1==2){
+			buttonGestor.setVisibility(View.INVISIBLE);
+			buttonEficiencia.setVisibility(View.INVISIBLE);
+			Log.e("servicios: ",op1);
+			Intent msgIntent = new Intent(MainActivity.this, MiIntentService.class);
+			msgIntent.putExtra("iteraciones", 100);
+			msgIntent.putExtra("id_empleado", id_personas);
+			msgIntent.putExtra("id_departamento", id_departamento);
+			msgIntent.putExtra("nombrepersonas", nombrepersonas);
+			msgIntent.putExtra("op", op1);
+			startService(msgIntent);
+		}
+
+	}
+
 
 	public void inicializar(){
 		buttonGestor=(Button) findViewById(R.id.buttonGestorTareas);

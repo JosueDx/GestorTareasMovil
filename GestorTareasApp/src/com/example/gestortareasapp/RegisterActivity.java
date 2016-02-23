@@ -1,23 +1,18 @@
 package com.example.gestortareasapp;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 
-import com.modelo.informacion.Persona;
-import com.modelo.informacion.Usuarios;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,7 +24,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +34,43 @@ public class RegisterActivity extends Activity {
 	edittextEmail, edittextUsuario, edittextContraseña, edittextRepetirContrasenia;
 	TextView textviewUsuario,textviewContrasenia,textviewCedula;
 	ImageView imageVisto,imageError,imagev2,imagee2,imagev3,imagee3;
+	/*
+	static String NAMESPACE = "http://servicio.servicio.com";
+	static String URL = "http://aplicacionweb.jelastic.servint.net/nuevo/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://aplicacionweb.jelastic.servint.net/nuevo/funciones_servicio/registrar_usuario";
+	private String METODO="registrar_usuario";
 	
+	private String SOAP_ACTION2="http://aplicacionweb.jelastic.servint.net/nuevo/funciones_servicio/id_departamento";
+	private String METODO2="id_departamento";
+	
+	private String SOAP_ACTION3="http://aplicacionweb.jelastic.servint.net/nuevo/funciones_servicio/validar_cedula";
+	private String METODO3="validar_cedula";
+	
+	private String SOAP_ACTION4="http://aplicacionweb.jelastic.servint.net/nuevo/funciones_servicio/validar_usuario";
+	private String METODO4="validar_usuario";
+	
+	private String SOAP_ACTION5="http://aplicacionweb.jelastic.servint.net/nuevo/funciones_servicio/lista_departamento";
+	private String METODO5="lista_departamento";
+	*/
+	
+	static String NAMESPACE = "http://servicio.servicio.com";
+	static String URL = "http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/registrar_usuario";
+	private String METODO="registrar_usuario";
+	
+	private String SOAP_ACTION2="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/id_departamento";
+	private String METODO2="id_departamento";
+	
+	private String SOAP_ACTION3="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/validar_cedula";
+	private String METODO3="validar_cedula";
+	
+	private String SOAP_ACTION4="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/validar_usuario";
+	private String METODO4="validar_usuario";
+	
+	private String SOAP_ACTION5="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/sservices/funciones_servicio/lista_departamento";
+	private String METODO5="lista_departamento";
+	
+	/*
 	static String NAMESPACE = "http://servicio.servicio.com";
 	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
 	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/registrar_usuario";
@@ -57,6 +87,8 @@ public class RegisterActivity extends Activity {
 	
 	private String SOAP_ACTION5="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/lista_departamento";
 	private String METODO5="lista_departamento";
+	*/
+	int val1,val2,val3;
 	
 	
 	@Override
@@ -108,11 +140,13 @@ public class RegisterActivity extends Activity {
 					  // textviewContrasenia.setText(":D");
 					   imagee3.setVisibility(View.INVISIBLE);
 						imagev3.setVisibility(View.VISIBLE);
+						
 					
 					}else{
 						//textviewContrasenia.setText("X");
 						 imagee3.setVisibility(View.VISIBLE);
 							imagev3.setVisibility(View.INVISIBLE);
+							
 					}
 				   
 			   }
@@ -308,8 +342,10 @@ public class RegisterActivity extends Activity {
 				else{
 					if (edittextUsuario.length()<4){
 						 validacion ="true";
+						 val1=0;
 						}else{
 						validacion ="false";
+						val1=1;
 						}
 				}
 	  			
@@ -338,18 +374,17 @@ public class RegisterActivity extends Activity {
 		String Cedula= edittextCedula.getText().toString();
 		String Direccion = edittextDreccion.getText().toString();
 		String Email= edittextEmail.getText().toString();
-		String Departamento= "";
 		String Usuario = edittextUsuario.getText().toString();
 		String Contraseña= edittextContraseña.getText().toString();
 		String confirmarcontrasenia = edittextRepetirContrasenia.getText().toString();
 		
 		
 		//Toast.makeText(this, "aqui vamos Carlos", Toast.LENGTH_LONG).show();
-		if(Nombre.equals("") && Apellido.equals("") && Cedula.equals("")
-				&& Direccion.equals("") && Email.equals("") && Usuario.equals("") 
-				&& Contraseña.equals("")){
+		if(Apellido.equals("") || Cedula.equals("") && Direccion.equals("") 
+				|| Email.equals("") || Usuario.equals("") 
+				&& Contraseña.equals("") || confirmarcontrasenia.equals("") || Nombre.equals("")){
 			
-			Toast.makeText(this, "Faltan ingresar campos", Toast.LENGTH_LONG).show();
+			Toast.makeText(this, "Faltan por ingresar campos", Toast.LENGTH_LONG).show();
 			
 		}
 		else {
@@ -416,7 +451,7 @@ public class RegisterActivity extends Activity {
 		  		
 		  		
 		  		}else{
-		  			Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+		  			Toast.makeText(this, "No conexion a Internet", Toast.LENGTH_SHORT).show();
 		  		}
 		  		
 		  		
@@ -428,7 +463,9 @@ public class RegisterActivity extends Activity {
 
 			finish();
 		}
-	}
+		}
+		
+		
 	
 	public String id_Departamento(String departamento){
 		

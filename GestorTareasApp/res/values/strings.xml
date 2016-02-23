@@ -4,9 +4,10 @@
     <string name="app_name">Menu Principal</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_login">Login</string>
+    <string name="title_activity_login">JobTask</string>
     <string name="title_activity_register">Registro</string>
-
+	<color name="black">#FFFFFF</color>
+	
     <string-array name="Departamentos">
         <item>Seleccione departamento</item>
         <item>Financiero</item>

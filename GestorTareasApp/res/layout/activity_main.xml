@@ -3,7 +3,7 @@
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/f3"
+    android:background="@drawable/fondo_22"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -30,24 +30,26 @@
 
         <Button
             android:id="@+id/buttonEficienciaTareas"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="88dp"
             android:onClick="onEficiencia"
-            android:text="Eficiencia Tarea" />
+            android:text="Eficiencia Tarea"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/buttonRealizarTareas"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/buttonEficienciaTareas"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:onClick="onRealizarTareas"
-            android:text="Gestor Tarea" />
+            android:text="Gestor Tarea"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageViewVisto"
@@ -61,17 +63,18 @@
 
         <Button
             android:id="@+id/buttonCerrarSesion"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:onClick="onSesion"
-            android:text="Cerrar Sesión" />
+            android:text="Cerrar Sesión"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textViewUsuario"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/buttonCerrarSesion"
             android:layout_alignParentLeft="true"
@@ -80,13 +83,14 @@
 
         <Button
             android:id="@+id/buttonGestorTareas"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:onClick="onGestorTareas"
-            android:text="Gestor Tareas" />
+            android:text="Gestor Tareas"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

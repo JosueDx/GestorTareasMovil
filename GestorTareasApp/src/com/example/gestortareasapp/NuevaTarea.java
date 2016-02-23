@@ -23,6 +23,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -62,8 +63,36 @@ public class NuevaTarea extends Activity {
 	    static final int DATE_DIALOG_ID2 = 1;
 	    static final int DATE_DIALOG_ID3 = 2;
 	    static final int DATE_DIALOG_ID4 = 3;
+	    static String NAMESPACE = "http://servicio.servicio.com";
+		static String URL = "http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio?wsdl";
+		private String SOAP_ACTION="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/registrartarea";
+		private String METODO="registrartarea";
+		
+		private String SOAP_ACTION2="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/id_empleado";
+		private String METODO2="id_empleado";
+		
+		private String SOAP_ACTION3="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/id_nivel_tarea";
+		private String METODO3="id_nivel_tarea";
 	    
-	    
+		private String SOAP_ACTION4="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_empleados";
+		private String METODO4="lista_empleados";
+	
+		private String SOAP_ACTION5="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_niveltareas";
+		private String METODO5="lista_niveltareas";
+		
+		private String SOAP_ACTION6="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/id_empleado";
+		private String METODO6="id_empleado";
+		
+		private String SOAP_ACTION7="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/actualizartarea";
+		private String METODO7="actualizartarea";
+		
+		private String SOAP_ACTION8="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/eliminartarea";
+		private String METODO8="eliminartarea";
+		
+		private String SOAP_ACTION9="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_empleados2";
+		private String METODO9="lista_empleados2";
+  
+	/*    
 	    static String NAMESPACE = "http://servicio.servicio.com";
 		static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
 		private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/registrartarea";
@@ -92,7 +121,7 @@ public class NuevaTarea extends Activity {
 		
 		private String SOAP_ACTION9="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/lista_empleados2";
 		private String METODO9="lista_empleados2";
-
+*/
 		// la devolución de llamada recibida cuando el usuario "fija " la hora en el diálogo 
 
 		//hora inicio	
@@ -256,11 +285,23 @@ public class NuevaTarea extends Activity {
 			}
 						
 			edittextComentario.setEnabled(false);
+			//EDITTEXT . setHintTextColor ( getResources (). getColor ( R . de color . blanco ));
+			edittextComentario. setHintTextColor ( getResources (). getColor ( R.color.black ));
+			//edittextComentario.getBackground().setColorFilter(Color.BLACK,  PorterDuff.Mode mode);
+			
 			edittextDescripcion.setEnabled(false);
+			edittextDescripcion. setHintTextColor ( getResources (). getColor ( R.color.black ));
+			//edittextDescripcion.getBackground().setColorFilter(Color.BLACK, null);
+			
 			btnFechaInicio.setEnabled(false);
 			btnFechaFin.setEnabled(false);
 			btn_HoraFin.setEnabled(false);
 			btn_HoraInicio.setEnabled(false);
+			//btnFechaInicio.getBackground().setColorFilter(Color.BLACK, null);//	, PorterDuff.Mode.MULTIPLY
+			//btnFechaFin.getBackground().setColorFilter(Color.BLACK, null);//	, PorterDuff.Mode.MULTIPLY
+			//btn_HoraFin.getBackground().setColorFilter(Color.BLACK, null);//	, PorterDuff.Mode.MULTIPLY
+			//btn_HoraInicio.getBackground().setColorFilter(Color.BLACK, null);//	, PorterDuff.Mode.MULTIPLY
+			
 			empleadoSpinner.setEnabled(false);
 			nivelSpinner.setEnabled(false);
 			
@@ -336,6 +377,10 @@ public class NuevaTarea extends Activity {
 					empleadoSpinner.setEnabled(false);
 					nivelSpinner.setEnabled(false);
 					btnGuardar.setText("ELIMINAR");
+					
+					disableEditText(edittextDescripcion);
+					disableEditText(edittextComentario);
+					
 				}
 				else{
 					btnGuardar.setText("Guardar");
@@ -347,6 +392,14 @@ public class NuevaTarea extends Activity {
 		
 		
 	}
+	
+	private void disableEditText(EditText editText) {
+	    editText.setFocusable(false);
+	    editText.setEnabled(false);
+	    editText.setCursorVisible(false);
+	    editText.setKeyListener(null);
+	    editText.setBackgroundColor(Color.TRANSPARENT); 
+	 }
 	
 	
 	public String CapturarFechaInicio(String cadena){
@@ -738,7 +791,7 @@ public class NuevaTarea extends Activity {
 				objTarea.put("comentario",comentario);
 				objTarea.put("fecha_inicio", btnFechaInicio.getText()+" "+btn_HoraInicio.getText());
 				objTarea.put("fecha_fin", btnFechaFin.getText()+" "+btn_HoraFin.getText());
-				objTarea.put("estado","P");
+				objTarea.put("estado","A");
 				//objTarea.put("estado_tarea",2);// no queremos este valor
 				
 				//objPersona.put("Empleado",id_Empleado(empleadoSpinner.getSelectedItem().toString()));

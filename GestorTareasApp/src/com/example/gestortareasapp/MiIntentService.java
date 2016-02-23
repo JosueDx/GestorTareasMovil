@@ -28,11 +28,11 @@ public class MiIntentService extends IntentService {
 	
 	
 	static String NAMESPACE = "http://servicio.servicio.com";
-	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
-	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/notificacion_tarea";
+	static String URL = "http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/notificacion_tarea";
 	private String METODO="notificacion_tarea";
 	
-	private String SOAP_ACTION2="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/estado_notificacion";
+	private String SOAP_ACTION2="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/estado_notificacion";
 	private String METODO2="estado_notificacion";
 	
 	int notificationID = 1;
@@ -44,8 +44,6 @@ public class MiIntentService extends IntentService {
 	
 	public MiIntentService() {
         super("MiIntentService");
-        
-		
     }
 	
 	@Override
@@ -58,7 +56,62 @@ public class MiIntentService extends IntentService {
 		op1=intent.getStringExtra("op");
 		String validacion = "0";
 		for(int i=1; i<=iter; i++) {
+			Log.e("HolaoooooPor",""+i);
 			tareaLarga();
+
+			SoapObject request = new SoapObject(NAMESPACE, METODO);
+			request.addProperty("request1" , ""+id_empleado);
+		  	
+		  	  SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+		      Envoltorio.setOutputSoapObject (request);
+		  	  
+		  	  HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+		  	
+		  	try {
+		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
+		  	   
+		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+		  		Log.e("Holaooooo3",""+i);
+		  		if(result != null){
+		  			
+		  			if(result.getProperty(0).toString().equals("1")){
+		  				validacion = "1"; // si tiene tarea pendiente 
+		  				Log.e("Holaooooo4",""+i);
+					}
+					if(result.getProperty(0).toString().equals("0")){
+						validacion = "0"; // si no tiene tarea pendiente
+						Log.e("Holaooooo4",""+i);
+					}
+		  		
+		  		}else{
+		  			//Toast.makeText(getApplicationContext(), "No Response!", Toast.LENGTH_SHORT).show();
+		  		}
+		  		
+		  		
+		  		}catch (Exception e) {
+		  			e.printStackTrace();
+		  			//Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
+		  	  		
+		  		}	
+		  				
+		  	Log.e("Holaooooo5",""+i);
+			if(validacion.equals("1")){
+				Log.e("Holaooooo6si",""+i);
+				triggerNotification();
+				i=100;
+			}else{
+				Log.e("Holaooooo6no",""+i);
+				if(i==99){
+					Log.e("Holaooooo7",""+i);
+					i=1;
+				}
+			}
+			Log.e("Holaooooo8",""+i);
+		}
+		/*for(int i=1; i<=iter; i++) {
+			Log.e("Holaooooo",""+iter);
+			tareaLarga();
+			Log.e("Holaooooo2",""+i);
 			Log.e("secundos", i+""+"");
 			// desde aki comentar para prueba
 			SoapObject request = new SoapObject(NAMESPACE, METODO);
@@ -73,14 +126,16 @@ public class MiIntentService extends IntentService {
 		  		TransporteHttp.call(SOAP_ACTION, Envoltorio);
 		  	   
 		  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
-		  		
+		  		Log.e("Holaooooo3",""+i);
 		  		if(result != null){
 		  			
 		  			if(result.getProperty(0).toString().equals("1")){
 		  				validacion = "1"; // si tiene tarea pendiente 
+		  				Log.e("Holaooooo4",""+i);
 					}
 					if(result.getProperty(0).toString().equals("0")){
 						validacion = "0"; // si no tiene tarea pendiente
+						Log.e("Holaooooo4",""+i);
 					}
 		  		
 		  		}else{
@@ -93,22 +148,21 @@ public class MiIntentService extends IntentService {
 		  			//Toast.makeText(getApplicationContext(),e.toString(), Toast.LENGTH_SHORT).show();
 		  	  		
 		  		}	
-		  	// hasta aki comentar en prueba
-		  	
-		  /*	if (i == 25){
-		  		validacion = "1";
-		  	}*/
 		  				
+		  	Log.e("Holaooooo5",""+i);
 			if(validacion.equals("1")){
+				Log.e("Holaooooo6",""+i);
 				triggerNotification();
 				i=100;
 			}else{
+				Log.e("Holaooooo6",""+i);
 				if(i==99){
+					Log.e("Holaooooo7",""+i);
 					i=1;
 				}
 				
 			}
-		}
+		}*/
 		
 	}
 	
@@ -182,12 +236,12 @@ public class MiIntentService extends IntentService {
         CharSequence contentTitle = item2.getDescripcion(); // cambiar por un string "Notificacion"
         CharSequence contentText = item2.getComentario(); // cambiar por un string "Notificacion"
         Notification noti = new NotificationCompat.Builder(this)
-                .setContentIntent(pendingIntent)
+                //.setContentIntent(pendingIntent)
                 .setTicker(ticker)
                 .setContentTitle(contentTitle)
                 .setContentText(contentText)
                 .setSmallIcon(R.drawable.ic_launcher)
-                .addAction(R.drawable.ic_launcher, ticker, pendingIntent)
+                //.addAction(R.drawable.ic_launcher, ticker, pendingIntent)
                 //.setVibrate(new long[] {100, 250, 100, 500})
                 .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
                 .build();

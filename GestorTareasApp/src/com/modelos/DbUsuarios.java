@@ -27,7 +27,36 @@ public class DbUsuarios {
 	public static final String DB_NAME = "DB_Tareas";
 	public static final String TABLA_NAME_alarma = "alarma";
 	
+	static String NAMESPACE = "http://servicio.servicio.com";
+	static String URL = "http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio?wsdl";
+	private String SOAP_ACTION="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_tareas";
+	private String METODO="lista_tareas";
 	
+	private String SOAP_ACTION2="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/devolucion_tarea";
+	private String METODO2="devolucion_tarea";
+	
+	private String SOAP_ACTION3="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_tareas_jefe_parametro";
+	private String METODO3="lista_tareas_jefe_parametro";
+	
+	private String SOAP_ACTION4="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_tareasEmpleado";
+	private String METODO4="lista_tareasEmpleado";
+	
+	private String SOAP_ACTION5="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_tareas_empleado_parametro";
+	private String METODO5="lista_tareas_empleado_parametro";
+	
+	private String SOAP_ACTION6="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_tarearealizadaxempleado";
+	private String METODO6="lista_tarearealizadaxempleado";
+	
+	private String SOAP_ACTION7="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/lista_tareasrealizadas_empleado_parametro";
+	private String METODO7="lista_tareasrealizadas_empleado_parametro";
+	
+	private String SOAP_ACTION8="http://server-jobtask.jl.serv.net.mx/Servicio_Tarea/services/funciones_servicio/tarearealizadaxid";
+	private String METODO8="tarearealizadaxid";
+
+	
+	
+	
+	/*
 	static String NAMESPACE = "http://servicio.servicio.com";
 	static String URL = "http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio?wsdl";
 	private String SOAP_ACTION="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/lista_tareas";
@@ -53,7 +82,7 @@ public class DbUsuarios {
 	
 	private String SOAP_ACTION8="http://192.168.71.53:8080/Servicio_Tarea/services/funciones_servicio/tarearealizadaxid";
 	private String METODO8="tarearealizadaxid";
-	
+*/	
 	private String Sql = "["
 			+ "{'id_tarea':1, 'descripcion':'Descripcion1', 'comentario':'Comentario1', 'nivel_tarea':'bajo', 'estado':'A'},"
 			+ "{'id_tarea':2, 'descripcion':'Descripcion2', 'comentario':'Comentario2', 'nivel_tarea':'medio', 'estado':'A'},"
@@ -449,7 +478,7 @@ public ArrayList<Tarea> listartextoeficiencia(int id_personas){
 								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
 								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
 								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
-								    item.setEstado("Eficiente");
+								    item.setEstado("M.E");
 								    listaTarea.add(item);
 							    }
 							    if(arr.getJSONObject(i).getString("estado").equals("T")){
@@ -461,7 +490,7 @@ public ArrayList<Tarea> listartextoeficiencia(int id_personas){
 								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
 								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
 								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
-								    item.setEstado("M M Eficiente");
+								    item.setEstado("E");
 								    listaTarea.add(item);
 							    }
 							    
@@ -479,7 +508,7 @@ public ArrayList<Tarea> listartextoeficiencia(int id_personas){
 									    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
 									    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
 									    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
-									    item.setEstado("No Eficiente");
+									    item.setEstado("N.E");
 									    listaTarea.add(item);
 							    	}else{
 							    	Log.e("hollaa", "akiiii");
@@ -503,6 +532,99 @@ public ArrayList<Tarea> listartextoeficiencia(int id_personas){
 	return listaTarea;
 }
 
+//eficiencia PARAMETRO
+public ArrayList<Tarea> listartextoeficiencia(int id_personas, String criterio){
+	ArrayList<Tarea> listaTarea = null;
+	listaTarea = new ArrayList<Tarea>();
+	try {
+		JSONObject pruebalistatarea = new JSONObject();
+		pruebalistatarea.put("id_persona", id_personas);
+		pruebalistatarea.put("descripcion", criterio);
+		
+		SoapObject request = new SoapObject(NAMESPACE, METODO3);
+		request.addProperty("request1" , pruebalistatarea.toString());
+	  	
+	    SoapSerializationEnvelope Envoltorio = new SoapSerializationEnvelope (SoapEnvelope.VER11);
+	    Envoltorio.setOutputSoapObject (request);
+	  	HttpTransportSE TransporteHttp = new HttpTransportSE(URL);
+	  	try {
+	  		TransporteHttp.call(SOAP_ACTION3, Envoltorio);
+	  	   
+	  		SoapObject result = (SoapObject) Envoltorio.bodyIn;
+	  		
+			  		if(result != null){
+			  			Log.e("TIPO ACCION: 2-- ","opcion");
+			  		//	Toast.makeText(getApplicationContext(), result.getProperty(0).toString(), Toast.LENGTH_SHORT).show();
+			  			
+			  			JSONObject jsondatos = new JSONObject(result.getProperty(0).toString());
+			  			JSONArray arr = jsondatos.getJSONArray("tareas");
+			  			for (int i = 0; i < arr.length(); i++)
+			  			{
+			  				
+			  				if((arr.getJSONObject(i).getString("estado").equals("A")) || (arr.getJSONObject(i).getString("estado").equals("R")) || (arr.getJSONObject(i).getString("estado").equals("T"))){
+			  		
+			  					if(arr.getJSONObject(i).getString("estado").equals("R")){
+			  						Tarea item = new Tarea();
+								    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+								    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+								    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+								    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+								    item.setEstado("M.E");
+								    listaTarea.add(item);
+							    }
+							    if(arr.getJSONObject(i).getString("estado").equals("T")){
+							    	Tarea item = new Tarea();
+								    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+								    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+								    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+								    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+								    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+								    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+								    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+								    item.setEstado("E");
+								    listaTarea.add(item);
+							    }
+							    
+							    if(arr.getJSONObject(i).getString("estado").equals("A")) {
+							    	Date fechaActual = new Date();
+							        SimpleDateFormat formateador = new SimpleDateFormat("yyyy-MM-dd");
+							        String fechaSistema=formateador.format(fechaActual);
+							    	String resultadoMayor= compararFechasConDate(CapturarFechaInicio(arr.getJSONObject(i).getString("fecha_fin")),fechaSistema);
+							    	if(resultadoMayor.equals("si")){
+							    		Tarea item = new Tarea();
+									    item.setId_tarea(arr.getJSONObject(i).getInt("id_tarea"));
+									    item.setId_empleado(arr.getJSONObject(i).getInt("id_persotarea"));
+									    item.setDescripcion(arr.getJSONObject(i).getString("descripcion"));
+									    item.setComentario(arr.getJSONObject(i).getString("comentario"));
+									    item.setNivel_tarea(arr.getJSONObject(i).getString("id_tipotarea"));
+									    item.setFecha_inicio(arr.getJSONObject(i).getString("fecha_inicio"));
+									    item.setFecha_fin(arr.getJSONObject(i).getString("fecha_fin"));
+									    item.setEstado("N.E");
+									    listaTarea.add(item);
+							    	}else{
+							    	Log.e("hollaa", "akiiii");
+							    	}
+							    }
+			  				
+							}
+			  			}
+			  			
+			  			//return listaTarea;
+			  		}else{
+			  			//return listaTarea;
+			  		}
+		  		}catch (JSONException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+	  		}catch (Exception e) {
+	  			e.printStackTrace();
+	  		}
+	return listaTarea;
+}
 
 //LISTAR TAREAS EFICIENCIA POR TAREAS
 public ArrayList<Tarea> listarEficienciaEmpleadoTareas(int id_personas){

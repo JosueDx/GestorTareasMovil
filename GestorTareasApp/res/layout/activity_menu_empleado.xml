@@ -3,7 +3,7 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/f3"
+    android:background="@drawable/fondo_22"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -19,7 +19,7 @@
 
     <LinearLayout
         android:id="@+id/LinearLayout2"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical" >
 
@@ -39,36 +39,41 @@
 
             <Button
                 android:id="@+id/buttonTareaPendiente"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="54dp"
                 android:onClick="onTareaPendiente"
-                android:text="         Tareas Pendientes           " />
+                android:text="         Tareas Pendientes           "
+                android:textStyle="bold" />
 
             <Button
                 android:id="@+id/ButtonEficienciaTareaEmpleado"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:onClick="onEficienciaEmpleado"
-                android:text="            Eficiencia Por Tarea            " />
+                android:text="            Eficiencia Por Tarea            "
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
         <Button
             android:id="@+id/ButtonTareaRealizada"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onTareaRealizada"
-            android:text="         Tareas Realizadas            " />
+            android:text="         Tareas Realizadas            "
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="onCerrar"
-            android:text="Salir" />
+            android:text="Salir"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
